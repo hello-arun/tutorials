@@ -50,7 +50,13 @@ if possible.  Of course, if gdir=2 or 3, the variables nk2 or nk3 will
 be overridden instead, and the strings constructed in those
 directions, respectively.                                                
                                                                             
-                                                                            
+## Possible Errors
+
+  * Error in routine iosys (1):  
+    Berry Phase/electric fields only for insulators!
+
+    This is probably you might have used smearing in your calcualtion. Modern theory of polarisation only applied to insulators with a gap. So Do not use smearing. Use `occupations = fixed` and remove `smearing`. 
+
 ## References
 The theory behind this implementation is described in:                   
 

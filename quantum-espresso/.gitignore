@@ -1,1 +1,5 @@
 wfc-out/
+
+# Run error out files
+std.err
+std.out
