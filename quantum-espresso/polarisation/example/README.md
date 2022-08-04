@@ -4,10 +4,10 @@ PbTiO3 is calculated.
 1) make a self-consistent calculation for a cubic structure of PbTiO3 in
    which the Pb atom has been displaced a small distance 0.01*a0 in the z
    axis (a0 is the lattice constant, 7.3699 bohr). 
-   (input=chg.in, output=chg.out)
+   (input=`INCAR-scf.pw`, output=`OUTCAR-scf.pw`)
 
 2) make a non-self-consistent calculation to compute the polarization
-   (lberry=.true. in the input file 'BP.in'). In the ouput file 'BP.out'
+   (lberry=.true. in the input file `INCAR-nscf.pw`). In the ouput file `OUTCAR-nscf.pw`
    we find that the polarization (P) multiplied by the volume of the unit
    cell (Omega) is:
 

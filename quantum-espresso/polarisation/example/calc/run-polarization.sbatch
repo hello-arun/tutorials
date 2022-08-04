@@ -9,7 +9,13 @@
 #SBATCH --err=./std.err
 #SBATCH --output=./std.out
 ##SBATCH --exclusive
-module load quantumespresso/6.6
+
+# On IBEX
+    module load quantumespresso/6.6
+
+# On Local HPC
+    # module load quantum-espresso/6.4.1/intel-19.1.0.166-mkl-openmpi-m2l27zt  
+    # SLURM_NPROCS=24
 
 # Initial SCF run 
 mpirun -np ${SLURM_NPROCS} pw.x -i INCAR-scf.pw > OUTCAR-scf.pw
