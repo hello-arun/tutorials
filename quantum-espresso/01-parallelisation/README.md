@@ -15,8 +15,8 @@ Quantum espresso provides various levels of parallelisation. But two most import
 K Point parallelisation is achieved by `npool`.
 
 ### Bands
-
-Band parallelisation is achieved by `nbnd`.
+    ­nb (­nband, ­nbgrp, ­nband_group) # of band groups
+Band parallelisation is achieved by `-nb/ -nband/ -nbgrp/ -nband_group` etc.
 
 ## Example
 
@@ -36,5 +36,5 @@ Here is an example script. We can note here that we have total `8 nodes` each ha
 #SBATCH --output=./std.out
 ##SBATCH --exclusive
 module load quantumespresso/6.6
-mpirun -np ${SLURM_NPROCS} pw.x -npool 4 -nbnd 2 -i INCAR.pw > OUTCAR.pw
+mpirun -np ${SLURM_NPROCS} pw.x -npool 4 -nb 2 -i INCAR.pw > OUTCAR.pw
 ```
