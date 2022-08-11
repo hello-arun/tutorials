@@ -1,0 +1,8 @@
+Potassium atom in a box
+ 1.0          ! universal scaling parameters
+ __vac 0.0 0.0  ! vac to be repalced from run.sh
+ 0.0 __vac 0.0  ! lattice vector  a(2)
+ 0.0 0.0 __vac  ! lattice vector  a(3)
+1             ! number of atoms
+cart          ! positions in cartesian coordinates
+ 0 0 0

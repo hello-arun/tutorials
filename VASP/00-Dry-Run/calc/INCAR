@@ -1,0 +1,32 @@
+# System Setting
+SYSTEM  = K_on_Graphene_Hollow
+PREC    = Accurate   # Accurate works best
+GGA     = PE         # PE=PBE, 91=Perdew-Wang-91
+ENCUT   = 600
+
+# Type of Calculation
+NSW     = 0        # Maximum Number of ionic relaxation steps to perform For SCF set it to 0
+ISIF    = 0          # Which type of run to perform 0=MD, 2=Atomic Relax, 3=Atomic and Unit cell relax
+IBRION  = -1          # Determines how ions are moved -1=for scf only no update,0=MD, 2=conjugate gradientg algorithm
+ISPIN   = 1          # 1=spin unpol, 2=spin pol
+NELM = 0           
+NBANDS =  96     
+
+# Electric Field      
+# EFIELD = 0           # eV/A
+# IDIPOL = 3           
+# LDIPOL = .TRUE.      
+# DIPOL  = 0.5 0.5 0.5 
+# ISYM   = -1        # Symmetry switched off completely
+
+# Continue or Fresh
+ISTART  = 0          # 0=Scratch, 1=Continuation Job only read wavecar file 
+ICHARG  = 2          # 2=ch den from sup pos of atoms , 0=ch den from wave function 1=read CHGCAR file
+
+# Stopping Criteria
+EDIFF   = 1.0E-8     # Energy Convergence in electronic steps
+EDIFFG  = -1.0E-3    # Force conv in ionic steps, -ve for force +ve for energy diffrence
+
+# Smearing
+ISMEAR  = 0          # 0=Gaussina Smearing
+SIGMA   = 0.1        # Smearing width

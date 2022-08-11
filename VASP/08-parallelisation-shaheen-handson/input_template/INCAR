@@ -1,0 +1,31 @@
+#Functional
+ SYSTEM = CuTaS3
+
+#Start parameter
+ ISTART = 0
+ ICHARG = 2
+ PREC = Accurate
+ ENCUT = 400
+ ISPIN = 1
+ ISMEAR = 0
+ SIGMA = 0.05
+
+#Electronic relaxation
+ EDIFF = 1E-6
+ NELMIN = 4
+ ALGO = Normal
+ LREAL = .FALSE.
+
+#Ionic relaxation
+ IBRION = -1
+ ISIF = 2
+ NSW = 0
+
+#Print
+ LWAVE  = .FALSE.
+ LCHARG = .FALSE.
+ LVTOT  = .FALSE.
+
+#Parallelization
+ KPAR = 1
+ NCORE = 1

@@ -1,0 +1,30 @@
+# Keep these files
+# CONTCAR
+# INCAR
+# KPOINTS
+POTCAR
+# POSCAR
+# OPTCELL
+# run.sbatch
+
+# ignore long OUTPUT FILES
+XDATCAR*
+OUTCAR
+CHG
+CHGCAR
+EIGENVAL
+LOCPOT
+OSZICAR
+PCDAT
+REPORT
+vasprun.xml
+DOSCAR
+IBZKPT
+PROCAR
+WAVECAR
+AECCAR*
+
+# Script files
+
+std.err
+std.out
