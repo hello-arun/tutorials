@@ -1,0 +1,44 @@
+#> System Setup
+    units       real           
+    dimension   3
+    boundary    p p s
+    atom_style  charge
+    newton      on
+    shell mkdir ./restart
+#> Read Data
+    read_data ./POSCAR.lmp
+    mass 1 95.95
+    mass 2 127.6
+#> Read Restart
+    # units, boundary conditions charge, mass etc are stored
+    # it is better to redefine force field params again to
+    # avoid any unwanted errors
+    # read_restart ./restart/2.2/restart.% remap
+#> Force field setup
+    pair_style reax/c reaxff.control
+    pair_coeff * * ./Mo-Te-Cu.reaxff Mo Te
+#> Charge-Eq
+    fix charge_eq all qeq/reax 1 0.0 10.0 1.0e-6 reax/c  
+#> Some Global Variables
+    variable temp equal 200
+#> 2.1 Heating 1-to-temp
+    reset_timestep 0
+    fix	fheating all npt temp 1.0 $(v_temp) $(250*dt) x 0 0 $(2500*dt) y 0 0 $(2500*dt)
+    dump dheating all atom 1000 trj_heating_1_to_$(v_temp).lammpstrj
+    thermo 1000
+    thermo_style custom step temp press pe ke lx ly lz  
+    run 40000
+    unfix fheating
+    undump dheating
+    #> Writing restart files
+        shell mkdir ./restart/2.1
+        write_restart ./restart/2.1/restart.% nfile 20 
+#> 2.2 Heating temp-to-temp thermosat
+	fix fheating all npt temp $(v_temp) $(v_temp) $(250*dt) x 0 0 $(2500*dt) y 0 0 $(2500*dt)
+    dump dheating all atom 1000 trj_heating_$(v_temp)_to_$(v_temp).lammpstrj
+    run 180000
+    unfix fheating
+    undump dheating
+    #> Writing restart files
+        shell mkdir ./restart/2.2
+        write_restart ./restart/2.2/restart.% nfile 20

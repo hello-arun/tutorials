@@ -1,0 +1,142 @@
+# Units
+    units       real           
+    dimension   3
+    boundary    p p s
+    atom_style  charge
+    newton      on
+
+# Simulation variables
+    variable thickness equal __thickness  # Thickness of monolayer
+    variable temp equal __temp            # Temperature 
+    variable srate equal 1.0e9  # strain per second
+    variable srate1 equal "v_srate / 1.0e15"   # strain per time unit
+    timestep 0.25                         # metal 1=1ps; real 1=1fs
+
+# Output Files
+    variable resultDIR string ./results
+    variable restartDIR string ./restart
+    shell mkdir ${restartDIR} ${resultDIR}
+    variable heatLogFile string ${resultDIR}/log-heating.csv
+    variable stressLogFile string ${resultDIR}/log-stress-strain.csv
+
+# Simulation cell
+    read_data ./POSCAR.lmp
+    mass 1 95.95
+    mass 2 127.6
+    # mass 3 __mass_type3 # set only if Hydrogen is added
+
+# Force field
+    pair_style reax/c reaxff.control
+    pair_coeff * * ./Mo-Te-Cu.reaxff Mo Te
+
+# ChargeEq
+    fix charge_eq all qeq/reax 1 0.0 10.0 1.0e-6 reax/c
+
+# Initial minimization
+    thermo 10 
+    fix frelax all box/relax x 0.0 y 0.0 vmax 0.01
+    thermo_style custom step pe lx ly lz pxx pyy pzz press 
+    min_style cg 
+    minimize 1e-10 1e-10 5000 10000 
+    unfix frelax
+    write_data CONTCAR.lmp
+
+# More variables
+    variable Lx equal lx
+    variable Ly equal ly
+    variable Lz equal lz
+    variable Vol equal vol
+    compute cpe all pe
+    compute cke all ke
+
+# Heating
+    reset_timestep 0
+    # Lets define some fixes, computes and logs 
+    fix avg_dim  all ave/time 1 1000 1000 v_Lx v_Ly v_Lz 
+    fix avg_tp   all ave/time 1 1000 1000 c_thermo_press[1] c_thermo_press[2] c_thermo_press[3] c_thermo_press[4] c_thermo_press[5] c_thermo_press[6]  c_thermo_press c_thermo_temp 
+    fix avg_en   all ave/time 1 1000 1000 c_cpe c_cke
+    dump dheating all atom 1000 trj-heating-1-to-$(v_temp).lammpstrj
+    thermo 1000
+    thermo_style custom step temp press pe ke lx ly lz  
+    # log
+    print """    # Units : real""" file ${heatLogFile} screen no
+    fix fheating_log all print 1000 &
+    "$(step),$(step*dt),$(count(all)),$(f_avg_tp[8]),&
+    $(f_avg_en[1]),$(f_avg_en[2]),&
+    $(f_avg_dim[1]),$(f_avg_dim[2]),$(f_avg_dim[3]),&
+    $(f_avg_tp[7]),$(f_avg_tp[1]),$(f_avg_tp[2]),$(f_avg_tp[3]),$(f_avg_tp[4]),$(f_avg_tp[5]),$(f_avg_tp[6])"&
+    title &
+    "step,time,atoms,temp,&
+    pe,ke,&
+    lx,ly,lz,&
+    press,pxx,pyy,pzz,pxy,pxz,pyz"  append ${heatLogFile} screen no
+
+    # 2.1 Heating 1K-to-temp
+        fix	fheating all npt temp 1.0 $(v_temp) $(250*dt) x 0 0 $(2500*dt) y 0 0 $(2500*dt)
+        run 40000
+        unfix fheating
+        # Writing restart
+        shell mkdir ${restartDIR}/heat-1
+        write_restart ${restartDIR}/heat-1/save.% nfile 20 
+
+    # 2.2 Heating temp-to-temp
+        fix	fheating all npt temp $(v_temp) $(v_temp) $(250*dt) x 0 0 $(2500*dt) y 0 0 $(2500*dt)
+        run 100000
+        unfix fheating
+        # Writing restart
+        shell mkdir ${restartDIR}/heat-2
+        write_restart ${restartDIR}/heat-2/restart.% nfile 20 
+
+    unfix avg_dim
+    unfix avg_tp
+    unfix avg_en
+    undump dheating
+    unfix fheating_log
+
+# Deformation 
+    reset_timestep 0
+    compute 1 all stress/atom NULL # xx yy zz xy xz yz
+    compute 2 all reduce sum c_1[1] c_1[2] c_1[3] c_1[4] c_1[5] c_1[6]
+    # compute 2 give stress vector in pressure*volume units where volume is total
+    # effectove volumes of all the particles. Calculation Total effective vol is
+    # tricky so we approximate that by considering finite thickness of monolayer
+    # as defined manully above.
+    fix avg_dim  all ave/time 1 1000 1000 v_Lx v_Ly v_Lz
+    fix avg_tp   all ave/time 1 1000 1000 c_thermo_press[1] c_thermo_press[2] c_thermo_press[3] c_thermo_press[4] c_thermo_press[5] c_thermo_press[6]  c_thermo_press c_thermo_temp 
+    fix avg_en   all ave/time 1 1000 1000 c_cpe c_cke
+    fix thermostat all npt temp $(v_temp) $(v_temp) $(250*dt) y 0 0 $(2500*dt)
+    fix	fdeform all deform 1 x erate ${srate1} units box remap x
+    fix avg_stress all ave/time 1 1000 1000 c_2[1] c_2[2] c_2[3] c_2[4] c_2[5] c_2[6]
+    run 1000
+    variable strain equal v_srate1*dt*step
+
+    #> log
+    print """
+    # Units: real 
+    # All Press are in pressure units but
+    # All stress are in in P*V units
+    # Divide by real_vol to get sigma in pressure units
+    # real_vol = lx*ly*thickness """ file ${stressLogFile} screen no
+    fix fdeform_log all print 1000 &
+    "$(step),$(step*dt),$(count(all)),$(f_avg_tp[8]),&
+    $(v_strain),$(f_avg_stress[1]),$(f_avg_stress[2]),$(f_avg_stress[3]),$(f_avg_stress[4]),$(f_avg_stress[5]),$(f_avg_stress[6]),&
+    $(f_avg_en[1]),$(f_avg_en[2]),&
+    $(f_avg_dim[1]),$(f_avg_dim[2]),$(f_avg_dim[3]),$(v_thickness),&
+    $(f_avg_tp[7]),$(f_avg_tp[1]),$(f_avg_tp[2]),$(f_avg_tp[3] ),$(f_avg_tp[4]),$(f_avg_tp[5]),$(f_avg_tp[6])"&
+    title &
+    "step,time,natoms,temp,&
+    strain,sigma_xx,sigma_yy,sigma_zz,sigma_xy,sigma_xz,sigma_yz,&
+    pe,ke,&
+    lx,ly,lz,thickness,&
+    press,pxx,pyy,pzz,pxy,pxz,pyz" append ${stressLogFile} screen no
+    #<
+
+    dump 1 all atom 10000 trj-tensile-test-x.lammpstrj
+    run 1400000
+    unfix fhalt
+    unfix fdeform_log
+    unfix avg_en
+    unfix avg_tp
+    unfix avg_stress
+    unfix fdeform
+    unfix thermostat

@@ -1,0 +1,25 @@
+units       real           
+dimension   3
+boundary    p p s
+atom_style  charge
+newton      on
+read_data   POSCAR.lmp
+mass 1 95.95
+mass 2 32.06
+variable temp equal 300
+variable a string "log.csv"
+
+variable resultDIR string ./result
+variable restartDIR string ./restart
+shell mkdir ${restartDIR} ${resultDIR}
+variable heatLogFile string ${resultDIR}/log-heating.csv
+variable stressLogFile string ${restartDIR}/log-stress-strain.csv
+
+print """Temp = ${temp}
+ResultDIR=${resultDIR}
+Log File=${stressLogFile}""" file ${heatLogFile} screen no
+fix fheating_log all print 10 """
+$(step*dt),$(count(all))""" title "time,atoms,&
+temp,pe,ke,lx,ly,lz,tot_vol,press,pxx,pyy,pzz,pxy,pxz,pyz"  append ${heatLogFile} screen no
+
+run 1000

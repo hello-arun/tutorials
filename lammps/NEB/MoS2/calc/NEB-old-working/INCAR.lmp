@@ -1,0 +1,46 @@
+# System Setup
+units       real           
+dimension   3
+boundary    p p s
+atom_style  charge
+neigh_modify  delay 5
+atom_modify map array sort 0 0.0
+newton      on
+
+# Read Data
+read_data ./image-0.lmp
+
+# Force field setup
+pair_style reaxff NULL
+pair_coeff * * ./H-S-Mo.reaxff Mo S
+mass 1 95.75
+mass 2 32.06
+# neigh_modify delay 10 check yes 
+
+# Molecular Static run setup
+timestep 0.25  # metal 1=1ps; real 1=1fs
+
+# Charge equllibrium step
+fix 0 all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff  # Charge equillibrium at each step
+thermo 10 
+# run 10000
+
+# Minimization 
+fix 1 all box/relax x 0.0 y 0.0 vmax 0.01
+
+thermo_style custom step pe lx ly lz pxx pyy pzz press 
+min_style cg 
+minimize 1e-10 1e-10 5000 10000 
+reset_timestep	0
+fix 2 all neb 1.0 parallel ideal
+unfix 1 
+
+min_style quickmin 
+variable u uloop 200
+
+# region S_bottom_region block INF INF INF INF INF 10.5
+# group S_bottom_group region S_bottom_region
+# fix 1 S_bottom_group setforce 0.0 0.0 0.0
+
+dump  1 all atom 10 dump.neb.$u
+neb	  1e-6 1e-6 10000 10000 100 final ./image-1.lmp
