@@ -1,5 +1,5 @@
 set term png linewidth 2
-set output "pair_correlation.png"
+set output "pair-correlation-090-180-195.png"
 
 colors = "#4c265f #a82c35 #2c68fc #808080 #2fb5ab"
 
