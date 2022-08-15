@@ -1,0 +1,22 @@
+# System Setting
+SYSTEM  = Si_2x2x2
+PREC    = Low       # precision
+ALGO    = VeryFast  # RMM-DIIS for electronic relaxation
+
+# Type of Calculation
+NSW     = 5        # Maximum Number of ionic relaxation steps to perform For SCF set it to 0
+ISIF    = 2         # Which type of run to perform 0=MD, 2=Atomic Relax(fixed Vol), 3=Atomic and Unit cell relax
+IBRION  = 0        # Determines how ions are moved -1=for scf only no update,0=MD, 2=conjugate gradientg algorithm
+LREAL   = Auto      # Projection operators in real space
+ISYM    = 0         # No symmetry imposed
+
+# Smearing
+ISMEAR  = 0         # 0=Gaussina Smearing
+SIGMA   = 0.1       # Smearing width
+
+# MD
+POTIM   = 3.0       # MD time step in fs
+MDALGO  = 2         # Nosé-Hoover thermostat
+SMASS   = 1.0       # Nosé mass
+TEBEG   = 2000      # Temperature at beginning 
+TEEND   = 2000      # Temperature at end
