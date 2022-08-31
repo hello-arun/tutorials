@@ -1,0 +1,13 @@
+ITEM: TIMESTEP
+{id}
+ITEM: NUMBER OF ATOMS
+4
+ITEM: BOX BOUNDS pp pp ss
+0   {xhi}
+0   {yhi}
+0   {zhi}
+ITEM: ATOMS id type xs ys zs
+1   1    {r1}
+2   1    {r2}
+3   2    {r3}
+4   2    {r4}

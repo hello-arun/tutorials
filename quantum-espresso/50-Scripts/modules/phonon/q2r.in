@@ -1,0 +1,6 @@
+&input
+  fildyn='reGraphene.dyn',
+  zasr='simple', 
+  flfrc='reGraphene.fc'
+ /
+

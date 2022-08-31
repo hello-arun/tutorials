@@ -1,0 +1,10 @@
+title_line = 'Phonon of reGraphene'
+&inputph
+  recover = .true.
+  outdir = './out',
+  tr2_ph = 1.0d-14,
+  ldisp = .true.,
+  nq1 = 1, nq2 = 1, nq3 = 5
+  fildyn='reGraphene.dyn',
+ /
+
