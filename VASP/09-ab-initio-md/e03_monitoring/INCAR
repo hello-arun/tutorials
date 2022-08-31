@@ -1,0 +1,30 @@
+SYSTEM = Si16
+ISYM   = 0        ! no symmetry imposed
+
+! ab initio
+PREC   = Normal
+IVDW   = 10
+
+ISMEAR = -1      ! Fermi smearing
+SIGMA  = 0.0258  ! smearing in eV
+
+ENCUT  = 300
+EDIFF  = 1e-6
+
+LWAVE  = F
+LCHARG = F
+
+LREAL  = F
+
+! MD
+IBRION = 0        ! MD (treat ionic dgr of freedom)
+NSW    = 10       ! no of ionic steps
+POTIM  = 2.0      ! MD time step in fs
+
+MDALGO = 3                ! Langevin thermostat
+LANGEVIN_GAMMA   = 1 1    ! friction
+LANGEVIN_GAMMA_L = 10     ! lattice friction
+PMASS  = 10               ! lattice mass
+TEBEG  = 400              ! temperature
+
+ISIF   = 3        ! update positions, cell shape and volume 
