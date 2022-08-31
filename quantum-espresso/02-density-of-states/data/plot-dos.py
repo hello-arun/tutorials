@@ -90,8 +90,8 @@ def set_legend(axes):
 
 
 # Just replace whatever above this part to change plot stying
-subplots = [1,1]
-figsize = [185, 185]  # in mm
+subplots = [1, 1]
+figsize = [85, 85]  # in mm
 labels = [
     [["Eenergy (eV)", "DOS"]],
 ]  # [[[xlabel,ylabel]]]
@@ -104,14 +104,14 @@ major_minors = [
 
 
 def plot(axes):
-    [[ax1]]=axes
+    [[ax1]] = axes
     dos_file = "dos.dat"
     with open(dos_file) as f:
         first_line = f.readline()
-    
+
     data = np.loadtxt(dos_file)
-    energy = data[:,0]
-    dos = data[:,1]
+    energy = data[:, 0]
+    dos = data[:, 1]
     e_fermi = float(first_line.split()[-2])
     ax1.plot(
         energy-e_fermi,
@@ -119,8 +119,8 @@ def plot(axes):
         label="Si-DOS",
     )
     ax1.plot(
-        [0,0],
-        [0,100],
+        [0, 0],
+        [0, 100],
         "--"
         # label="Si-DOS",
     )
@@ -134,11 +134,11 @@ def plot(axes):
 fig, (axes) = init(figsize, subplots)
 plot(axes)
 fig.subplots_adjust(
-    top=0.99,
-    bottom=0.07,
-    left=0.065,
+    top=0.97,
+    bottom=0.13,
+    left=0.145,
     right=0.99,
     hspace=0.155,
     wspace=0.2)
-fig.savefig("dos-silicon.png",dpi=100)
+fig.savefig("dos-silicon.png", dpi=100)
 plt.show()
