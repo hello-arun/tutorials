@@ -24,4 +24,4 @@ mpirun -np ${SLURM_NPROCS} pw.x -i INCAR-scf.pw > OUTCAR-scf.pw
 mpirun -np ${SLURM_NPROCS} pw.x -i INCAR-nscf.pw > OUTCAR-nscf.pw
 
 # Dos.x post Processing
-mpirun -np 1 dos.x -i si_dos.in > dos.out
+mpirun -np 1 dos.x -i dos.in > dos.out
