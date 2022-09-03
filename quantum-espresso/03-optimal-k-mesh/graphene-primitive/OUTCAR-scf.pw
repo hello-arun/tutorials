@@ -1,0 +1,172 @@
+
+     Program PWSCF v.6.4.1 starts on  3Sep2022 at 22:33: 2 
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 21 395502 (2009);
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 29 465901 (2017);
+          URL http://www.quantum-espresso.org", 
+     in publications or presentations arising from this work. More details at
+     http://www.quantum-espresso.org/quote
+
+     Parallel version (MPI), running on     1 processors
+
+     MPI processes distributed on     1 nodes
+     Reading input from INCAR-scf.pw
+
+     Current dimensions of program PWSCF are:
+     Max number of different atomic species (ntypx) = 10
+     Max number of k-points (npk) =  40000
+     Max angular momentum in pseudopotentials (lmaxx) =  3
+               file C.pbe-n-kjpaw_psl.1.0.0.UPF: wavefunction(s)  2S 2P renormalized
+
+     Subspace diagonalization in iterative solution of the eigenvalue problem:
+     a serial algorithm will be used
+
+ 
+     G-vector sticks info
+     --------------------
+     sticks:   dense  smooth     PW     G-vecs:    dense   smooth      PW
+     Sum         745     361    121                58341    19461    3623
+ 
+
+
+     bravais-lattice index     =            0
+     lattice parameter (alat)  =       4.6633  a.u.
+     unit-cell volume          =     309.0952 (a.u.)^3
+     number of atoms/cell      =            2
+     number of atomic types    =            1
+     number of electrons       =         8.00
+     number of Kohn-Sham states=            8
+     kinetic-energy cutoff     =      60.0000  Ry
+     charge density cutoff     =     500.0000  Ry
+     convergence threshold     =      1.0E-10
+     mixing beta               =       0.7000
+     number of iterations used =            8  plain     mixing
+     Exchange-correlation      = SLA PW PBX PBC ( 1  4  3  4 0 0)
+
+     celldm(1)=   4.663323  celldm(2)=   0.000000  celldm(3)=   0.000000
+     celldm(4)=   0.000000  celldm(5)=   0.000000  celldm(6)=   0.000000
+
+     crystal axes: (cart. coord. in units of alat)
+               a(1) = (   1.000000   0.000000   0.000000 )  
+               a(2) = (  -0.500000   0.866025   0.000000 )  
+               a(3) = (   0.000000   0.000000   3.519452 )  
+
+     reciprocal axes: (cart. coord. in units 2 pi/alat)
+               b(1) = (  1.000000  0.577350  0.000000 )  
+               b(2) = (  0.000000  1.154701  0.000000 )  
+               b(3) = (  0.000000  0.000000  0.284135 )  
+
+
+     PseudoPot. # 1 for C  read from file:
+     ./C.pbe-n-kjpaw_psl.1.0.0.UPF
+     MD5 check sum: 8713dc29d6962174b5dfd9720fe42c1a
+     Pseudo is Projector augmented-wave + core cor, Zval =  4.0
+     Generated using "atomic" code by A. Dal Corso v.6.3
+     Shape of augmentation charge: PSQ
+     Using radial grid of 1073 points,  4 beta functions with: 
+                l(1) =   0
+                l(2) =   0
+                l(3) =   1
+                l(4) =   1
+     Q(r) pseudized with 0 coefficients 
+
+
+     atomic species   valence    mass     pseudopotential
+        C              4.00    12.01000     C ( 1.00)
+
+     No symmetry found
+
+
+
+   Cartesian axes
+
+     site n.     atom                  positions (alat units)
+         1           C   tau(   1) = (  -0.5000001   0.8660253   2.6395891  )
+         2           C   tau(   2) = (  -0.0000006   0.5773505   2.6395891  )
+
+     number of k points=    13  gaussian smearing, width (Ry)=  0.0100
+                       cart. coord. in units 2pi/alat
+        k(    1) = (   0.0000000   0.0000000   0.0000000), wk =   0.0800000
+        k(    2) = (   0.0000000   0.2309401   0.0000000), wk =   0.1600000
+        k(    3) = (   0.0000000   0.4618803   0.0000000), wk =   0.1600000
+        k(    4) = (   0.2000000   0.1154701   0.0000000), wk =   0.1600000
+        k(    5) = (   0.2000000   0.3464102   0.0000000), wk =   0.1600000
+        k(    6) = (   0.2000000   0.5773503   0.0000000), wk =   0.1600000
+        k(    7) = (   0.2000000  -0.3464102   0.0000000), wk =   0.1600000
+        k(    8) = (   0.2000000  -0.1154700   0.0000000), wk =   0.1600000
+        k(    9) = (   0.4000000   0.2309402   0.0000000), wk =   0.1600000
+        k(   10) = (   0.4000000   0.4618803   0.0000000), wk =   0.1600000
+        k(   11) = (   0.4000000   0.6928204   0.0000000), wk =   0.1600000
+        k(   12) = (   0.4000000  -0.2309401   0.0000000), wk =   0.1600000
+        k(   13) = (   0.4000000   0.0000001   0.0000000), wk =   0.1600000
+
+     Dense  grid:    58341 G-vectors     FFT dimensions: (  36,  36, 120)
+
+     Smooth grid:    19461 G-vectors     FFT dimensions: (  24,  24,  90)
+
+     Estimated max dynamical RAM per process >      79.82 MB
+
+     Check: negative core charge=   -0.000002
+
+     The initial density is read from file :
+     ./wfc-out/pwscf.save/charge-density
+
+
+     negative rho (up, down):  1.417E-08 0.000E+00
+     Starting wfcs are random
+     Checking if some PAW data can be deallocated... 
+
+     EXX convergence NOT achieved after   0 iterations: stopping
+
+     Writing output data file pwscf.save/
+     Message from routine add_xml_clocks_pw: label not found :
+     electrons
+ 
+     init_run     :      0.54s CPU      0.58s WALL (       1 calls)
+
+     Called by init_run:
+     wfcinit      :      0.13s CPU      0.13s WALL (       1 calls)
+     potinit      :      0.13s CPU      0.13s WALL (       1 calls)
+     hinit0       :      0.24s CPU      0.26s WALL (       1 calls)
+
+     Called by electrons:
+     v_of_rho     :      0.07s CPU      0.07s WALL (       1 calls)
+     newd         :      0.02s CPU      0.04s WALL (       1 calls)
+     PAW_pot      :      0.06s CPU      0.06s WALL (       1 calls)
+
+     Called by c_bands:
+     init_us_2    :      0.01s CPU      0.01s WALL (      13 calls)
+
+     Called by sum_band:
+
+     Called by *egterg:
+     h_psi        :      0.11s CPU      0.11s WALL (      13 calls)
+     s_psi        :      0.00s CPU      0.00s WALL (      13 calls)
+     cdiaghg      :      0.00s CPU      0.00s WALL (      13 calls)
+
+     Called by h_psi:
+     h_psi:pot    :      0.11s CPU      0.11s WALL (      13 calls)
+     h_psi:calbec :      0.00s CPU      0.00s WALL (      13 calls)
+     vloc_psi     :      0.11s CPU      0.11s WALL (      13 calls)
+     add_vuspsi   :      0.00s CPU      0.00s WALL (      13 calls)
+
+     General routines
+     calbec       :      0.00s CPU      0.00s WALL (      13 calls)
+     fft          :      0.02s CPU      0.03s WALL (      13 calls)
+     ffts         :      0.00s CPU      0.00s WALL (       1 calls)
+     fftw         :      0.10s CPU      0.10s WALL (     208 calls)
+     interpolate  :      0.00s CPU      0.00s WALL (       1 calls)
+     davcio       :      0.00s CPU      0.00s WALL (      13 calls)
+ 
+     Parallel routines
+ 
+     PWSCF        :      0.88s CPU      0.94s WALL
+
+ 
+   This run was terminated on:  22:33: 3   3Sep2022            
+
+=------------------------------------------------------------------------------=
+   JOB DONE.
+=------------------------------------------------------------------------------=
