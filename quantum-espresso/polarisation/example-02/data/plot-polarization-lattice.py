@@ -92,7 +92,7 @@ def set_legend(axes):
 subplots = [1, 1]
 figsize = [89, 75]  # in mm
 labels = [
-    [[r"Strain $(\epsilon_{11})$", r"$\Delta$ Polarization(2D) (pC/m)"]],
+    [[r"Strain $(\epsilon_{11})$", "2D Polarization (pC/m)"]],
 ]  # [[[xlabel,ylabel]]]
 limits = [
     [[-0.01, 0.01, -6, 6]]
@@ -114,20 +114,19 @@ def plot(axes):
             quanta_3d = data["quanta"]
             pol_2d = pol_3d*height
             print(pol_3d)
-            shift = np.array([0,0,0,0,0])
-            pol_ref = pol_2d[strain.index[strain == 0][0]]
-            pol_2d = (pol_3d+quanta_3d*shift)*height
-            pol_2d -= pol_ref
-            ax.plot(
-                strain,
-                pol_2d,
-                ".-",
-                label="h-BN",
-            )
+            for i in range(-2, 3):
+                pol_2d = (pol_3d+quanta_3d*i)*height
+                print(i)
+                ax.plot(
+                    strain,
+                    pol_2d,
+                    ".",
+                    label=i,
+                )
     # uncomment to give final touch
     set_labels(axes, labels)
-    set_limits(axes, limits)
-    set_major_minors(axes, major_minors)
+    # set_limits(axes, limits)
+    # set_major_minors(axes, major_minors)
     set_legend(axes)
 
 
@@ -140,6 +139,6 @@ fig.subplots_adjust(
     right=0.935,
     hspace=0.2,
     wspace=0.2)
-fig_name = "001-polarization.png"
+fig_name = "001-pol-lattice.png"
 fig.savefig(f"{fig_name}", dpi=100)
 plt.show()

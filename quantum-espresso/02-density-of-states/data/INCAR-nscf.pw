@@ -1,6 +1,5 @@
 &CONTROL
   calculation = 'nscf',
-  prefix = 'silicon',
   outdir = './wfc-out'
   pseudo_dir = './'
   verbosity = 'high'

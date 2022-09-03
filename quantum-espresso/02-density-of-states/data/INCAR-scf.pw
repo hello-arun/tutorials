@@ -1,6 +1,5 @@
 &CONTROL
   calculation = 'scf',
-  prefix = 'silicon',
   outdir = './wfc-out/'
   pseudo_dir = './'
 /

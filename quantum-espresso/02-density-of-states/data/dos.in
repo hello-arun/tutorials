@@ -1,5 +1,4 @@
 &DOS
-  prefix='silicon',
   outdir='./wfc-out',
   fildos='dos.dat',
   emin=-9.0,
