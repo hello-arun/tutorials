@@ -11,10 +11,12 @@ Quantum espresso provides various levels of parallelisation. But two most import
 * Bands
 
 ### K-Points
-
+![](./__ref/k-points.png)
 K Point parallelisation is achieved by `npool`.
 
 ### Bands
+![](./__ref/num-bands.png)
+
     ­nb (­nband, ­nbgrp, ­nband_group) # of band groups
 Band parallelisation is achieved by `-nb/ -nband/ -nbgrp/ -nband_group` etc.
 
