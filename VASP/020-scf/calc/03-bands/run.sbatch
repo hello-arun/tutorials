@@ -1,6 +1,6 @@
 #!/bin/bash -e
-#SBATCH --job-name=__JobName
-#SBATCH --nodes=12
+#SBATCH --job-name=5x5BN-Rlx
+#SBATCH --nodes=10
 #SBATCH --ntasks-per-node=24
 #SBATCH --partition=batch
 #SBATCH --constraint="intel"

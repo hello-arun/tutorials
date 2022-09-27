@@ -29,8 +29,8 @@ SIGMA   = 0.05        # Smearing width
 # Paralalisation 
     # Since NBANDS=144 NKPTS=16 (checked by dry run)
     # 12 Nodes with 24 cores-per-node is chosen i.e all bands parallised k-point split in 2 parts
-NCORE = 6   # 6*24 = 144
-KPAR  = 2
+# NCORE = 6   # 6*24 = 144
+# KPAR  = 2
 
 # Dos setting
 EMIN    = -20

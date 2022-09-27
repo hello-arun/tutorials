@@ -1,12 +1,12 @@
 #!/bin/bash -e
-#SBATCH --job-name=__JobName
-#SBATCH --nodes=12
+#SBATCH --job-name=5x5BN-B1-SCF
+#SBATCH --nodes=10
 #SBATCH --ntasks-per-node=24
 #SBATCH --partition=batch
 #SBATCH --constraint="intel"
 #SBATCH --output=std.out
 #SBATCH --error=std.err
-#SBATCH --time=1:00:00
+#SBATCH --time=30:00:00
 #SBATCH --mail-user=arun.jangir@kaust.edu.sa
 #SBATCH --mail-type=ALL
 

@@ -1,0 +1,2 @@
+# Read Fermi-Energy from the FERMI_ENERGY.in file if it exists. Be sure to DELETE the FERMI_ENERGY.in file if you perform new calculation in the current folder.
+   -4.435024        # e.g., Set the value of VBM if you want to shift VBM to zero eV.
