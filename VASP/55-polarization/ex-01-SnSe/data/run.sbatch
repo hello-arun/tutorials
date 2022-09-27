@@ -10,18 +10,20 @@
 #SBATCH --output=./std.out
 ##SBATCH --exclusive
 
-# On Ibex
+machine="IBEX" # HPC or IBEX
+
+if [[ $machine == "IBEX" ]]; then
     module load intel/2016
     module load openmpi/4.0.3_intel
     export VASP_CMD=/ibex/scratch/jangira/vasp/sw/vasp.5.4.4/bin/vasp_std
     export OMP_NUM_THREADS=1
-
-# On Local HPC
-    # # Test with care and HPC vasp is not compiled 
-    # # with constrained relaxation functionality
-    # module load vasp
-    # export VASP_CMD="/sw/workstations/apps/linux-ubuntu18.04-ivybridge/vasp/5.4.4/intel-19.1.0.166/fcrgcokgypwptxcw5bnwoonkvntmnygf/bin/vasp"
-    # export OMP_NUM_THREADS=1
-    # SLURM_NPROCS=24
+elif [[ $machine == "HPC" ]]; then
+    # Test with care and HPC vasp is not compiled
+    # with constrained relaxation functionality
+    module load vasp
+    export VASP_CMD="/sw/workstations/apps/linux-ubuntu18.04-ivybridge/vasp/5.4.4/intel-19.1.0.166/fcrgcokgypwptxcw5bnwoonkvntmnygf/bin/vasp"
+    export OMP_NUM_THREADS=1
+    SLURM_NPROCS=24
+fi
 
 mpirun -np ${SLURM_NPROCS} ${VASP_CMD}

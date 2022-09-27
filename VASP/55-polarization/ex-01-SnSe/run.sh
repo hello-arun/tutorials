@@ -14,7 +14,10 @@ cp INCAR KPOINTS POSCAR POTCAR OPTCELL run.sbatch $calcDIR/
 sed -i "s/__job_name/SnSe-POL/" "$calcDIR/run.sbatch"
 
 cd $calcDIR
-## IBEX
+
+machine="IBEX"  # HPC or IBEX
+if [[ $machine == "IBEX" ]]; then
     sbatch run.sbatch
-## HPC
+elif [[ $machine == "HPC" ]]; then
     bash run.sbatch
+fi

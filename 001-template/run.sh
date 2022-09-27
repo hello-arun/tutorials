@@ -15,4 +15,9 @@ cp $reqFiles "$calcDIR"/
 cd $calcDIR || exit
 sed -i "s/__JobName/calcName/" ${calcDIR}/run.sbatch
 
-sbatch run.sbatch
+machine="IBEX"  # Run on HPC or IBEX
+if [[ $machine == "IBEX" ]]; then
+    sbatch run.sbatch
+elif [[ $machine == "HPC" ]]; then
+    bash run.sbatch
+fi
