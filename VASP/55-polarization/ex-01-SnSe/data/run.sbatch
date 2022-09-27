@@ -17,6 +17,11 @@
     export OMP_NUM_THREADS=1
 
 # On Local HPC
-    ##---------Not Yet Implmented---------##
+    # # Test with care and HPC vasp is not compiled 
+    # # with constrained relaxation functionality
+    # module load vasp
+    # export VASP_CMD="/sw/workstations/apps/linux-ubuntu18.04-ivybridge/vasp/5.4.4/intel-19.1.0.166/fcrgcokgypwptxcw5bnwoonkvntmnygf/bin/vasp"
+    # export OMP_NUM_THREADS=1
+    # SLURM_NPROCS=24
 
 mpirun -np ${SLURM_NPROCS} ${VASP_CMD}
