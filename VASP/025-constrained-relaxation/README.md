@@ -1,0 +1,1 @@
+We do constrained relaxation of Si here. *a*-axis is kept fixed and cell is only allowed to relax along *b* and *c*-direction.
