@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --partition=batch
-#SBATCH --job-name="__job_name"
+#SBATCH --job-name="SnSe-POL"
 #SBATCH --constraint=intel
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=4

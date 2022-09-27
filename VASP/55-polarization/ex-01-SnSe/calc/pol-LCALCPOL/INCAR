@@ -11,8 +11,8 @@ IBRION  = -1         # Determines how ions are moved -1=for scf only no update,0
 ISPIN   = 1          # 1=spin unpol, 2=spin pol           
 
 # Continue or Fresh
-ISTART  = 0          # 0=Scratch, 1=Continuation Job only read wavecar file 
-ICHARG  = 2          # 2=ch den from sup pos of atoms , 0=ch den from wave function 1=read CHGCAR file
+ISTART=1
+ICHARG=1
 
 # Stopping Criteria
 EDIFF   = 1.0E-6     # Energy Convergence in electronic steps
@@ -23,4 +23,8 @@ ISMEAR  = 0          # 0=Gaussina Smearing
 SIGMA   = 0.1        # Smearing width
 
 # Paralalisation 
-NCORE   = 24
+# NCORE   = 24
+# Polarization LCALCPOL Method
+LCALCPOL = .TRUE.
+# DIPOL = 0.10 0.10 0.50 # <Optinal>
+
