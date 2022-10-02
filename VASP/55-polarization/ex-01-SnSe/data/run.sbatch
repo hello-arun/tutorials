@@ -10,8 +10,8 @@
 #SBATCH --output=./std.out
 ##SBATCH --exclusive
 
-machine="HPC" # HPC or IBEX
 srcDIR=$(pwd)
+machine="HPC" # HPC or IBEX
 if [[ $machine == "IBEX" ]]; then
     module load intel/2016
     module load openmpi/4.0.3_intel

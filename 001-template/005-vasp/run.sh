@@ -1,5 +1,4 @@
 #!/bin/bash
-# run with [--dry or -d] for a quick dry run
 
 wd=${PWD}
 calcDIR=${wd}/calc
@@ -10,12 +9,13 @@ mkdir -p ${calcDIR}
 
 # Copy required files
 cd $dataDIR
-cp INCAR KPOINTS POSCAR POTCAR run.sbatch $calcDIR/
+cp INCAR KPOINTS POSCAR POTCAR OPTCELL run.sbatch grep-pol.sh $calcDIR/
 # Some Replacements
-sed -i "s/__job_name/Si-MD/" "$calcDIR/run.sbatch"
+sed -i "s/__job_name/SnSe-POL/" "$calcDIR/run.sbatch"
 
 cd $calcDIR
-machine="IBEX"  # Run on HPC or IBEX
+
+machine="HPC"  # HPC or IBEX
 if [[ $machine == "IBEX" ]]; then
     sbatch run.sbatch
 elif [[ $machine == "HPC" ]]; then

@@ -19,5 +19,5 @@ machine="IBEX"  # Run on HPC or IBEX
 if [[ $machine == "IBEX" ]]; then
     sbatch run.sbatch
 elif [[ $machine == "HPC" ]]; then
-    bash run.sbatch
+    bash run.sbatch > std.out
 fi

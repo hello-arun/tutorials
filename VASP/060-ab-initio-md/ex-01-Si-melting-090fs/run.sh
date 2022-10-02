@@ -15,4 +15,9 @@ cp INCAR KPOINTS POSCAR POTCAR run.sbatch $calcDIR/
 sed -i "s/__job_name/Si-MD/" "$calcDIR/run.sbatch"
 
 cd $calcDIR
-sbatch run.sbatch
+machine="IBEX"  # Run on HPC or IBEX
+if [[ $machine == "IBEX" ]]; then
+    sbatch run.sbatch
+elif [[ $machine == "HPC" ]]; then
+    bash run.sbatch > std.out
+fi
