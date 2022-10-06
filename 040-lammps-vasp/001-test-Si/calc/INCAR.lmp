@@ -1,6 +1,6 @@
 # small W unit cell for use with VASP
 
-variable        mode index file
+variable  mode index file
  
 if "${mode} == file" then &
   "message client md file tmp.couple" &
@@ -16,7 +16,7 @@ atom_style	atomic
 atom_modify     sort 0 0.0 map yes
 
 read_data       data.W
-mass		1 183.85
+mass		1 28.0855
 
 replicate       $x $y $z
 
@@ -31,6 +31,6 @@ fix_modify      2 energy yes
 
 thermo          1
 dump dheating all atom 1 trj-heating.lammpstrj
-run		1
+run		4000
 undump dheating
 message         quit
