@@ -1,0 +1,49 @@
+variable mode index file
+
+if "${mode} == file" then &
+    "message client md file tmp.couple" &
+elif "${mode} == zmq" &
+    "message client md zmq localhost:5555" &
+
+# Units
+    units       metal           
+    dimension   3
+    boundary    p p p
+    atom_style  atomic
+    atom_modify sort 0 0.0 map yes
+
+# Simulation variables
+    timestep 0.0005
+
+# Simulation cell
+    read_data POSCAR.lmp
+    mass 1 28.0855
+
+# vasp md interface
+    fix fxlmpvasp all client/md
+    fix_modify fxlmpvasp energy yes
+
+
+# Initial minimization
+    # thermo 1 
+    # fix frelax all box/relax iso 0.0 vmax 0.01
+    # thermo_style custom step pe lx ly lz pxx pyy pzz press 
+    # min_style cg 
+    # dump dmpRelax all atom 1 trj-relax.lammpstrj
+    # minimize 1e-10 1e-10 5000 10000 
+    # unfix frelax
+    # undump dmpRelax
+    # write_data CONTCAR.lmp
+
+# Heating 300K
+    thermo 1
+    velocity all create 300 12345 loop geom
+    thermo_style custom step temp pe ke lx ly lz  pxx pyy pzz press 
+    fix	fheating all npt temp 1.0 300.0 $(1000*dt) iso 16 0 $(2500*dt)
+    dump dmpHeat all atom 1 trj-heat.lammpstrj
+    run 6000
+    dump dmpHeat all atom 1 trj-heat.lammpstrj
+    unfix fheating
+
+
+message quit

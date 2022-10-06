@@ -1,0 +1,6 @@
+module purge
+conda activate lmp-vasp 
+export PYTHONPATH=/home/jangira/Documents/applications/lammps/lammps-with-MESSAGE/lammps-29Sep2021/lib/message/cslib/src
+export LD_LIBRARY_PATH=/home/jangira/Documents/applications/lammps/lammps-with-MESSAGE/lammps-29Sep2021/lib/message/cslib/src
+export lmp_mpi=/home/jangira/Documents/applications/lammps/lammps-with-MESSAGE/lammps-29Sep2021/src/lmp_mpi
+mpirun -np 1 ${lmp_mpi} -v mode file -in INCAR.lmp
