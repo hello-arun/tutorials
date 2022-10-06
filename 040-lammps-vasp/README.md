@@ -16,4 +16,6 @@ Script for installing LAMMPS with MESSAGE pack is available. Use it to setup lam
 ```bash
 bash install-lammps-with-MESSAGE-pack.sh
 ```
+## Step 2 Procedure
 
+After completing step 1 and step 2. You can interlink vasp and lammps as provided in `001-test-Si`
