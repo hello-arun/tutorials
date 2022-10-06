@@ -1,0 +1,23 @@
+name: basic
+
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python
+  - pip
+    #  - pip:
+    #    - black
+  - autopep8
+  - py4vasp
+  - numpy
+  - scipy
+  - pandas
+  - ase
+  - shapely
+  - matplotlib
+  - jupyterlab
+  - jupyterlab-lsp
+# phonopy
+  - conda-forge::phonopy
+
