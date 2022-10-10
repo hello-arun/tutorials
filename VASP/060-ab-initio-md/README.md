@@ -48,12 +48,11 @@ $$T =40\times\mathrm{POTIM} \Rightarrow w_0 = \frac{2\pi}{T}=\frac{2\pi}{40\time
 where $\mathrm{POTIM}$ is timestep for MD simulation in vasp. And this is obvious in the vasp source `main.f` 
 
 ```FORTRAN
-IF (SMASS==0)  THEN
-  SMASS_TMP = ((40*POTIM*1E-15/TWO_PI)**2)* &
- 2.0*K_JUL/AMTOKG*DEG_OF_FREEDOM*MAX(TEBEG,TEEND)
- SMASS = SMASS_TMP*1.0E20/LAT_PARAM_A**2/AMU_TO_KG
-ENDIF
+IF (SMASS==0)  SMASS= &
+ ((40*POTIM*1E-15/TWOPI/LATT_PARAM_A)**2)* &
+ 2E20*K_EV*EVTOJ*KGTOAMU*NDEGREES_OF_FREEDOM*MAX(TEBEG,TEEND)
 ```
+
 #### References
 * http://staff.ustc.edu.cn/~zqj/posts/NVT-MD/
 * https://doi.org/10.1063/1.447334
