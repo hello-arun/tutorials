@@ -23,3 +23,37 @@ Copy the latest ionic positions from [CONTCAR](https://www.vasp.at/wiki/index.ph
 ## **ex-04-pair-correlation**
 
 We plot radial distributuin function from the simulations of [ex-01](./ex-01-Si-melting-090fs/) and [ex-02](./ex-02-Si-melting-180fs/) and [ex-03](./ex-02-Si-melting-195fs/). 
+
+
+## Some Insights
+
+### Nose-Hoover Thermostat
+
+To Simulate Nose-Hoover thermostat in VASP the most critical parameter that we need to specify is `SMASS`. 
+SMASS determines the coupling between the heat bath and the system. We can say that it determines the
+period of oscillation of temperature. You may read the references to read more about this. I will mention 
+here only a practical guide of how to determine appropriate value of this parameter. Although any positive 
+finite value of `SMASS` will result in canonical ensemble but for practical use it should be carefully chosen.
+```
+!  SMASS    mass Parameter for nose dynamic, it has the dimension
+!           of a Energy*time**2 = mass*length**2
+```
+
+Nose mentioned in his [paper](https://doi.org/10.1063/1.447334) that `SMASS or Q` should be choosen such that 
+$$Q=\frac{2gk_bT}{w_0^2}$$
+where $g$ is no of degree of freedom and $w_0$ is charateristic phonon frequency of the system.
+
+`SMASS>=0` along with `MDALGO=2` should be used in VASP for simulation NHT along. If we set `SMASS=0` then vasp automatically calculates `SMASS` such that the period of oscillation of temperature is `40 timesteps`. i.e.
+$$T =40\times\mathrm{POTIM} \Rightarrow w_0 = \frac{2\pi}{T}=\frac{2\pi}{40\times\mathrm{POTIM}}$$
+where $\mathrm{POTIM}$ is timestep for MD simulation in vasp. And this is obvious in the vasp source `main.f` 
+
+```FORTRAN
+IF (SMASS==0)  
+  SMASS = &
+ ((40*POTIM*1E-15/TWO_PI/LAT_PARAM_A)**2)* &
+ 2.0E20*BOLKEV*EVTOJ/AMTOKG*NDEGREES_OF_FREEDOM*MAX(TEBEG,TEEND)
+```
+#### References
+* http://staff.ustc.edu.cn/~zqj/posts/NVT-MD/
+* https://doi.org/10.1063/1.447334
+* https://www.vasp.at/wiki/index.php/SMASS
