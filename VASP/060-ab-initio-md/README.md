@@ -55,6 +55,15 @@ IF (SMASS==0)  SMASS= &
  2E20*K_EV*EVTOJ*KGTOAMU*NDEGREES_OF_FREEDOM*MAX(TEBEG,TEEND)
 ```
 
+So ideally temperature fluctuation frequency should be of the same order as that of phonon frequency of the crystal. When we have in our hand phonon frequency we can calulate the period of oscillation and then we can use the same `SMASS` formula as given below 
+
+```python
+w0 = some_number
+T = TWO_PI/w0 # In Femto Second, convert w0 to appropriate unit accordingly
+SMASS = ((T*POTIM*1e-15/TWOPI/LATT_PARAM_A)**2)* 2.0e20*K_Jul*KGTOAMU*NDEGREES_OF_FREEDOM*MAX(TEBEG,TEEND)
+```
+
+
 #### References
 * http://staff.ustc.edu.cn/~zqj/posts/NVT-MD/
 * https://doi.org/10.1063/1.447334
