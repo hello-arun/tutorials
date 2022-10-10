@@ -36,7 +36,9 @@ here only a practical guide of how to determine appropriate value of this parame
 finite value of `SMASS` will result in canonical ensemble but for practical use it should be carefully chosen.
 ```
 !  SMASS    mass Parameter for nose dynamic, it has the dimension
-!           of a Energy*time**2 = mass*length**2
+!           of a Energy*time**2 = mass*length**2 and is supplied in
+!           atomic mass unit* LAT_PARAM_A**2 (this makes it  easy to define
+!           the parameter)
 ```
 
 Nose mentioned in his [paper](https://doi.org/10.1063/1.447334) that `SMASS or Q` should be choosen such that 
