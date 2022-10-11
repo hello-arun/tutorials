@@ -33,7 +33,7 @@ bash run-postprocess.sh > std-postporcess.out
 ### Reference Phonon Bands
 Phonon bands as reported in https://doi.org/10.1039/C7CP06065C
 
-<img src="./__ref/phonon-MoTe2-2H-monolayer.png" width="47%"/>
+<img src="./__ref/phonon-MoTe2-2H-monolayer.png" width="20%"/>
 
 ## Other Reference to match phonon bands
 
