@@ -1,0 +1,23 @@
+# System Setting
+SYSTEM  =  MoTe2
+PREC    =  Accurate   # Accurate works best
+GGA     =  PE         # PE=PBE, 91=Perdew-Wang-91
+ENCUT   =  500
+
+# Type of Calculation
+NSW     =  0        # Max Num of ionic relaxation steps,for SCF set it to 0
+ISIF    =  2        # Type of run 0=MD, 2=Atomic Rlx, 3=Atomic+Unit cell relax
+IBRION  = -1        # How ions are moved -1=for scf only no update,0=MD, 2=cg algo
+
+# Stopping Criteria
+EDIFF   = 1.0e-08
+# EDIFFG  = -1.0E-3    # Force conv in ionic steps, -ve for force +ve for energy diffrence
+
+# Smearing
+ISMEAR  = 0          # 0=Gaussina Smearing
+SIGMA   = 0.1        # Smearing width
+
+# Quantities to save
+LREAL   = .FALSE.
+LWAVE   = .FALSE.
+LCHARG  = .FALSE.
