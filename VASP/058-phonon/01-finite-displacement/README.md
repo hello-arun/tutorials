@@ -25,7 +25,7 @@ bash run-postprocess.sh > std-postporcess.out
 
 ## Phonopy Quick Notes
 * By default phonopy have phonon bands in THz frequency units.
-* Set `FREQUENCY_CONVERSION_FACTOR = 521.3706217` in `conf-band.conf`to plot phonon bands in cm-1 unit.
+* Set `FREQUENCY_CONVERSION_FACTOR = 521.3706217` in `conf-band.conf`to plot phonon bands in $cm^{-1}$ unit.
     
     1THz = 33.356 cm-1 but setting `FREQUENCY_CONVERSION_FACTOR = 33.356` will not correctly convert to cm-1 unit because by default `FREQUENCY_CONVERSION_FACTOR` is used internally by phonopy to convert the data obtained from calculators(VASP, Quantum-Espresso) to THz unit. And these default values can be found on https://phonopy.github.io/phonopy/interfaces.html#frequency-default-value-interfaces. So you also need to account for that value, and for VASP that is 
     ```
