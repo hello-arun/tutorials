@@ -63,6 +63,8 @@ T = TWO_PI/w0 # In Femto Second, convert w0 to appropriate unit accordingly
 SMASS = ((T*POTIM*1e-15/TWOPI/LATT_PARAM_A)**2)* 2.0e20*K_Jul*KGTOAMU*NDEGREES_OF_FREEDOM*MAX(TEBEG,TEEND)
 ```
 
+To make life easier `calc-nose-mass.py` script is provided in the `bin` directory. Documentation is available. 
+
 
 #### References
 * http://staff.ustc.edu.cn/~zqj/posts/NVT-MD/
