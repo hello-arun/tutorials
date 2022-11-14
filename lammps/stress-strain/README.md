@@ -1,14 +1,16 @@
 # Stress-Strain
 
-We will explain how Stress-Strain curve can be calculated in lammps. In LAMMPS stress is described in six component $`\sigma_{xx}`$ $`\sigma_{yy}`$ $`\sigma_{zz}`$ $`\sigma_{xy}`$ $`\sigma_{xz}`$ $`\sigma_{yz}`$ and can be accessed by index 1 to 6. Nine component stress tensor is also available but we rearely use that.
+We will explain how Stress-Strain curve can be calculated in lammps. In LAMMPS stress is described in six component 
+$\sigma_{xx},\sigma_{yy},\sigma_{zz},\sigma_{xy},\sigma_{xz},\sigma_{yz}$ 
+and can be accessed by index 1 to 6. Nine component stress tensor is also available but we rearely use that.
 
-1. Calculate $`\sum_{all\ atoms}`$ Stress/atom 
+1. Calculate $\sum_{all\ atoms}$ Stress/atom 
 2. Caculate the average for sufficient time(250 fs)
 3. Devide by correct volume
 4. Output
 5. Common mistakes
 
-## Calculate $`\sum_{all\ atoms}`$ Stress/atom 
+## Calculate $\sum_{all\ atoms}$ Stress/atom 
 
 The following command will give as six component stress tensor per each atom. The problem here is that this stress-tensor is in pressure*volume units. It would need to be divided by a per-atom volume to have units of stress (pressure). Per-atom volume is hard to compute so we will find a way out later.
 
