@@ -1,0 +1,169 @@
+# Units
+    units       metal           
+    dimension   3
+    boundary    s s s
+    atom_style  atomic
+    newton      on
+    neighbor    0.3 nsq
+
+# Simulation variables
+    variable thickness string 3.7               # Thickness of monolayer
+    variable T string __Temp                    # Temperature 
+    variable srate string 1.0e10                # strain per second
+    variable srate1 string $(v_srate/1.0e12)     # strain per time unit
+    timestep 0.0005                             # metal 1=1ps; real 1=1fs
+    variable heatingTime string 50               # Heating time in Pico-Seconds
+    variable maxStrain string 4
+    variable GPa string 0.000101325
+
+# Output Files
+    variable resultDIR string ./results
+    variable restartDIR string ./restart
+    shell mkdir ${restartDIR} ${resultDIR}
+    variable heatLogFile string ${resultDIR}/log-heating.csv
+    variable stressLogFile string ${resultDIR}/log-stress-strain.csv
+
+# Simulation cell
+    read_data ./POSCAR.lmp
+    mass 1 12.011         # Dynamic atoms are   type 1st carbon
+    mass 2 12.011         # Edge atoms on left  type 2nd carbon
+    mass 3 12.011         # Edge atoms on right type 3rd carbon
+    group dynamic type 1
+    group edgeLeft type 2 
+    group edgeRight type 3 
+
+# Force field
+    pair_style airebo 6.4
+    pair_coeff * * CH.airebo C C C
+
+# Initial minimization
+    thermo 10 
+    fix frelax all box/relax vmax 0.01
+    thermo_style custom step pe lx ly lz pxx pyy pzz press 
+    min_style cg 
+    dump drelax all atom 100 trj-relax.lammpstrj
+    minimize 0 1e-10 50000 50000 
+    unfix frelax
+    write_data CONTCAR.lmp
+    undump drelax
+
+# More variables
+    variable Lx equal lx
+    variable Ly equal ly
+    variable Lz equal lz
+    variable Vol equal vol
+    compute cpe all pe
+    compute cke all ke
+
+# Heating
+    reset_timestep 0
+
+    fix ff1 edgeLeft  setforce 0 NULL 0
+    fix ff2 edgeRight setforce 0 NULL 0
+    compute TDynamic dynamic temp
+
+    # Lets define some fixes, computes and logs 
+    fix avg_dim  all ave/time 1 1000 1000 v_Lx v_Ly v_Lz 
+    fix avg_tp   all ave/time 1 1000 1000 c_thermo_press[1] c_thermo_press[2] c_thermo_press[3] c_thermo_press[4] c_thermo_press[5] c_thermo_press[6]  c_thermo_press c_thermo_temp 
+    fix avg_en   all ave/time 1 1000 1000 c_cpe c_cke
+    dump dheating all atom 1000 trj-heating-${T}K.lammpstrj
+    thermo 1000
+    thermo_style  custom step temp press pe ke lx ly lz  
+    thermo_modify temp TDynamic
+    # log
+    print """# Units : real""" file ${heatLogFile} screen no
+    fix fheating_log all print 1000 &
+    "$(step),$(step*dt),$(count(all)),$(f_avg_tp[8]),&
+    $(f_avg_en[1]),$(f_avg_en[2]),&
+    $(f_avg_dim[1]),$(f_avg_dim[2]),$(f_avg_dim[3]),&
+    $(f_avg_tp[7]),$(f_avg_tp[1]),$(f_avg_tp[2]),$(f_avg_tp[3]),$(f_avg_tp[4]),$(f_avg_tp[5]),$(f_avg_tp[6])"&
+    title &
+    "step,time,atoms,temp,&
+    pe,ke,&
+    lx-full,ly-full,lz-full,&
+    press,pxx,pyy,pzz,pxy,pxz,pyz"  append ${heatLogFile} screen no
+
+    velocity dynamic  create $(v_T) 123
+    fix fHeatingDynamic dynamic nvt temp $(v_T) $(v_T) $(100*dt)
+    fix_modify	fHeatingDynamic temp TDynamic # for thermalisation of the control group 1 along x and y only
+    fix fnveLeft    edgeLeft  nve
+    fix fnveRight   edgeRight nve
+    run $(v_heatingTime/dt:%.0f)
+    
+    unfix fnveLeft
+    unfix fnveRight
+    unfix fHeatingDynamic
+    unfix fheating_log
+    unfix avg_en
+    unfix avg_dim
+    unfix avg_tp
+    unfix ff2
+    unfix ff1
+
+    # uncompute TDynamic
+    # uncompute TLeft
+    # uncompute TRight
+    undump dheating
+
+    # Writing restart
+    shell mkdir ${restartDIR}/heat
+    write_restart ${restartDIR}/heat/save.% nfile 20 
+
+# Strain 
+    reset_timestep 0
+    fix ff1 edgeLeft  setforce 0 0 0
+    fix ff2 edgeRight setforce 0 0 0
+    variable Lx_dyn equal bound(dynamic,xmax)-bound(dynamic,xmin)
+    variable Ly_dyn equal bound(dynamic,ymax)-bound(dynamic,ymin)
+    compute 1 dynamic stress/atom NULL # xx yy zz xy xz yz
+    compute 2 dynamic reduce sum c_1[1] c_1[2] c_1[3] c_1[4] c_1[5] c_1[6]
+    fix avg_dim  dynamic ave/time 1 1000 1000 v_Lx v_Lx_dyn v_Ly v_Ly_dyn v_Lz
+    fix avg_tp   dynamic ave/time 1 1000 1000 c_thermo_press[1] c_thermo_press[2] c_thermo_press[3] c_thermo_press[4] c_thermo_press[5] c_thermo_press[6]  c_thermo_press c_thermo_temp 
+    fix avg_en   dynamic ave/time 1 1000 1000 c_cpe c_cke
+    
+    fix fHeatingDynamic dynamic nvt temp $(v_T) $(v_T) $(100*dt)
+    fix_modify	fHeatingDynamic temp TDynamic # for thermalisation of the control group 1 along x and y only
+    fix fnveLeft    edgeLeft  nve
+    fix fnveRight   edgeRight nve
+    # velocity = strain-per-picosecond*original-lenght/2
+    variable Lx0_dyn string $(v_Lx_dyn)
+    variable vel string $(v_srate1*v_Lx0_dyn/2)
+    velocity edgeLeft set -$(v_vel) 0 0
+    velocity edgeRight set $(v_vel) 0 0
+    fix avg_stress dynamic ave/time 1 1000 1000 c_2[1] c_2[2] c_2[3] c_2[4] c_2[5] c_2[6]
+    run 1000
+    variable strain equal (v_Lx_dyn-v_Lx0_dyn)/v_Lx0_dyn
+
+    #> log
+    print """# Units: metal
+# All Press are in pressure units but
+# All stress are in in P*V units
+# Divide by real_vol to get sigma in pressure units
+# real_vol = lx*ly*thickness """ file ${stressLogFile} screen no
+    fix fdeform_log all print 1000 &
+    "$(step),$(step*dt),$(count(all)),$(f_avg_tp[8]),&
+    $(v_strain),$(f_avg_stress[1]),$(f_avg_stress[2]),$(f_avg_stress[3]),$(f_avg_stress[4]),$(f_avg_stress[5]),$(f_avg_stress[6]),&
+    $(f_avg_en[1]),$(f_avg_en[2]),&
+    $(f_avg_dim[1]),$(f_avg_dim[2]),$(f_avg_dim[3]),$(f_avg_dim[4]),$(f_avg_dim[5]),$(v_thickness),&
+    $(f_avg_tp[7]),$(f_avg_tp[1]),$(f_avg_tp[2]),$(f_avg_tp[3] ),$(f_avg_tp[4]),$(f_avg_tp[5]),$(f_avg_tp[6])"&
+    title &
+    "step,time,natoms,temp,&
+    strain,sigma_xx,sigma_yy,sigma_zz,sigma_xy,sigma_xz,sigma_yz,&
+    pe,ke,&
+    lx-f,lx-d,ly-f,ly-d,lz,thickness,&
+    press,pxx,pyy,pzz,pxy,pxz,pyz" append ${stressLogFile} screen no
+    #<
+
+    dump 1 all atom 500 trj-tensile-test-x.lammpstrj
+    variable a loop $(v_maxStrain/(v_srate1*dt*10000):%.0f)
+    variable max_stress equal 0
+    variable current_stress equal f_avg_stress[1]*v_GPa/(f_avg_dim[2]*f_avg_dim[4]*v_thickness)
+    fix fmaxstress all print 2000 "$(v_max_stress),$(v_current_stress)" title "Sigma_xx(max),Sigma_xx(curr)" file ${resultDIR}/max_stress.csv screen no
+    label loop
+    if "$(v_max_stress) < $(v_current_stress)" then "variable max_stress equal $(v_current_stress)"
+    next a
+    variable vhalt equal "(v_max_stress-v_current_stress) >= 2.0"
+    fix fhalt all halt 10000  v_vhalt == 1 error soft
+    run 10000
+    jump SELF loop
+    label break
