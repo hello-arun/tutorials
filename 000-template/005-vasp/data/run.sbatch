@@ -24,7 +24,7 @@ elif [[ $machine == "HPC" ]]; then
     module load openmpi/3.1.5/intel-19.1.0.166-6slj4uh
     export VASP_CMD=/home/jangira/Documents/applications/vasp/bin/vasp_std
     export OMP_NUM_THREADS=1
-    SLURM_NPROCS=24
+    export SLURM_NPROCS=24
 fi
 
 mpirun -np ${SLURM_NPROCS} ${VASP_CMD}
