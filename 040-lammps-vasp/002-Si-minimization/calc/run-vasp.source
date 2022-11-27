@@ -1,0 +1,10 @@
+module purge
+conda activate lmp-vasp 
+export PYTHONPATH=/home/jangira/Documents/applications/lammps/lammps-with-MESSAGE/lammps-29Sep2021/lib/message/cslib/src
+export LD_LIBRARY_PATH=/home/jangira/Documents/applications/lammps/lammps-with-MESSAGE/lammps-29Sep2021/lib/message/cslib/src
+module load intel-mkl/2020.0.166/intel-19.1.0.166-wxnxb2u
+module load openmpi/3.1.5/intel-19.1.0.166-6slj4uh
+export VASP_CMD=/home/jangira/Documents/applications/vasp/bin/vasp_std
+export OMP_NUM_THREADS=1
+export SLURM_NPROCS=24
+python vasp_wrap.py file POSCAR_W
