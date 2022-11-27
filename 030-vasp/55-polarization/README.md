@@ -1,5 +1,5 @@
 *** Needs revision***  
-We calculate piezoelectric stress coefficient(e_ijk) and strain coefficients(d_ijk) here by modern theory of polarization.
+We calculate piezoelectric stress coefficient $e_{ijk}$ and strain coefficients $d_{ijk}$ here by modern theory of polarization.
 
 There are mainly two methods for calculating polarization in vasp. 
 * `LBERRY`  
