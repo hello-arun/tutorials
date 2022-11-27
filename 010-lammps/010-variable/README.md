@@ -30,6 +30,22 @@ These values of these variables are calaculated instantly and are not changed th
     variable VNAME equal $(lx) 
     ```
 
+3. Using `{}` brackets
+
+    Constant variable such as `log-file-path` and `outputdir` should be used as follows
+```bash
+variable resultDIR string ./result
+variable heatLogFile string ${resultDIR}/log-heating.csv
+.
+.
+.
+print """ResultDIR=${resultDIR}
+Log File=${stressLogFile}""" file ${heatLogFile} screen no
+fix fheating_log all print 10 """
+$(step*dt),$(count(all))""" title "time,atoms,&
+temp,pe,ke,lx,ly,lz,tot_vol,press,pxx,pyy,pzz,pxy,pxz,pyz"  append ${heatLogFile} screen no
+```
+
 ## Inconstant variables
 
 These variables are caluculated everytime any `fix` or `compute` try to use them in a run.

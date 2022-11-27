@@ -1,6 +1,10 @@
 # Tutorial-for-kids
 
-## Some comparisions
+This repository is created to provided neat implementation of some common computations in `LAMMPS`, `QUANTUM ESPRESSO` and `VASP`. Other modules such as `Material Studio` and `SIESTA` may also be added in the future.
+
+Code to automate various caluculation along with some common mistakes and error is included. Content is frequently revised to update the most optimum solution.
+
+## Quick Tips
 
 ### Monkhorst-Pack Scheme
 
