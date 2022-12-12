@@ -1,0 +1,54 @@
+&CONTROL
+    calculation   = "relax"
+    forc_conv_thr =  1.0D-04
+    etot_conv_thr =  1.0D-6
+    nstep         =  100
+    pseudo_dir    =  "./"
+    outdir        =  "./wfc-out"    
+/
+
+&SYSTEM
+    ecutrho     =  500
+    ecutwfc     =  60
+    ibrav       =  0
+    nat         =  4
+    ntyp        =  2
+    occupations =  fixed
+    degauss     =  0.00
+/
+
+&ELECTRONS
+    conv_thr         =  1.0D-10
+    electron_maxstep =  200
+    mixing_beta      =  7.00000e-01
+/
+
+&IONS
+    ion_dynamics = "bfgs"
+/
+
+&CELL
+    cell_dynamics  = "bfgs"
+    ! cell_dofree = "xy"
+/
+
+
+K_POINTS (automatic)
+ 14 14 1 0 0 0
+
+
+ATOMIC_SPECIES
+B      10.81100  B_pbe_v1.01.uspp.F.UPF
+N      14.00674  N.oncvpsp.upf
+
+CELL_PARAMETERS (angstrom)
+4.2862712052 0.000000000 0.000000000
+   0.000000000   2.499660926   0.000000000
+   0.000000000   0.000000000  20.000000000
+
+ATOMIC_POSITIONS (crystal)
+N             0.0000143944        0.0000000000        0.5000000000
+B             0.3333441428        0.0000000000        0.5000000000
+N             0.5000145893        0.5000000000        0.5000000000
+B             0.8333438735        0.5000000000        0.5000000000
+
