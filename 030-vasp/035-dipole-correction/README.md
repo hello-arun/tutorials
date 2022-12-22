@@ -8,6 +8,7 @@
     IDIPOL = 3
 #
 ```
+* You can use vaspkit to move the 2D material to the bottom along z-direciton
 
 ## Common problems
 
@@ -16,11 +17,9 @@
 The detailed problem can be found out at https://www.vasp.at/forum/viewtopic.php?t=13121
 
 #### Solution
-**Always keep the center of slab near z=0.**
+* Always keep the center of slab near z=0. ***You can use `vaspkit(option 920)` or `ase gui` to move the 2D material to the bottom along z-direciton.***
 
-**Never keep monolayer in the middle of the simulation cell**
-
-**If you do so the calculation will never converge.**
+* Never keep monolayer in the middle of the simulation cell**
 
 ## Reference
 
