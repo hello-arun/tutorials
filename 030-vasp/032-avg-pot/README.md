@@ -4,9 +4,7 @@
 
 ## How to do
 The total potential is expressed as 
-$$
-V_{\mathrm{LOCPOT}}(\textbf{r}) = V(\textbf{r})+\int{\frac{n(\textbf{r'})}{|\textbf{r}-\textbf{r'}|}d\textbf{r'}}+V_{\mathrm{XC}}(\textbf{r})
-$$
+$$V_{\mathrm{LOCPOT}}(\textbf{r}) = V(\textbf{r})+\int{\frac{n(\textbf{r'})}{|\textbf{r}-\textbf{r'}|}d\textbf{r'}}+V_{\mathrm{XC}}(\textbf{r})$$
 where $V(\textbf{r})$ is the ionic potential, the second term is the Hartree potential and $V_{\mathrm{XC}}(\textbf{r})$ is the exchange-correlation potential.
 
 This potential is written to `LOCPOT` file. You can control weather the $V_{\mathrm{XC}}$ should be included in the `LOCPOT` file or not.
