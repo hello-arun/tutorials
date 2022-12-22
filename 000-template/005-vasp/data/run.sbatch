@@ -27,4 +27,9 @@ elif [[ $machine == "HPC" ]]; then
     export SLURM_NPROCS=24
 fi
 
+echo """
+       JobId: ${SLURM_JOB_ID}
+    NodeList: ${SLURM_JOB_NODELIST}
+"""
+
 mpirun -np ${SLURM_NPROCS} ${VASP_CMD}
