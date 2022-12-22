@@ -15,3 +15,11 @@ This potential is written to `LOCPOT` file. You can control weather the $V_{\mat
 |`LVHAR=.TRUE.`|LOCPOT file is written without $V_{\mathrm{XC}}$|
 
 For Average Potential Analysis `LVHAR=.TRUE.` is better choice.
+
+## Post Processing
+You need to use `vaspkit` to post process the `LOCPOT` file. You can use
+```bash
+module load vaspkit
+vaspkit
+# Then Choose Option 42 -> 426 -> 3(For average along z-dir)
+```
