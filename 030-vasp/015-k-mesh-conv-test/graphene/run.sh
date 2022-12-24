@@ -1,27 +1,29 @@
 #!/bin/bash
-
-source /ibex/scratch/jangira/root/sbatchh.sh
-
-# Monkhrost grids
-mkgrids="4x4x1 8x8x1 16x16x1 24x24x1 16x16x2 8x8x2"
 wd=${PWD}
+calcDIR=${wd}/calc
 dataDIR=${wd}/data
+machine="IBEX"  # HPC or IBEX
 
-for grid in $mkgrids; do
-    job_name="${grid}"
-    calcDIR=${wd}/temp/KPOINTS/${grid}
-    mkdir -p ${calcDIR}
+grids=("4 4 1" "8 8 1" "16 16 1" "24 24 1" "16 16 2" "8 8 2")
 
-    #Copy required files
+# for ((i=0; i < ${#grids[@]}; i++)); do
+    # grid=${grids[$i]}
+for grid in "${grids[@]}"; do
+    newCalcDIR="${calcDIR}/grid-${grid// /x}"
+    mkdir -p ${newCalcDIR}
+    # Copy required files
     cd $dataDIR
-    cp INCAR OPTCELL POSCAR POTCAR KPOINTS run.sbatch $calcDIR/
+    cp INCAR KPOINTS POSCAR POTCAR run.sbatch $newCalcDIR/
+    
+    # Some Replacements
+    sed -i "s/__grid/${grid// /x}/" "$newCalcDIR/run.sbatch"
+    sed -i "s/__grid/$grid/" "$newCalcDIR/KPOINTS"
 
-    # Some replacements
-    cd $calcDIR
-    sed -i "s/__grid/${grid//x/ }/" "$calcDIR/KPOINTS"
-    sed -i "s/__job_name/${job_name}/" "$calcDIR/run.sbatch"
-
-    # Job submission
-    # bash run.sbatch
-    sbatchh run.sbatch
+    # Launch the Job
+    cd $newCalcDIR
+    if [[ $machine == "IBEX" ]]; then
+        sbatch run.sbatch
+    elif [[ $machine == "HPC" ]]; then
+        bash run.sbatch > std.out
+    fi
 done
