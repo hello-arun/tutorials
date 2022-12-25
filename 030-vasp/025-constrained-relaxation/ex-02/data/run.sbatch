@@ -3,7 +3,7 @@
 #SBATCH --job-name="__job_name"
 #SBATCH --constraint=intel
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=4
+#SBATCH --ntasks-per-node=24
 #SBATCH --time=0:30:00
 #SBATCH --mail-type=ALL
 #SBATCH --err=./std.err
@@ -25,5 +25,9 @@ elif [[ $machine == "HPC" ]]; then
     export OMP_NUM_THREADS=1
     SLURM_NPROCS=24
 fi
+echo """
+       JobId: ${SLURM_JOB_ID}
+    NodeList: ${SLURM_JOB_NODELIST}
+"""
 
 mpirun -np ${SLURM_NPROCS} ${VASP_CMD}
