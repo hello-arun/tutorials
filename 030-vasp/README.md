@@ -35,3 +35,18 @@ internal error in subroutine SGRCON: Found some non-integer element in rotation 
 ```
 
 limiting digits in the poscar file can help in this case
+
+## Useful scripts
+
+### To merge XDATCAR
+```bash
+files="XDATCAR-1 XDATCAR"
+outFile="XDATCAR-final"
+num=0
+rm $outFile
+for file in $files; do 
+    awk -v num="$num" '/Direct config/{$3=$3+num}{print}' $file >> $outFile
+    count=$(grep "Direct config" $file  | tail -1 | awk '{print $3}')
+    num=$((num+count))
+done
+```
