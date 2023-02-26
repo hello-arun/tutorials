@@ -1,0 +1,43 @@
+Starting calculation at10:47:05 on Sun 26 Feb 2023
+
+Electronic part
+-----------------
+Reading file: ./CHGCAR
+Potential stored on a 48x48x588 grid
+Total number of points is 1354752
+Reading potential data from file...done.
+
+Total integrated electron number = 18.00000
+
+Cell matrix:
+Cell([[3.153161, 0.0, 0.0], [-1.57658, 2.730717, 0.0], [0.0, 0.0, 40.0]])
+
+Crystal axis length (a,b,c)      =  3.15316 ,  3.15316 , 40.00000
+Charge center (crystal axis)     =  0.57233 ,  0.40648 ,  0.25889
+Charge center (Cartisen axis)    =  1.16380 ,  1.10998 , 10.35545
+
+Total elect dipole moments (e*A) =  20.94849  19.97962  186.39815
+
+Ionic part
+-----------------
+Reading file: ./OUTCAR
+ZVAL          =  ['13.00', '5.00']
+ions per type =  ['1', '1']
+
+Ionic positions (Cartisen) for each type:
+Type : 0
+[[ 1.57658  0.91024  10.33492]]
+Type : 1
+[[ 0.00000  0.00000  10.41288]]
+
+Total ionic dipole moments (e*A) =  20.49557  11.83310  186.41836
+
+! Total dipole moment comes from:
+!     \D_{ion} - \D_{elect}
+! So the direction is correct.
+! To use C/A unit, simply dot abs(e).
+
+Total dipole moments (e*A)       =  -0.45292  -8.14652   0.02021
+
+End of calculation.
+Program was running for 8.94 seconds.

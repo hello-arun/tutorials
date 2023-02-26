@@ -1,0 +1,1 @@
+NbN data are obtained from https://chengcheng-xiao.github.io/assets/other/2019-08-05-Berryphase_VASP.zip
