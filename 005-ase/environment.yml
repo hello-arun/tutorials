@@ -1,0 +1,23 @@
+name: ase-env
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+    - -r requirements.txt
+
+  - numpy
+  - scipy
+  - ase
+  - pandas
+  - matplotlib
+  - shapely
+
+  - jupyterlab
+  - jupyterlab-git
+  - jupyterlab-nvdashboard
+  - jupyterlab-lsp

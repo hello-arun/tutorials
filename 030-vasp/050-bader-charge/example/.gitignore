@@ -24,5 +24,7 @@ IBZKPT
 PROCAR
 WAVECAR
 
+temp/
+
 std.err
 std.out
