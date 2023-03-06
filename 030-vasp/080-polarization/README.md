@@ -51,5 +51,7 @@ DIPOL  = 0-1 0-1 0-1 # <Optinal>Center of cell along which to calculate dipole i
 itself calc appropriate DIPOL 
 
 
+## Examples
 
-
+* `ex-01-SnSe` : Polarization calculation with both method in SnSe
+* `ex-02-SnSe-with-shifted-atoms` : Atoms are shifted along the unit cell to check how the polarization change with different choice of origin of unit cell.
