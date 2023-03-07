@@ -1,0 +1,5 @@
+kgrid,    nions,   nkpts,   toten,          enPerAtom,     cpuTime,   elapsedTime
+#-,       number,  number,  Ry,             Ry/atom,       time,      time
+4x3x5,    32,      31,      -416.23327841,  -13.00728995,  5m27.06s,  5m39.80s
+5x3x6,    32,      46,      -416.23331913,  -13.00729122,  31m,       CPU
+10x6x12,  32,      364,     -416.23332599,  -13.00729143,  1h18m,     1h22m
