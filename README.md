@@ -56,6 +56,14 @@ for grid in "${grids[@]}"; do
     echo $grid
 done
 ```
+### Formatting XDATCAR to render inside OVITO
+
+When doing relaxation with `isif=4` in vasp, the trajectory file 'XDATCAR' can not be viewed directly in ovito visualtion software. You have to delete some
+initial lines for it to work. you can achieve it by 
+
+```
+awk 'NR>7{print}' XDATCAR > XDATCAR_REV
+```
 
 ## Worth visiting
 * https://chengcheng-xiao.github.io
