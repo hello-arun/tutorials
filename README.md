@@ -65,5 +65,34 @@ initial lines for it to work. you can achieve it by
 awk 'NR>7{print}' XDATCAR > XDATCAR_REV
 ```
 
+### Extracting Detailed Node info
+
+Sometimes the performance across the amd nodes is not consistent. To dive into what is causing the issue you can see detailed infromation about node using 
+
+```bash
+# To display complete info about every node
+scontrol show node
+
+# To display info about specific node
+#    scontrol show node <nodeName>
+scontrol show node cn513-05-l
+
+# To see active features you can pipe it into grep 
+scontrol show node cn513-05-l | grep  "ActiveFeatures" 
+```
+
+Small script to print info about every node used in the calculation. It will read the nodelist from std.out
+
+```bash
+#!/bin/bash
+nodeList=$(grep "NodeList" std.out | awk '{print $2}')
+nodeList=$(echo ${nodeList//,/ })
+echo "Node List: $nodeList"
+for node in $nodeList; do
+    activeFeatures=$(scontrol show node $node| grep "ActiveFeatures")
+    echo "$node => $activeFeatures"
+done
+```
+
 ## Worth visiting
 * https://chengcheng-xiao.github.io
