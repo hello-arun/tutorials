@@ -4,6 +4,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+from tabulate import tabulate
 # Styling
 
 
@@ -45,13 +46,12 @@ def init(figsize, subplts):
         frameon=True,
         labelspacing=0.15,
         columnspacing=0.00,
-        markerscale=0.2,
-        handlelength=0.8,
+        markerscale=1,
+        handlelength=2,
         handletextpad=0.5,
         framealpha=0.8,
     )
     mm = 1 / 25.4
-    print(subplts)
     fig, (axes) = plt.subplots(subplts[0], subplts[1], squeeze=False)
     fig.set_size_inches(figsize[0] * mm, figsize[1] * mm)
 
@@ -93,13 +93,13 @@ def set_legend(axes):
 subplots = [1, 1]
 figsize = [89, 75]  # in mm
 labels = [
-    [[r"Strain $\epsilon_{x}%$", r"$\Delta$ Polarization(2D) (pC/m)"]],
+    [[r"$\epsilon_{x} \%$", r"$\Delta$ Polarization(2D) (pC/m)"]],
 ]  # [[[xlabel,ylabel]]]
 limits = [
-    [[-0.01, 0.01, -40, 40]]
+    [[-1.0, 1.0, -60, 60]]
 ]  # axes limits [[[xmin,xmax,ymin,ymax]]]
 major_minors = [
-    [[0.004, 0.002, 10, 5]]
+    [[0.4, 0.2, 20, 10]]
 ]  # tick location [[[x_major,x_minor,y_major,y_minor]]]
 
 
@@ -108,27 +108,50 @@ def plot(axes):
         for ax in axs:
             data = pd.read_csv("./polarization.csv",
                                skipinitialspace=True, comment="#")
-            print(data)
             strain = data["ep_X"]
-            height = 20  # Height in Angstrom
-            pol_3d = (data["pIon"]+data["pEle"])/data["vol"]
-            
+            height = data["c"][0]  # Height in Angstrom
+            ref_index = strain.index[strain == 0][0]
+            pTot = data["pIon"]+data["pEle"]
+            quanta = data["a"]/data["vol"]
+            pol_3d = pTot/data["vol"]
+            shift = data["shift"]
+            pol_3d_shifted = pol_3d+quanta*data["shift"]
+
+
+            # print(f"Total 3D Polarization (e/A^2)\n{pol_3d}")
             # Copnversion Factor
             # e/(Ang^2) => 1.6*1E-19 columb/(Ang^2)
             # e/Ang => -1.6E-19/1E-10 columb/meter => -1600 pico-columb/meter
             pcoColmbMtr=-1600
             
-            pol_2d = pol_3d*height*pcoColmbMtr
-            pol_ref = pol_2d[strain.index[strain == 0][0]]
+            pol_2d = pol_3d_shifted*height*pcoColmbMtr
+            pol_ref = pol_2d[ref_index]
             pol_2d -= pol_ref
-            ax.plot(
-                strain,
+            
+            output_data = np.column_stack((strain, pTot, pol_3d, quanta, shift,pol_2d))
+            headers = ["strain","pTot", "pol_3d(e/Ang^2)", "quanta(e/Ang^2)", "shift","pol_2d(pC/m)"]
+            print(tabulate(output_data, headers=headers, floatfmt=".5f"))
+            
+            p1=ax.plot(
+                strain*100,
                 pol_2d,
-                "o-",
+                "o",
                 label="SnSe",
-                color="red",
                 mfc="none"
             )
+            fit_coef = np.polyfit(strain,pol_2d,1)
+            fit_fun  = np.poly1d(fit_coef)
+            ax.plot(
+                strain*100,
+                fit_fun(strain),
+                "--",
+                label="fitted",
+                color=p1[0].get_color(),
+                mfc="none"
+            )
+            message=f"e11={fit_coef[0]/100.0:0.2f} ÅC/m"
+            print(f"# {message}")
+            ax.text(-0.4,-40,message)
     # uncomment to give final touch
     set_labels(axes, labels)
     set_limits(axes, limits)
@@ -146,5 +169,5 @@ plot(axes)
 #     hspace=0.2,
 #     wspace=0.2)
 fig.tight_layout()
-fig.savefig("svg-pol-vs-e11.svg")
+fig.savefig(f"fig-pol-vs-strain.svg")
 plt.show()
