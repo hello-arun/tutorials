@@ -7,10 +7,10 @@ vaspkit -task 200
 ```
 3. Then batch run the VASP cmd in all these folders to obtain OUTCAR.
 4. Then modify the first line in VPKIT.in file to 2:(post process)
+5. Again run the vaspkit with taskid 200. It will display all the elastic constants in the ouput.
 ```bash
 vaspkit -task 200
 ```
-5. Again run the vaspkit with taskid 200. It will display all the elastic constants in the ouput.
 
 
 ## Footnote
