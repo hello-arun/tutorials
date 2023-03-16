@@ -11,6 +11,14 @@ vaspkit -task 200
 ```bash
 vaspkit -task 200
 ```
+## boilerplate
+
+```bash
+# Check What will be downloaded
+svn ls https://github.com/hello-arun/Tutorial-for-kids.git/trunk/030-vasp/087-elastic-constants/02-stress-strain-method-3d/_src
+# Download the code
+svn export https://github.com/hello-arun/Tutorial-for-kids.git/trunk/030-vasp/087-elastic-constants/02-stress-strain-method-3d/_src
+```
 
 
 ## Footnote
