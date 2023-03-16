@@ -1,0 +1,20 @@
+# Include These files
+!POSCAR
+!CONTCAR
+!OUTCAR
+!KPOINTS
+!INCAR
+!run.sbatch
+
+# Ignore these files
+XDATCAR
+vasprun.xml
+DOSCAR
+EIGENVAL
+IBZKPT
+OSZICAR
+PCDAT
+REPORT
+std.err
+std.out
+POTCAR
