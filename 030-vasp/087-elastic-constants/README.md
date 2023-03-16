@@ -15,9 +15,9 @@ vaspkit -task 200
 
 ```bash
 # Check What will be downloaded
-svn ls https://github.com/hello-arun/Tutorial-for-kids.git/trunk/030-vasp/087-elastic-constants/02-stress-strain-method-3d/_src
+svn ls https://github.com/hello-arun/Tutorial-for-kids.git/trunk/030-vasp/087-elastic-constants/03-automated-workflow
 # Download the code
-svn export https://github.com/hello-arun/Tutorial-for-kids.git/trunk/030-vasp/087-elastic-constants/02-stress-strain-method-3d/_src
+svn export https://github.com/hello-arun/Tutorial-for-kids.git/trunk/030-vasp/087-elastic-constants/03-automated-workflow
 ```
 
 
