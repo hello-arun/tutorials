@@ -1,23 +1,25 @@
 name: basic
 
 channels:
-  - defaults
   - conda-forge
-dependencies:
-  - python
-  - pip
-  - pip:
-    - tabulate
-  - autopep8
-  - py4vasp
-  - numpy
-  - scipy
-  - pandas
-  - ase
-  - shapely
-  - matplotlib
-  - jupyterlab
-  - jupyterlab-lsp
-# phonopy
-  - conda-forge::phonopy
+  - defaults
 
+dependencies:
+  - python=3.10.6
+  - pip=22.2.2
+  - pip:
+    - tabulate==0.9.0
+    - py4vasp==0.4.0
+    - autopep8==1.7.0
+  - numpy=1.23.1
+  - scipy=1.9.1
+  - pandas=1.4.4
+  - ase=3.22.1
+  - shapely=1.8.4
+  - matplotlib=3.5.2
+  - jupyterlab=3.4.4
+  - jupyterlab-lsp=3.10.2
+# phonopy
+  - conda-forge::phonopy=2.16.3
+
+prefix: /home/jangira/miniconda3/envs/basic
