@@ -1,7 +1,6 @@
 # Owner : Arun Jangir
 # email : arun.jangi@kaust.edu.sa
 
-from email.policy import default
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -26,9 +25,8 @@ def init(figsize, subplts):
             "d62728",
         ],
     )
-    font = {'family': 'sans-serif',
+    font = {'family': 'Helvetica',
             'size': 12,
-            "sans-serif": "Helvetica"
             }
     plt.rc("text", antialiased=True)
     plt.rc("font", **font)
@@ -86,50 +84,64 @@ def set_labels(axes, labels):
 def set_legend(axes):
     for axs in axes:
         for ax in axs:
-            ax.legend()
+            ax.legend(loc="upper left")
 
 
 # Just replace whatever above this part to change plot stying
-subplots = [2, 2]
-figsize = [185, 185]  # in mm
+subplots = [3, 1]
+figsize = [89, 1.4*89]  # in mm
+fig_name = "010-common-axis-plot.png"
 labels = [
-    [[r"$\epsilon_{11}$", r"$\mathregular{\epsilon_{11}}$"], [
-        r"$\sin(\theta_{x\mathrm{y}})$", "y12"]],
-    [["Stress", "Strain"], [r"$\mathregular{sin(\theta_{xy}})}$", "y22"]],
+    [[r"$\theta^\circ$", r"$\tan(\theta)$"]],
+    [[r"$\theta^\circ$", r"$\cos(\theta)$"]],
+    [[r"$\theta^\circ$", r"$\sin(\theta)$"]],
 ]  # [[[xlabel,ylabel]]]
 limits = [
-    [[0, 9, -2, 12], [-1, 11, -1, 10]],
-    [[-1, 11, -1, 11], [-1, 11, -1, 11]],
+    [[0, 360, -1.2, 1.2]],
+    [[0, 360, -1.2, 1.2]],
+    [[0, 360, -1.2, 1.2]],
 ]  # axes limits [[[xmin,xmax,ymin,ymax]]]
 major_minors = [
-    [[2, 1, 2, 1], [1, 0.5, 1, 0.5]],
-    [[2, 1, 3, 0.5], [1, 0.5, 1, 0.5]],
+    [[45, 15, 0.5, 0.1]],
+    [[45, 15, 0.5, 0.1]],
+    [[45, 15, 0.5, 0.1]],
 ]  # tick location [[[x_major,x_minor,y_major,y_minor]]]
 
 
 def plot(axes):
-    for axs in axes:
-        for ax in axs:
-            ax.plot(
-                [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-                [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-                label="Hello",
-            )
+    ax_tan, ax_cos, ax_sin = axes[0, 0], axes[1, 0], axes[2, 0]
+    x = np.arange(361)
+    rad = np.pi/180.0
+    ax_sin.plot(x, np.sin(x*rad), label=r"$\sin(\theta)$")
+    ax_cos.plot(x, np.cos(x*rad), label=r"$\cos(\theta)$")
+    ax_tan.plot(x, np.tan(x*rad), label=r"$\tan(\theta)$")
+
     # uncomment to give final touch
     set_labels(axes, labels)
     set_limits(axes, limits)
     set_major_minors(axes, major_minors)
     set_legend(axes)
 
+    # Share axes
+    ax_sin.sharex(ax_cos)   # sin share axis with cos
+    ax_cos.sharex(ax_tan)   # cos share axis with tan
+    # Turn off x-axis label
+    ax_tan.set_xlabel("")
+    ax_cos.set_xlabel("")
+    # Turn off x-axis tick-labels
+    ax_tan.xaxis.set_ticklabels([])
+    ax_cos.xaxis.set_ticklabels([])
+
 
 fig, (axes) = init(figsize, subplots)
 plot(axes)
 fig.subplots_adjust(
-    top=0.99,
-    bottom=0.07,
-    left=0.065,
-    right=0.99,
-    hspace=0.155,
+    top=0.995,
+    bottom=0.08,
+    left=0.175,
+    right=0.965,
+    hspace=0.0,
     wspace=0.2)
-fig.savefig("001-custom-plot.png",dpi=100)
+
+fig.savefig(f"{fig_name}",dpi=150)
 plt.show()

@@ -1,0 +1,4 @@
+Read Elastic Constants fo 2D Material from the ELASTIC_TENSOR_2D.in file if it exists.
+    21.4589    18.6603     0.0000
+    18.6603    21.4589     0.0000
+     0.0000     0.0000    17.5748

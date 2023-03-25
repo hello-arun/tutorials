@@ -28,11 +28,11 @@ def init(figsize, subplts):
             "d62728",
         ],
     )
-    # font = {'family': 'serif',
+    font = {'family': 'Latin Modern Roman',
             # 'size': 12,
-            # }
-    # plt.rc("font", **font)
-    plt.rc("text", antialiased=True, usetex=True)
+            }
+    plt.rc("font", **font)
+    plt.rc("text", usetex=True)
     # plt.rc("mathtext", fontset="cm")
     plt.rc("figure", titlesize=18)
     plt.rc("axes", labelsize=12, prop_cycle=pallete)
@@ -133,6 +133,9 @@ def plot(axes):
     # Turn off x-axis tick-labels
     ax_tan.xaxis.set_ticklabels([])
     ax_cos.xaxis.set_ticklabels([])
+    ax_sin.text(45,-0.5,r"$\textrm{Hello }\nabla$")
+    ax_sin.text(45,-0.8,r"Hello \nabla")
+
 
 
 fig, (axes) = init(figsize, subplots)

@@ -1,0 +1,32 @@
+# System Setting
+SYSTEM  = SnSe
+PREC    = Accurate   # Accurate works best
+GGA     = PE         # PE=PBE, 91=Perdew-Wang-91
+ENCUT   = 600
+
+# Type of Calculation
+NSW     = 0          # Maximum Number of ionic relaxation steps to perform For SCF set it to 0
+ISIF    = 2          # Which type of run to perform 0=MD, 2=Atomic Relax, 3=Atomic and Unit cell relax
+IBRION  = -1         # Determines how ions are moved -1=for scf only no update,0=MD, 2=conjugate gradientg algorithm
+ISPIN   = 1          # 1=spin unpol, 2=spin pol           
+
+# Continue or Fresh
+ISTART=1
+ICHARG=1
+
+# Stopping Criteria
+EDIFF   = 1.0E-6     # Energy Convergence in electronic steps
+EDIFFG  = -1.0E-3    # Force conv in ionic steps, -ve for force +ve for energy diffrence
+
+# Smearing
+ISMEAR  = 0          # 0=Gaussina Smearing
+SIGMA   = 0.1        # Smearing width
+
+# Paralalisation 
+NCORE   = 24
+# Polarization LBERRY Method
+LBERRY = .TRUE.
+IGPAR = 3
+NPPSTR = 3
+# DIPOL = 0.10 0.10 0.50 # <Optinal>
+

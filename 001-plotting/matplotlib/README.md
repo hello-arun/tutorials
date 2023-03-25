@@ -1,8 +1,47 @@
 # Matplotlib
 
+## For the impatients
+
+* Extract the `latin-modern-font-family.zip` and copy the fonts inside `~/.fonts/`
+* Clear the matplotlib cache
+* Use font family `Latin Modern Roman` inside matplotlib plots.
+* Use `usetex=False` for intial plots.
+* If there is some issue with latex symbols or you want to write some equations you `usetex=True`.
+* Some examples are included in the scripts
+
+## Installing fonts
+You may want to use a custom font like `Latin Modern Roman` or `Helvetica` in matplotlib or anywhere in the system. Matplotlib can use any font installed in the system. To install a font in proceed as follows
+### Linux
+
+Just copy the fonts to `~/.fonts/` directory
+```bash
+mkdir ~/.fonts
+cp fontname ~/.fonts
+```
+
+After installing and clearing matplotlib cache. matplotlib will recognise the new fonts installed.
+
 ## Latex Style Plotting
 
-If you want to not care about fonts and just directly use latex for all of your figure the `use_tex=True` will work for you but this is very slow. May take around 10 ot 20 seconds which is not good. So the best choice is to install Latin Modern Fonts in your system. Latin modern fonts are implementation fo computer modern fonts that latex uses but may be more optimized version we can say. The Latin Modern Fonts are included in the zip file in this repo. To get the most updated version of these fonts you can go to https://www.gust.org.pl/projects/e-foundry/latin-modern/download. Once you have installed them in your system you need to clearn the mathplotlib cache so that matplotlib can rebuild the font cache.
+You have to enclose the latex expression inside `r"$latex_expression_here$"` to render them inside latex plot.
+To render latex text in your plot you have two choices 
+
+* `LaTex` : `usetex=True` Slow but complete latex feature
+* `MathText` : `usetex=False` Way faster (*Recommended for most of the plots*)
+
+### LaTex
+If you want to not care about fonts and just directly use latex for all of your figure the `use_tex=True`. But this is very slow.
+
+*You will need a working `texlive` installation for this to work.*
+
+### MathText
+
+Best choice is to use `Latin Modern Fonts` which are provided in this repo, for regular text and use mathtext for rendering latex style symbols. This is way faster than proper latex render but do not have complete latex functionality.
+
+Latin modern fonts are implementation fo computer modern fonts that latex uses but may be more optimized version we can say. The Latin Modern Fonts are included in the zip file in this repo. To get the most updated version of these fonts you can go to https://www.gust.org.pl/projects/e-foundry/latin-modern/download. Once you have installed them in your system you need to clearn the mathplotlib cache so that matplotlib can rebuild the font cache.
+
+
+So the best practive would be to plot all figures with latin modern font and then in the very final step use latex style rendering(if you really really need) to publish.
 
 ## Clear Matplotlib Cache
 
@@ -47,6 +86,14 @@ rm ~/.cache/matplotlib/ -rf
 5. Now matplotlib should work fine with Helvetica fonts.
 
 
+## See Font List
+List of all fonts currently available in the matplotlib
+```python
+from matplotlib import font_manager
+print(*font_manager.findSystemFonts(fontpaths=None, fontext='ttf'), sep="\n")
+for f in font_manager.fontManager.ttflist:
+    print(f) 
+```
 ## Adjust multiple subplots (layout)
 
 **Do not ever use tight-layout.** 
