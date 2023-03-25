@@ -26,9 +26,8 @@ def init(figsize, subplts):
             "d62728",
         ],
     )
-    font = {'family': 'sans-serif',
+    font = {'family': 'Helvetica',
             'size': 12,
-            "sans-serif": "Helvetica"
             }
     plt.rc("text", antialiased=True)
     plt.rc("font", **font)

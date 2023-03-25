@@ -4,22 +4,11 @@
 # Owner : Arun Jangir
 # email : arun.jangi@kaust.edu.sa
 import time
-from matplotlib import font_manager
-
-# print("List of all fonts currently available in the matplotlib:")
-print(*font_manager.findSystemFonts(fontpaths=None, fontext='ttf'), sep="\n")
-for f in font_manager.fontManager.ttflist:
-    print(f) 
-    
 start = time.time()
-
-
 import numpy as np
 import matplotlib.pyplot as plt
 
 # Styling
-
-
 def init(figsize, subplts):
     from matplotlib import cycler
 
@@ -38,16 +27,14 @@ def init(figsize, subplts):
             "d62728",
         ],
     )
-    font = {'family': 'Latin Modern Roman',
-            'size': 10,
-            }
+    font = {'family': 'Latin Modern Roman'}
     plt.rc("text", antialiased=True, usetex=False)
     plt.rc("font", **font)
     plt.rc("mathtext", fontset="cm")
     plt.rc("figure", titlesize=18)
     plt.rc("axes", labelsize=10, prop_cycle=pallete)
     plt.rc("xtick", labelsize=10, direction="in", top=True, bottom=True)
-    plt.rc("ytick", labelsize=6, direction="in", right=True, left=True)
+    plt.rc("ytick", labelsize=10, direction="in", right=True, left=True)
     plt.rc(
         "legend",
         fontsize=10,

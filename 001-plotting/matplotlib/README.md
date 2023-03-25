@@ -1,8 +1,19 @@
 # Matplotlib
 
+## Installing fonts
+You may want to use a custom font in matplotlib or anywhere in the system. Matplotlib can use any font installed in the system. To install a font in proceed as follows
+### Linux
+
+Just copy the fonts to `~/.fonts/` directory
+```bash
+mkdir ~/.fonts
+cp fontname ~/.fonts
+```
 ## Latex Style Plotting
 
 If you want to not care about fonts and just directly use latex for all of your figure the `use_tex=True` will work for you but this is very slow. May take around 10 ot 20 seconds which is not good. So the best choice is to install Latin Modern Fonts in your system. Latin modern fonts are implementation fo computer modern fonts that latex uses but may be more optimized version we can say. The Latin Modern Fonts are included in the zip file in this repo. To get the most updated version of these fonts you can go to https://www.gust.org.pl/projects/e-foundry/latin-modern/download. Once you have installed them in your system you need to clearn the mathplotlib cache so that matplotlib can rebuild the font cache.
+
+So the best practive would be to plot all figures with latin modern font and then in the very final step use latex style rendering to publish.
 
 ## Clear Matplotlib Cache
 
@@ -47,6 +58,14 @@ rm ~/.cache/matplotlib/ -rf
 5. Now matplotlib should work fine with Helvetica fonts.
 
 
+## See Font List
+List of all fonts currently available in the matplotlib
+```python
+from matplotlib import font_manager
+print(*font_manager.findSystemFonts(fontpaths=None, fontext='ttf'), sep="\n")
+for f in font_manager.fontManager.ttflist:
+    print(f) 
+```
 ## Adjust multiple subplots (layout)
 
 **Do not ever use tight-layout.** 
