@@ -56,6 +56,25 @@ for grid in "${grids[@]}"; do
     echo $grid
 done
 ```
+
+### Declaring dictionary in bash
+
+```bash
+declare -A animals=( ["moo"]="cow" ["woof"]="dog")
+
+# How to use
+echo ${animals["moo"]}
+# output: cow
+```
+
+### Ignoring case while matching pattern in awk
+
+calculate the line number containg CELL_PARA in INCAR-scf.pw file while ignoring case
+
+```bash
+line_no=$(awk -v IGNORECASE=1 "/CELL_PARA/ {print NR}" INCAR-scf.pw)
+```
+
 ### Formatting XDATCAR to render inside OVITO
 
 When doing relaxation with `isif=4` in vasp, the trajectory file 'XDATCAR' can not be viewed directly in ovito visualtion software. You have to delete some

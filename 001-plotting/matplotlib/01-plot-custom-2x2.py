@@ -26,9 +26,7 @@ def init(figsize, subplts):
             "d62728",
         ],
     )
-    font = {'family': 'Helvetica',
-            'size': 12,
-            }
+    font = {'family': 'Helvetica'}
     plt.rc("text", antialiased=True)
     plt.rc("font", **font)
     plt.rc("mathtext", fontset="cm")
@@ -92,7 +90,7 @@ def set_legend(axes):
 subplots = [2, 2]
 figsize = [185, 185]  # in mm
 labels = [
-    [[r"$\epsilon_{11}$", r"$\mathregular{\epsilon_{11}}$"], [
+    [[r"$\epsilon_{11}$", r"$\mathcal{E}_{11}$"], [
         r"$\sin(\theta_{x\mathrm{y}})$", "y12"]],
     [["Stress", "Strain"], [r"$\mathregular{sin(\theta_{xy}})}$", "y22"]],
 ]  # [[[xlabel,ylabel]]]
@@ -130,5 +128,5 @@ fig.subplots_adjust(
     right=0.99,
     hspace=0.155,
     wspace=0.2)
-fig.savefig("001-custom-plot.png",dpi=100)
+fig.savefig("01-fig-custom-2x2.svg")
 plt.show()
