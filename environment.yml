@@ -6,8 +6,8 @@ channels:
 dependencies:
   - python
   - pip
-    #  - pip:
-    #    - black
+  - pip:
+    - tabulate
   - autopep8
   - py4vasp
   - numpy
