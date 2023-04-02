@@ -1,0 +1,24 @@
+Different LAMMPS Loop Implementation
+
+index: 
+    name1
+    name2
+    name3
+    name4
+index: 
+    TStart:1, TStop:50
+    TStart:50, TStop:100
+    TStart:100, TStop:150
+    TStart:150, TStop:200
+    TStart:200, TStop:250
+    TStart:250, TStop:300
+loop: 
+    4 40
+    5 50
+    6 60
+    7 70
+    8 80
+    9 90
+    10 100
+    11 110
+    12 120

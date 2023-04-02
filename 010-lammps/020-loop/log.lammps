@@ -1,0 +1,137 @@
+LAMMPS (29 Sep 2021 - Update 3)
+# Loop is like a condition check and jump
+
+variable resFile string ./results.txt
+print """Different LAMMPS Loop Implementation
+""" file ${resFile}
+print """Different LAMMPS Loop Implementation
+""" file ./results.txt
+Different LAMMPS Loop Implementation
+
+
+# We Implement loop here
+print "index: " append ${resFile}
+print "index: " append ./results.txt
+index: 
+variable i index name1 name2 name3 name4
+label startloop1
+print "    ${i}" append ${resFile}
+print "    ${i}" append ./results.txt
+    name1
+next i
+jump SELF startloop1
+print "    ${i}" append ${resFile}
+print "    ${i}" append ./results.txt
+    name2
+next i
+jump SELF startloop1
+print "    ${i}" append ${resFile}
+print "    ${i}" append ./results.txt
+    name3
+next i
+jump SELF startloop1
+print "    ${i}" append ${resFile}
+print "    ${i}" append ./results.txt
+    name4
+next i
+jump SELF startloop1
+variable i delete
+
+
+print "index: " append ${resFile}
+print "index: " append ./results.txt
+index: 
+variable TStart index 1  50  100 150 200 250
+variable TStop  index 50 100 150 200 250 300
+label startloop2
+print "    TStart:${TStart}, TStop:${TStop}" append ${resFile}
+print "    TStart:${TStart}, TStop:${TStop}" append ./results.txt
+    TStart:1, TStop:50
+next TStart
+next TStop
+jump SELF startloop2
+print "    TStart:${TStart}, TStop:${TStop}" append ${resFile}
+print "    TStart:${TStart}, TStop:${TStop}" append ./results.txt
+    TStart:50, TStop:100
+next TStart
+next TStop
+jump SELF startloop2
+print "    TStart:${TStart}, TStop:${TStop}" append ${resFile}
+print "    TStart:${TStart}, TStop:${TStop}" append ./results.txt
+    TStart:100, TStop:150
+next TStart
+next TStop
+jump SELF startloop2
+print "    TStart:${TStart}, TStop:${TStop}" append ${resFile}
+print "    TStart:${TStart}, TStop:${TStop}" append ./results.txt
+    TStart:150, TStop:200
+next TStart
+next TStop
+jump SELF startloop2
+print "    TStart:${TStart}, TStop:${TStop}" append ${resFile}
+print "    TStart:${TStart}, TStop:${TStop}" append ./results.txt
+    TStart:200, TStop:250
+next TStart
+next TStop
+jump SELF startloop2
+print "    TStart:${TStart}, TStop:${TStop}" append ${resFile}
+print "    TStart:${TStart}, TStop:${TStop}" append ./results.txt
+    TStart:250, TStop:300
+next TStart
+next TStop
+jump SELF startloop2
+variable TStart delete
+variable TStop delete
+
+print "loop: " append ${resFile}
+print "loop: " append ./results.txt
+loop: 
+variable i loop 4 12
+label startloop3
+print "    ${i} $(v_i * 10)" append ${resFile}
+print "    ${i} $(v_i * 10)" append ./results.txt
+    4 40
+next i
+jump SELF startloop3
+print "    ${i} $(v_i * 10)" append ${resFile}
+print "    ${i} $(v_i * 10)" append ./results.txt
+    5 50
+next i
+jump SELF startloop3
+print "    ${i} $(v_i * 10)" append ${resFile}
+print "    ${i} $(v_i * 10)" append ./results.txt
+    6 60
+next i
+jump SELF startloop3
+print "    ${i} $(v_i * 10)" append ${resFile}
+print "    ${i} $(v_i * 10)" append ./results.txt
+    7 70
+next i
+jump SELF startloop3
+print "    ${i} $(v_i * 10)" append ${resFile}
+print "    ${i} $(v_i * 10)" append ./results.txt
+    8 80
+next i
+jump SELF startloop3
+print "    ${i} $(v_i * 10)" append ${resFile}
+print "    ${i} $(v_i * 10)" append ./results.txt
+    9 90
+next i
+jump SELF startloop3
+print "    ${i} $(v_i * 10)" append ${resFile}
+print "    ${i} $(v_i * 10)" append ./results.txt
+    10 100
+next i
+jump SELF startloop3
+print "    ${i} $(v_i * 10)" append ${resFile}
+print "    ${i} $(v_i * 10)" append ./results.txt
+    11 110
+next i
+jump SELF startloop3
+print "    ${i} $(v_i * 10)" append ${resFile}
+print "    ${i} $(v_i * 10)" append ./results.txt
+    12 120
+next i
+jump SELF startloop3
+variable i delete
+Total wall time: 0:00:00
