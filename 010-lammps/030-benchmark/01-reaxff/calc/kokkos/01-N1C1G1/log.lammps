@@ -1,0 +1,131 @@
+LAMMPS (23 Jun 2022 - Update 3)
+KOKKOS mode is enabled (src/KOKKOS/kokkos.cpp:106)
+  will use up to 1 GPU(s) per node
+WARNING: When using a single thread, the Kokkos Serial backend (i.e. Makefile.kokkos_mpi_only) gives better performance than the OpenMP backend (src/KOKKOS/kokkos.cpp:218)
+  using 1 OpenMP thread(s) per MPI task
+package kokkos
+# ReaxFF benchmark: simulation of PETN crystal, replicated unit cell
+package kokkos neigh half newton on
+units		real
+atom_style	charge
+
+read_data	data.reax
+Reading data file ...
+  orthogonal box = (0 0 0) to (9.491065 9.491065 6.99123)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  58 atoms
+  read_data CPU = 0.001 seconds
+
+#replicate	7 8 10
+replicate	7 8 5
+Replicating atoms ...
+  orthogonal box = (0 0 0) to (66.437455 75.92852 34.95615)
+  1 by 1 by 1 MPI processor grid
+  16240 atoms
+  replicate CPU = 0.008 seconds
+
+velocity	all create 300.0 9999
+
+pair_style	reaxff NULL
+pair_coeff      * * ffield.reax C H O N
+WARNING: Changed valency_val to valency_boc for X (src/REAXFF/reaxff_ffield.cpp:296)
+
+timestep	0.1
+fix charge_eq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff
+
+fix		2 all nve
+
+thermo		10
+thermo_style	custom step temp ke pe pxx pyy pzz etotal
+
+run		100
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Your simulation uses code contributions which should be cited:
+
+- pair reaxff command:
+
+@Article{Aktulga12,
+ author = {H. M. Aktulga, J. C. Fogarty, S. A. Pandit, A. Y. Grama},
+ title = {Parallel reactive molecular dynamics: Numerical methods and algorithmic techniques},
+ journal = {Parallel Computing},
+ year =    2012,
+ volume =  38,
+ pages =   {245--259}
+}
+
+- fix qeq/reaxff command:
+
+@Article{Aktulga12,
+ author = {H. M. Aktulga, J. C. Fogarty, S. A. Pandit, A. Y. Grama},
+ title = {Parallel reactive molecular dynamics: Numerical methods and algorithmic techniques},
+ journal = {Parallel Computing},
+ year =    2012,
+ volume =  38,
+ pages =   {245--259}
+}
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 12
+  ghost atom cutoff = 12
+  binsize = 12, bins = 6 7 3
+  2 neighbor lists, perpetual/occasional/extra = 2 0 0
+  (1) pair reaxff/kk, perpetual
+      attributes: half, newton off, ghost, kokkos_device
+      pair build: half/bin/newtoff/ghost/kk/device
+      stencil: full/ghost/bin/3d
+      bin: kk/device
+  (2) fix qeq/reaxff/kk, perpetual
+      attributes: full, newton off, kokkos_device
+      pair build: full/bin/kk/device
+      stencil: full/bin/3d
+      bin: kk/device
+WARNING: Fixes cannot yet send exchange data in Kokkos communication, switching to classic exchange/border communication (src/KOKKOS/comm_kokkos.cpp:581)
+Per MPI rank memory allocation (min/avg/max) = 381.6 | 381.6 | 381.6 Mbytes
+   Step          Temp          KinEng         PotEng          Pxx            Pyy            Pzz           TotEng    
+         0   300            14521.612     -1616070.4      22809.542     -29358.773      6290.7539     -1601548.8    
+        10   298.97273      14471.887     -1616018        22434.729     -23609.922      7930.655      -1601546.1    
+        20   294.69825      14264.979     -1615811.7      19507.145     -10187.607      11227.226     -1601546.7    
+        30   288.46121      13963.073     -1615511.4      13963.676      5975.2251      14264.248     -1601548.3    
+        40   281.93161      13647.005     -1615197.6      6149.3908      19368.155      15138.223     -1601550.6    
+        50   274.67758      13295.871     -1614850.5     -2298.6304      26781.44       13433.071     -1601554.7    
+        60   266.01745      12876.674     -1614437.4     -8782.1087      28237.467      10239.881     -1601560.7    
+        70   259.01324      12537.633     -1614103.2     -11690.659      24692.293      6637.5841     -1601565.6    
+        80   259.60998      12566.518     -1614136.5     -10905.975      16753.483      3199.9723     -1601570      
+        90   269.10066      13025.918     -1614598.1     -7724.1618      4865.3429      5.1342263     -1601572.2    
+       100   280.44769      13575.175     -1615149       -3150.3791     -8721.7728     -2133.5318     -1601573.8    
+Loop time of 45.9638 on 1 procs for 100 steps with 16240 atoms
+
+Performance: 0.019 ns/day, 1276.772 hours/ns, 2.176 timesteps/s
+100.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 37.977     | 37.977     | 37.977     |   0.0 | 82.62
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 1.9037     | 1.9037     | 1.9037     |   0.0 |  4.14
+Output  | 0.0040686  | 0.0040686  | 0.0040686  |   0.0 |  0.01
+Modify  | 6.0542     | 6.0542     | 6.0542     |   0.0 | 13.17
+Other   |            | 0.02489    |            |       |  0.05
+
+Nlocal:          16240 ave       16240 max       16240 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:          32428 ave       32428 max       32428 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    6.69975e+06 ave 6.69975e+06 max 6.69975e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  1.08198e+07 ave 1.08198e+07 max 1.08198e+07 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10819760
+Ave neighs/atom = 666.24138
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:48
