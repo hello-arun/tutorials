@@ -49,17 +49,17 @@ Host github.com
   User git
   IdentityFile ~/.ssh/id_rsa_github
 
-# GitLab
+# git@gitlab.kaust.edu.sa:jangira
 Host gitlab.kaust.edu.sa
   HostName gitlab.kaust.edu.sa
   User git
   IdentityFile ~/.ssh/id_rsa_gitlab
 
-# IBEX-khandev
-Host ilogin.ibex.kaust.edu  .sa
+# jangira@ilogin.ibex.kaust.edu.sa
+Host ilogin.ibex.kaust.edu.sa
   HostName ilogin.ibex.kaust.edu.sa
-  User khandev
-  IdentityFile ~/.ssh/id_rsa_ibex_khandev
+  User jangira
+  IdentityFile ~/.ssh/id_rsa_ibex_jangira
 ```
 
 ## Happy SSH
