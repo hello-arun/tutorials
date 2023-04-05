@@ -42,7 +42,7 @@ This will generate public private key pair such as `id_rsa_github.pub` and `id_r
 
 Other than that we also need to setup a configuration file so that our local system know which key to use for authentication while connecting to a perticualar server. This config file is stored as `${HOME}/.ssh/config` on our local system and the format is as follows 
 
-```
+```bash
 # git@github.com:hello-arun
 Host github.com
   HostName github.com
