@@ -1,0 +1,34 @@
+# Loop is like a condition check and jump
+
+variable resFile string ./results.txt
+print """Different LAMMPS Loop Implementation
+""" file ${resFile}
+
+# We Implement loop here
+print "index: " append ${resFile}
+variable i index name1 name2 name3 name4
+label startloop1
+print "    ${i}" append ${resFile}
+next i
+jump SELF startloop1
+variable i delete
+
+
+print "index: " append ${resFile}
+variable TStart index 1  50  100 150 200 250
+variable TStop  index 50 100 150 200 250 300
+label startloop2
+print "    TStart:${TStart}, TStop:${TStop}" append ${resFile}
+next TStart
+next TStop
+jump SELF startloop2
+variable TStart delete
+variable TStop delete
+
+print "loop: " append ${resFile}
+variable i loop 4 12
+label startloop3
+print "    ${i} $(v_i * 10)" append ${resFile}
+next i
+jump SELF startloop3
+variable i delete

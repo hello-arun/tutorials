@@ -1,0 +1,102 @@
+Autoloading libxml2/2.9.12/gcc-7.5.0-i2j2pf5
+Autoloading libiconv/1.16/gcc-7.5.0-cvte7wx
+Autoloading xz/5.2.5/gcc-7.5.0-sytpwnz
+Autoloading zlib/1.2.11/gcc-7.5.0-h3xiplk
+Autoloading ncurses/6.2/gcc-7.5.0-ucxzuau
+Autoloading openssl/1.1.1h/gcc-7.5.0-cunuse5
+Autoloading zlib/1.2.11/gcc-7.5.0-dsnnbcq
+Autoloading hwloc/2.6.0/gcc-7.5.0-gp5gu6n
+Autoloading libpciaccess/0.16/gcc-7.5.0-kna2hl3
+Autoloading ncurses/6.2/gcc-7.5.0-f7bgbmh
+WARNING: ncurses/6.2/gcc-7.5.0-f7bgbmh cannot be loaded due to a conflict.
+HINT: Might try "module unload ncurses" first.
+
+       JobId: 
+    NodeList: 
+
+LAMMPS (23 Jun 2022 - Update 3)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading data file ...
+  orthogonal box = (0 0 0) to (9.491065 9.491065 6.99123)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  58 atoms
+  read_data CPU = 0.001 seconds
+Replicating atoms ...
+  orthogonal box = (0 0 0) to (66.437455 75.92852 34.95615)
+  1 by 1 by 1 MPI processor grid
+  16240 atoms
+  replicate CPU = 0.002 seconds
+WARNING: Changed valency_val to valency_boc for X (src/REAXFF/reaxff_ffield.cpp:296)
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Your simulation uses code contributions which should be cited:
+- pair reaxff command:
+- fix qeq/reaxff command:
+The log file lists these citations in BibTeX format.
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 12
+  ghost atom cutoff = 12
+  binsize = 6, bins = 12 13 6
+  2 neighbor lists, perpetual/occasional/extra = 2 0 0
+  (1) pair reaxff, perpetual
+      attributes: half, newton off, ghost
+      pair build: half/bin/newtoff/ghost
+      stencil: full/ghost/bin/3d
+      bin: standard
+  (2) fix qeq/reaxff, perpetual, copy from (1)
+      attributes: half, newton off
+      pair build: copy
+      stencil: none
+      bin: none
+Setting up Verlet run ...
+  Unit style    : real
+  Current step  : 0
+  Time step     : 0.1
+Per MPI rank memory allocation (min/avg/max) = 884.2 | 884.2 | 884.2 Mbytes
+   Step          Temp          KinEng         PotEng          Pxx            Pyy            Pzz           TotEng    
+         0   300            14521.612     -1616070.4      22809.542     -29358.773      6290.7543     -1601548.8    
+        10   298.97273      14471.887     -1616018        22434.742     -23609.824      7930.6828     -1601546.1    
+        20   294.6983       14264.982     -1615811.7      19507.301     -10187.363      11227.431     -1601546.7    
+        30   288.46128      13963.076     -1615511.4      13963.219      5974.7244      14263.833     -1601548.3    
+        40   281.9317       13647.009     -1615197.6      6149.7452      19368.269      15138.443     -1601550.5    
+        50   274.67762      13295.873     -1614850.5     -2299.0723      26781.088      13432.757     -1601554.7    
+        60   266.01747      12876.675     -1614437.4     -8782.2717      28237.529      10239.804     -1601560.7    
+        70   259.01325      12537.634     -1614103.2     -11689.7        24692.926      6638.2717     -1601565.6    
+        80   259.61         12566.519     -1614136.5     -10905.569      16754.001      3200.3352     -1601570      
+        90   269.10072      13025.921     -1614598.1     -7724.2001      4865.189       5.0496093     -1601572.2    
+       100   280.44775      13575.178     -1615149       -3149.9016     -8721.4803     -2133.2452     -1601573.8    
+Loop time of 253.325 on 1 procs for 100 steps with 16240 atoms
+
+Performance: 0.003 ns/day, 7036.819 hours/ns, 0.395 timesteps/s
+100.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 203.7      | 203.7      | 203.7      |   0.0 | 80.41
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.022734   | 0.022734   | 0.022734   |   0.0 |  0.01
+Output  | 0.0016064  | 0.0016064  | 0.0016064  |   0.0 |  0.00
+Modify  | 49.593     | 49.593     | 49.593     |   0.0 | 19.58
+Other   |            | 0.01151    |            |       |  0.00
+
+Nlocal:          16240 ave       16240 max       16240 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:          32428 ave       32428 max       32428 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    6.69975e+06 ave 6.69975e+06 max 6.69975e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 6699752
+Ave neighs/atom = 412.54631
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:04:17

@@ -165,3 +165,5 @@ done
 
 ## Worth visiting
 * https://chengcheng-xiao.github.io
+* https://www.educative.io/answers/what-is-the-difference-between-openmp-and-openmpi
+* http://gebi.df.uba.ar/support/

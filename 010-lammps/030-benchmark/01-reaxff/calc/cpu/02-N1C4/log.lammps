@@ -1,0 +1,125 @@
+LAMMPS (23 Jun 2022 - Update 3)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+# ReaxFF benchmark: simulation of PETN crystal, replicated unit cell
+
+units		real
+atom_style	charge
+
+read_data	data.reax
+Reading data file ...
+  orthogonal box = (0 0 0) to (9.491065 9.491065 6.99123)
+  2 by 2 by 1 MPI processor grid
+  reading atoms ...
+  58 atoms
+  read_data CPU = 0.001 seconds
+
+#replicate	7 8 10
+replicate	7 8 5
+Replicating atoms ...
+  orthogonal box = (0 0 0) to (66.437455 75.92852 34.95615)
+  2 by 2 by 1 MPI processor grid
+  16240 atoms
+  replicate CPU = 0.001 seconds
+
+velocity	all create 300.0 9999
+
+pair_style	reaxff NULL
+pair_coeff      * * ffield.reax C H O N
+WARNING: Changed valency_val to valency_boc for X (src/REAXFF/reaxff_ffield.cpp:296)
+
+timestep	0.1
+fix charge_eq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff
+
+fix		2 all nve
+
+thermo		10
+thermo_style	custom step temp ke pe pxx pyy pzz etotal
+
+run		100
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Your simulation uses code contributions which should be cited:
+
+- pair reaxff command:
+
+@Article{Aktulga12,
+ author = {H. M. Aktulga, J. C. Fogarty, S. A. Pandit, A. Y. Grama},
+ title = {Parallel reactive molecular dynamics: Numerical methods and algorithmic techniques},
+ journal = {Parallel Computing},
+ year =    2012,
+ volume =  38,
+ pages =   {245--259}
+}
+
+- fix qeq/reaxff command:
+
+@Article{Aktulga12,
+ author = {H. M. Aktulga, J. C. Fogarty, S. A. Pandit, A. Y. Grama},
+ title = {Parallel reactive molecular dynamics: Numerical methods and algorithmic techniques},
+ journal = {Parallel Computing},
+ year =    2012,
+ volume =  38,
+ pages =   {245--259}
+}
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 12
+  ghost atom cutoff = 12
+  binsize = 6, bins = 12 13 6
+  2 neighbor lists, perpetual/occasional/extra = 2 0 0
+  (1) pair reaxff, perpetual
+      attributes: half, newton off, ghost
+      pair build: half/bin/newtoff/ghost
+      stencil: full/ghost/bin/3d
+      bin: standard
+  (2) fix qeq/reaxff, perpetual, copy from (1)
+      attributes: half, newton off
+      pair build: copy
+      stencil: none
+      bin: none
+Per MPI rank memory allocation (min/avg/max) = 336.3 | 336.4 | 336.6 Mbytes
+   Step          Temp          KinEng         PotEng          Pxx            Pyy            Pzz           TotEng    
+         0   300            14521.612     -1616070.4      22809.542     -29358.773      6290.7542     -1601548.8    
+        10   298.97273      14471.887     -1616018        22434.77      -23609.85       7930.7113     -1601546.1    
+        20   294.69828      14264.98      -1615811.7      19507.163     -10187.254      11227.394     -1601546.7    
+        30   288.46121      13963.073     -1615511.4      13963.318      5974.8416      14263.967     -1601548.3    
+        40   281.93162      13647.005     -1615197.6      6149.8077      19368.402      15138.468     -1601550.5    
+        50   274.67758      13295.871     -1614850.5     -2298.8085      26781.142      13432.891     -1601554.7    
+        60   266.01745      12876.674     -1614437.4     -8782.2572      28237.486      10239.813     -1601560.7    
+        70   259.01322      12537.632     -1614103.2     -11690.139      24692.713      6637.9924     -1601565.6    
+        80   259.60993      12566.516     -1614136.5     -10905.571      16753.483      3200.1115     -1601570      
+        90   269.10064      13025.917     -1614598.1     -7724.2762      4865.284       5.0266032     -1601572.2    
+       100   280.44775      13575.179     -1615149       -3150.5566     -8721.7492     -2133.6057     -1601573.8    
+Loop time of 73.7422 on 4 procs for 100 steps with 16240 atoms
+
+Performance: 0.012 ns/day, 2048.395 hours/ns, 1.356 timesteps/s
+99.7% CPU use with 4 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 56.947     | 58.422     | 59.356     |  11.9 | 79.22
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.76384    | 1.6985     | 3.1725     |  70.0 |  2.30
+Output  | 0.0007382  | 0.00082918 | 0.00086545 |   0.0 |  0.00
+Modify  | 13.614     | 13.615     | 13.616     |   0.0 | 18.46
+Other   |            | 0.006732   |            |       |  0.01
+
+Nlocal:           4060 ave        4080 max        4040 min
+Histogram: 2 0 0 0 0 0 0 0 0 2
+Nghost:          14972 ave       14992 max       14952 min
+Histogram: 2 0 0 0 0 0 0 0 0 2
+Neighs:     1.8135e+06 ave 1.82186e+06 max 1.80514e+06 min
+Histogram: 2 0 0 0 0 0 0 0 0 2
+
+Total # of neighbors = 7253988
+Ave neighs/atom = 446.67414
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:01:15
