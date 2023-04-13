@@ -1,0 +1,1 @@
+/home/jangira/miniconda3/envs/basic/bin/sumo-dosplot --xmin -2 --xmax 2 --format svg --font Latin Modern Roman
