@@ -1,4 +1,4 @@
-/home/jangira/miniconda3/envs/basic/bin/sumo-bandplot -f /ibex/scratch/jangira/current-projects/Tutorial-for-kids/030-vasp/021-bands-dos/07-bands/calc/mp-grid-15x15x1-slab-middle/vasprun.xml -p projected --ymin -2 --ymax 2 --format svg --zero-line --style /ibex/scratch/jangira/current-projects/Tutorial-for-kids/030-vasp/021-bands-dos/matlotlib.rc --mode stacked --project Se.s,Se.p,Sn.s,Sn.p --circle-size 60 --zero-line
+/home/jangira/miniconda3/envs/basic/bin/sumo-bandplot -f /ibex/scratch/jangira/current-projects/Tutorial-for-kids/030-vasp/021-bands-dos/07-bands/calc/mp-grid-15x15x1-slab-middle/vasprun.xml -p projected --ymin -2 --ymax 2 --format svg --zero-line --style /ibex/scratch/jangira/current-projects/Tutorial-for-kids/030-vasp/021-bands-dos/matlotlib.rc --mode stacked --project Se.s,Se.p,Sn.s,Sn.p --circle-size 60 --width 2.9527575 --height 2.3622060 --zero-line
 Label positions:
 	0.0000: $\Gamma$
 	0.7169: X

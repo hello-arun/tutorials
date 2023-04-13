@@ -3,7 +3,13 @@ axes.prop_cycle : cycler("color",["000000","000000","ff7f0e","2ca02c","8c564b","
 
 # Font settings
 font.family: Latin Modern Roman
-font.size: 14
+font.size: 16
+axes.labelsize: 16
+axes.titlesize: 16
+xtick.labelsize: 16
+ytick.labelsize: 16
+legend.title_fontsize: 16
+legend.fontsize: 16
 
 # Text settings
 text.antialiased: True
@@ -16,25 +22,19 @@ mathtext.fontset: cm
 figure.titlesize: 14
 
 # Axes settings
-axes.labelsize: 14
-axes.titlesize: 14
 
 # XTick settings
-xtick.labelsize: 14
 xtick.direction: in
 xtick.top: True
 xtick.bottom: True
 # YTick settings
 ytick.major.size:    3.5     
 ytick.minor.size:    2    
-ytick.labelsize: 14
 ytick.direction: in
 ytick.right: True
 ytick.left: True
 
 # Legend settings
-legend.fontsize: 12
-legend.title_fontsize: 12
 legend.borderpad: 0.2
 legend.frameon: True
 legend.labelspacing: 0.15
