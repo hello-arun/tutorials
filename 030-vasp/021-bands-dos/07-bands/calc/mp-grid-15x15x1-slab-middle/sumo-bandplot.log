@@ -1,0 +1,6 @@
+/home/jangira/miniconda3/envs/basic/bin/sumo-bandplot --ymin -2 --ymax 2 --format svg --zero-line --style ./matlotlib.rc --mode stacked --circle-size 30 --project Sn.s,Sn.p,Se.s,Se.p,Se.d
+Label positions:
+	0.0000: GAMMA
+	0.7169: X
+	1.4488: M
+	2.4732: GAMMA
