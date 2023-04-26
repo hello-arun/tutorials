@@ -31,6 +31,21 @@ These methods have their own advantage and weakness, e.g.
 ## Week-04
 ![](__ref/w04-001.png)
 
+## Week-05
+
+We use periodic boundary condition while simulating solids. We also call them
+twisted boundary conditions.
+
+We eliminate surface effects while doing so.
+
+We need more twist for metal than with insulator.
+![](__ref/w05-015.png)
+![](__ref/w05-016.png)
+![](__ref/w05-017.png)
+![](__ref/w05-018.png)
+![](__ref/w05-019.png)
+![](__ref/w05-020.png)
+![](__ref/w05-026.png.png)
 ## Take Aways
 
 * Very Accurate.
