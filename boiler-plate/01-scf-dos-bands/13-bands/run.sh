@@ -16,7 +16,7 @@ cp $(cat $dataDIR/chgcarRef) $calcDIR/CHGCAR
 sed -i "s/__job_name/bandsFulRelaxed/" "$calcDIR/run.sbatch"
 
 cd $calcDIR
-machine="IBEX2"  # HPC or IBEX
+machine="IBEX"  # HPC or IBEX
 if [[ $machine == "IBEX" ]]; then
     sbatch run.sbatch
 elif [[ $machine == "HPC" ]]; then
