@@ -10,10 +10,10 @@ mkdir -p ${calcDIR} ${bcupDIR}
 cp -r $dataDIR run.sh ${bcupDIR}/
 # Copy required files
 cd $dataDIR
-cp INCAR KPOINTS POSCAR POTCAR run.sbatch plot-bands* $calcDIR/
+cp INCAR KPOINTS* POSCAR POTCAR run.sbatch matplotlib.rc plot-bands* $calcDIR/
 cp $(cat $dataDIR/chgcarRef) $calcDIR/CHGCAR
 # Some Replacements
-sed -i "s/__job_name/bandsFulRelaxed/" "$calcDIR/run.sbatch"
+sed -i "s/__jobName/bandsFulRelaxed/" "$calcDIR/run.sbatch"
 
 cd $calcDIR
 machine="IBEX"  # HPC or IBEX
