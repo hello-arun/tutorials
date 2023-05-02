@@ -1,0 +1,45 @@
+# Palette
+axes.prop_cycle : cycler("color",["475c6c","ff7f0e","2ca02c","8c564b","9467bd","e377c2","7f7f7f","bcbd22","17becf","d62728"])
+
+# Font settings
+font.family: Latin Modern Roman
+font.size: 14
+
+# Text settings
+text.antialiased: True
+text.usetex: False
+
+# Mathtext settings
+mathtext.fontset: cm
+
+# Figure settings
+figure.titlesize: 14
+
+# Axes settings
+axes.labelsize: 14
+axes.titlesize: 14
+
+# XTick settings
+xtick.labelsize: 14
+xtick.direction: in
+xtick.top: True
+xtick.bottom: True
+
+# YTick settings
+ytick.labelsize: 14
+ytick.direction: in
+ytick.right: True
+ytick.left: True
+
+# Legend settings
+legend.fontsize: 12
+legend.title_fontsize: 12
+legend.borderpad: 0.2
+legend.frameon: True
+legend.labelspacing: 0.15
+legend.columnspacing: 0.0
+legend.markerscale: 1.0
+legend.handlelength: 0.8
+legend.handletextpad: 0.5
+legend.framealpha: 1.0
+
