@@ -1,6 +1,6 @@
-sumo-bandplot \
-    --ymin -4 \
-    --ymax  4 \
+sumo-dosplot \
+    --xmin -4 \
+    --xmax  4 \
     --format svg \
     --zero-line  \
     --band-edges \
@@ -10,4 +10,4 @@ sumo-bandplot \
     # --mode line \
     # --dos ../../../06-dos/calc/gm-grid-15x15x1-slab-middle-ISMEAR_-5/vasprun.xml \
     # --font "Latin Modern Roman" \
-mv band.svg band-sumo.svg
+mv dos.svg dos-sumo.svg

@@ -18,4 +18,4 @@ NCORE = 24
 NSW = 0
 PREC = Accurate
 SIGMA = 0.05
-SYSTEM = GeS
+SYSTEM = __name

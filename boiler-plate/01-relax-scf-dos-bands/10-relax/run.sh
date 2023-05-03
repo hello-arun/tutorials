@@ -2,7 +2,7 @@
 # run with [--dry or -d] for a quick dry run
 
 wd=${PWD}
-calcDIR=${wd}/calc/fullRelaxed
+calcDIR=${wd}/calc/fullRelax
 dataDIR=${wd}/data
 bcupDIR=${calcDIR}/_src
 # make any required dirs
@@ -10,10 +10,9 @@ mkdir -p ${calcDIR} ${bcupDIR}
 cp -r $dataDIR run.sh ${bcupDIR}/
 # Copy required files
 cd $dataDIR
-cp INCAR KPOINTS POSCAR POTCAR run.sbatch $calcDIR/
-cp $(cat $dataDIR/chgcarRef) $calcDIR/CHGCAR
+cp INCAR KPOINTS POSCAR POTCAR OPTCELL run.sbatch $calcDIR/
 # Some Replacements
-sed -i "s/__job_name/dosFulRelaxed/" "$calcDIR/run.sbatch"
+sed -i "s/__jobName/fullRelax/" "$calcDIR/run.sbatch"
 
 cd $calcDIR
 machine="IBEX"  # HPC or IBEX
