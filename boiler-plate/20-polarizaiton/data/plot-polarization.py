@@ -136,7 +136,7 @@ def plot(axes):
                 strain*100,
                 pol_2d,
                 "o",
-                label="GeS-v3x3",
+                label="__systemlabel",
                 mfc="none"
             )
             fit_coef = np.polyfit(strain,pol_2d,2)
