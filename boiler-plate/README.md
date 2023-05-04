@@ -7,4 +7,10 @@ To download everything insie 01-scf-dos-bands in the current active folder
 svn export  https://github.com/hello-arun/Tutorial-for-kids/trunk/boiler-plate/01-relax-scf-dos-bands/ ./
 ```
 
-if you remove `./` at last this will also download the container folder i.e. `01-scf-dos-bands`
+## 20-polarization
+
+To bootstrap it use 
+```bash
+# use --force to forcefully update
+svn export  https://github.com/hello-arun/Tutorial-for-kids/trunk/boiler-plate/20-polarization/ ./20-polarization
+```
