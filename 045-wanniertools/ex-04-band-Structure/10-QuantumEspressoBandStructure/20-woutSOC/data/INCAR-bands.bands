@@ -1,0 +1,5 @@
+&BANDS
+  outdir = './wfc-out'
+  prefix = 'bi2se3'
+  filband = 'bi2se3-bands-bulk-soc-02.dat'
+/

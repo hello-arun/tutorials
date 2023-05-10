@@ -1,0 +1,9 @@
+&inputpp 
+   outdir="./wfc-out"
+   prefix = 'Fe'
+   seedname = "INCAR"
+   write_mmn = .true.
+   write_amn = .true.
+   write_spn = .true.
+   write_unk = .false.
+/
