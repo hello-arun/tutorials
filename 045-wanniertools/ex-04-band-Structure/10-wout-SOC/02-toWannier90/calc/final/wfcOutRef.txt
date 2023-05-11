@@ -1,0 +1,1 @@
+/ibex/scratch/jangira/current-projects/Tutorial-for-kids/045-wanniertools/ex-04-band-Structure/10-QuantumEspressoBandStructure/20-woutSOC/calc/test-02/wfc-out

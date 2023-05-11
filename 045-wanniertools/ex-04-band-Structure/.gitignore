@@ -1,0 +1,14 @@
+wfc-out/
+
+
+*.xsf
+*.cube
+*.eig
+*.amn
+*.chk
+*.nnkp
+*.mmn
+*.kpt
+std.err
+std.out
+UNK*

@@ -1,0 +1,15 @@
+&inputpp 
+   outdir="./wfc-out"
+   seedname = "10-wannier90"
+   prefix = 'bi2se3'
+   spin_component = 'none'
+   write_mmn = .true.
+   write_amn = .true.
+   write_unk = .true.
+
+   scdm_entanglement = 'erfc' 
+   scdm_proj = .true. 
+   scdm_mu = 11.7280 
+   scdm_sigma = 1.0857
+   write_mmn = .true.
+/
