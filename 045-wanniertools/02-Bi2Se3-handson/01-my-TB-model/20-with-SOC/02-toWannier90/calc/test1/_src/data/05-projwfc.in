@@ -1,0 +1,6 @@
+&projwfc
+    prefix = 'bi2se3',
+    outdir = 'wfc-out/'
+    lsym = .FALSE.,
+    filproj = 'bi2se3-proj'
+ /

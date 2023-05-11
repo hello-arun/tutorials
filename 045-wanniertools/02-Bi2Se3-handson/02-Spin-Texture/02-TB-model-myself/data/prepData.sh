@@ -1,0 +1,1 @@
+cp "../../../01-my-TB-model/20-with-SOC/02-toWannier90/calc/test1/10-wannier90_hr.dat" wannier90_hr.dat
