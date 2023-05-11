@@ -9,6 +9,9 @@ These tutorial files are part of EPW School 2021
 ## ex-03-Lead-Bands
 ![](./ex-03-Pb-fermi-surface-band-structure/calc/test1/fig-bands_wan.svg)
 
+## ex-04-Lead-Bands-SCDM
+![](./ex-04-Pb-SCDM/calc/test1/fig-bands_wan.svg)
+
 
 ## How to check if wannierization is converged
 * https://youtu.be/Z2M_q8if1uU?t=2909
