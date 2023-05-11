@@ -1,0 +1,27 @@
+name: aiida
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+# Basic
+  - python
+  - pip
+  - tabulate
+  - pip:
+    # - autopep8
+  - numpy
+  - scipy
+  - pandas
+  - shapely
+  - matplotlib
+  - jupyterlab
+  - jupyterlab-lsp
+# Specific
+  - ase
+  - conda-forge::phonopy
+  - conda-forge::aiida-core
+  - conda-forge::aiida-core.services
+
+prefix: /home/jangira/miniconda3/envs/aiida
