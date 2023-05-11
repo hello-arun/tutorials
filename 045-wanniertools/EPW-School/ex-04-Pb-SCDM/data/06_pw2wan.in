@@ -1,0 +1,12 @@
+&inputpp
+   outdir = 'wfc-out/'
+   prefix = 'pb'
+   seedname = 'ex4'
+   write_amn = .true.
+   scdm_entanglement = 'erfc' 
+   scdm_proj = .true. 
+   scdm_mu = 12.87653 
+   scdm_sigma = 1.62839
+   write_mmn = .true.
+/
+
