@@ -1,0 +1,8 @@
+&inputpp
+  outdir     =  './wfc-out'
+  prefix     =  'si'
+  seedname   =  'ex2'
+  write_amn  =  .true.
+  write_mmn  =  .true.
+  write_unk  =  .true.
+/

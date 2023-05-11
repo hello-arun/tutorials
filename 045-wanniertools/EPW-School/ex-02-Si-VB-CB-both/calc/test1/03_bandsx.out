@@ -1,0 +1,51 @@
+
+     Program BANDS v.6.6 starts on 11May2023 at 10:58:23 
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 21 395502 (2009);
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 29 465901 (2017);
+          URL http://www.quantum-espresso.org", 
+     in publications or presentations arising from this work. More details at
+     http://www.quantum-espresso.org/quote
+
+     Parallel version (MPI), running on     4 processors
+
+     MPI processes distributed on     1 nodes
+     R & G space division:  proc/nbgrp/npool/nimage =       4
+     Fft bands division:     nmany     =       1
+
+     Reading xml data from directory:
+
+     ./wfc-out/si.save/
+
+     IMPORTANT: XC functional enforced from input :
+     Exchange-correlation= PBE
+                           (   1   4   3   4   0   0   0)
+     Any further DFT definition will be discarded
+     Please, verify this is what you really want
+
+ 
+     Parallelization info
+     --------------------
+     sticks:   dense  smooth     PW     G-vecs:    dense   smooth      PW
+     Min         180      90     30                 3156     1118     205
+     Max         181      91     31                 3157     1120     206
+     Sum         721     361    121                12627     4477     821
+ 
+     Reading collected, re-writing distributed wavefunctions
+     high-symmetry point: -0.3536 0.3536 0.3536   x coordinate   0.0000
+     high-symmetry point:  0.0000 0.0000 0.0000   x coordinate   0.6124
+     high-symmetry point: -0.7071 0.0000 0.0000   x coordinate   1.3195
+
+     Plottable bands (eV) written to file bands.dat.gnu
+     Bands written to file bands.dat
+ 
+     BANDS        :      0.22s CPU      0.49s WALL
+
+ 
+   This run was terminated on:  10:58:23  11May2023            
+
+=------------------------------------------------------------------------------=
+   JOB DONE.
+=------------------------------------------------------------------------------=
