@@ -1,0 +1,6 @@
+&bands
+   prefix  = 'pb'
+   outdir = './wfc-out'
+   filband = 'bands.dat'
+   lsym = .false.
+/
