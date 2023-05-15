@@ -12,7 +12,7 @@ cp -r $dataDIR run.sh ${bcupDIR}/
 cd $dataDIR
 cp INCAR KPOINTS POSCAR POTCAR run.sbatch $calcDIR/
 # Some Replacements
-sed -i "s/__job_name/scfFulRelaxed/" "$calcDIR/run.sbatch"
+sed -i "s/__jobName/scfFulRelaxed/" "$calcDIR/run.sbatch"
 
 cd $calcDIR
 machine="IBEX"  # HPC or IBEX

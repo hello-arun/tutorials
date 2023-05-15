@@ -10,7 +10,7 @@ mkdir -p ${calcDIR} ${bcupDIR}
 cp -r $dataDIR run.sh ${bcupDIR}/
 # Copy required files
 cd $dataDIR
-cp INCAR KPOINTS POSCAR POTCAR run.sbatch plot* matlotlib.rc $calcDIR/
+cp INCAR KPOINTS POSCAR POTCAR run.sbatch plot* matplotlib.rc $calcDIR/
 cp $(cat $dataDIR/chgcarRef) $calcDIR/CHGCAR
 # Some Replacements
 sed -i "s/__jobName/dosFulRelaxed/" "$calcDIR/run.sbatch"

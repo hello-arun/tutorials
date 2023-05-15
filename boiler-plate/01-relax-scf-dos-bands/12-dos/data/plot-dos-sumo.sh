@@ -3,7 +3,7 @@ sumo-dosplot \
     --xmax  4 \
     --format svg \
     --zero-line  \
-    --style "./matlotlib.rc" 
+    --style "./matplotlib.rc" 
     # --band-edges \
     # --circle-size 30 \
     # --project Sn.s,Sn.p,Se.s,Se.p

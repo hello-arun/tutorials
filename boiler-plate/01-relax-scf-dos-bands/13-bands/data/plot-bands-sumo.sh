@@ -4,7 +4,7 @@ sumo-bandplot \
     --format svg \
     --zero-line  \
     --band-edges \
-    --style "./matlotlib.rc" 
+    --style "./matplotlib.rc" 
     # --circle-size 30 \
     # --project Sn.s,Sn.p,Se.s,Se.p
     # --mode line \
