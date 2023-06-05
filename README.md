@@ -167,3 +167,4 @@ done
 * https://chengcheng-xiao.github.io
 * https://www.educative.io/answers/what-is-the-difference-between-openmp-and-openmpi
 * http://gebi.df.uba.ar/support/
+* http://staff.ustc.edu.cn/~zqj/posts/Transforming-between-supercell-and-primitive-cell/
