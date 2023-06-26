@@ -1,0 +1,6 @@
+COHPstartEnergy  -22
+COHPendEnergy     18
+basisSet Bunge
+includeOrbitals sp
+
+cohpbetween atom 1 and atom 2
