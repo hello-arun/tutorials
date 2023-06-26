@@ -1,0 +1,67 @@
+# Author: Arun Jangir March 23 2023
+# E-mail: arun.jangir@kaust.edu.sa
+
+# Units
+    units       real           
+    dimension   3
+    boundary    p p s
+    atom_style  charge
+    newton      on
+
+# Simulation variables
+    timestep 0.25  # metal 1=1ps; real 1=1fs
+
+# Output setting
+    variable restartDIR string ./restart
+    variable resultDIR string ./results
+    variable dumpDIR string ./dump
+    shell mkdir ${restartDIR} ${resultDIR} ${dumpDIR}
+
+# Simulation cell
+    read_data ./POSCAR.lmp
+    replicate 24 16 1
+    mass 1 95.95
+    mass 2 127.6
+
+# Force field
+    pair_style reaxff reaxff.control 
+    pair_coeff * * ./Mo-Te-Cu.reaxff Mo Te
+    # neigh_modify delay 10 check yes 
+
+# ChargeEq
+    fix charge_eq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff  
+
+# Some Computes
+    compute peAtom all pe/atom
+    compute strAtom all stress/atom NULL
+
+# Log Settings
+    thermo 1000
+    thermo_style custom step lx ly lz press pxx pyy pzz pe temp
+    variable p1 equal  "step"
+    variable p2 equal  "lx"
+    variable p3 equal  "ly"
+    variable p4 equal  "lz"
+    variable p5 equal  "-pxx"
+    variable p6 equal  "-pyy"
+    variable p7 equal  "-pzz"
+    variable p8 equal  "pe"
+    variable p9 equal  "ke"
+    variable p10 equal "temp"
+
+
+# Initial Minimization
+    thermo 50 
+    fix f1 all box/relax x 0.0 y 0.0 vmax 0.01
+    min_style cg 
+    dump d1 all custom 50 ${dumpDIR}/01-min-*.txt id type xu yu zu c_peAtom fx fy fz c_strAtom[1] c_strAtom[2] c_strAtom[3] c_strAtom[4] c_strAtom[5] c_strAtom[6] 
+    minimize 1e-10 1e-10 5000 10000
+    undump d1 
+    dump 1 all custom 1 ${dumpDIR}/01-min-*.txt  id type xu yu zu c_peAtom fx fy fz c_strAtom[1] c_strAtom[2] c_strAtom[3] c_strAtom[4] c_strAtom[5] c_strAtom[6] 
+    run 0 
+    undump 1
+    unfix f1
+    write_data 01-min-CONTCAR.lmp
+    reset_timestep 0
+
+# Completed
