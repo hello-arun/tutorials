@@ -26,4 +26,10 @@ elif [[ $machine == "HPC" ]]; then
     SLURM_NPROCS=24
 fi
 
+echo """
+      SLURM_JOB_ID: ${SLURM_JOB_ID}
+SLURM_JOB_NODELIST: ${SLURM_JOB_NODELIST}
+      SLURM_NPROCS: ${SLURM_NPROCS}
+"""
+
 mpirun -np ${SLURM_NPROCS} ${VASP_CMD}
