@@ -1,5 +1,5 @@
 # System Setting
-SYSTEM  = GeS
+SYSTEM  = XYZ
 PREC    = Accurate   # Accurate works best
 GGA     = PE         # PE=PBE, 91=Perdew-Wang-91
 ENCUT   = 600
