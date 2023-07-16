@@ -1,0 +1,32 @@
+ running on    1 total cores
+ distrk:  each k-point on    1 cores,    1 groups
+ distr:  one band on    1 cores,    1 groups
+ using from now: INCAR     
+ vasp.5.4.4.18Apr17-6-g9f103f2a35 (build Sep 16 2021 13:51:27) complex          
+  
+ POSCAR found type information on POSCAR  Na Cl
+ POSCAR found :  2 types and       2 ions
+ scaLAPACK will be used
+ LDA part: xc-table for Pade appr. of Perdew
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ FFT: planning ...
+ WAVECAR not read
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1     0.410383323459E+02    0.41038E+02   -0.15992E+03    16   0.335E+02
+DAV:   2     0.675810802342E+00   -0.40363E+02   -0.40363E+02    24   0.815E+01
+DAV:   3    -0.620662866133E+01   -0.68824E+01   -0.68921E+01    16   0.439E+01
+DAV:   4    -0.638405423850E+01   -0.17743E+00   -0.17583E+00    32   0.841E+00
+DAV:   5    -0.638411086524E+01   -0.56627E-04   -0.56626E-04    16   0.139E-01    0.315E+00
+DAV:   6    -0.524104016784E+01    0.11431E+01   -0.18531E+00    16   0.674E+00    0.147E+00
+DAV:   7    -0.479444752172E+01    0.44659E+00   -0.84321E-01    16   0.392E+00    0.984E-01
+DAV:   8    -0.466575598497E+01    0.12869E+00   -0.10950E-01    16   0.225E+00    0.356E-01
+DAV:   9    -0.469963924857E+01   -0.33883E-01   -0.23136E-01    16   0.185E+00    0.426E-01
+DAV:  10    -0.471831163037E+01   -0.18672E-01   -0.14431E-01    16   0.172E+00    0.179E-01
+DAV:  11    -0.472319553691E+01   -0.48839E-02   -0.61319E-03    16   0.452E-01    0.672E-02
+DAV:  12    -0.472700130390E+01   -0.38058E-02   -0.95871E-04    24   0.203E-01    0.486E-02
+DAV:  13    -0.472802064384E+01   -0.10193E-02   -0.18200E-03    24   0.177E-01    0.157E-02
+DAV:  14    -0.472813397171E+01   -0.11333E-03   -0.56187E-05    16   0.427E-02    0.200E-02
+DAV:  15    -0.472818759520E+01   -0.53623E-04   -0.19103E-04    16   0.592E-02
+   1 F= -.47281876E+01 E0= -.47359201E+01  d E =0.231976E-01
+ writing wavefunctions
