@@ -1,0 +1,6 @@
+INCAR created by Atomic Simulation Environment
+ GGA = PE
+ PREC = Accurate
+ ISYM = 0
+ NCORE = 4
+ LREAL = .FALSE.
