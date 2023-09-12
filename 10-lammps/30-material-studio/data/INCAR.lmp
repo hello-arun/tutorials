@@ -1,0 +1,121 @@
+# Author: Arun Jangir 5th June, 2023
+# E-mail: arun.jangir@kaust.edu.sa
+# Units
+    units       real
+    dimension   3
+    boundary    p p p
+    atom_style  full
+
+# Simulation variables
+    variable TStart equal 4
+    variable TStop  equal 300                     # Temperature 
+    # variable srate equal 1.0e10                # strain per second
+    # variable srate1 equal "v_srate / 1.0e12"   # strain per time unit
+    timestep 0.5                                 # metal 1=1ps; real 1=1fs
+    variable heatingTime equal 100               # Heating time in Pico-Seconds
+    variable stepRamp equal  50000
+    variable stepFlat equal 400000
+
+# Output Files
+    # File Settings
+    variable resultDIR string ./results
+    variable restartDIR string ./restart
+    variable dumpDIR string ./dump
+    shell mkdir ${restartDIR} ${resultDIR} ${dumpDIR}
+    variable heatLogFile string ${resultDIR}/log-heating.csv
+    variable stressLogFile string ${resultDIR}/log-stress-strain.csv
+
+
+    # Output frequency Setting
+    variable dumpStep equal 2000
+    variable avgStep equal 1000
+    variable restartStep equal 20000
+
+# Simulation cell and Force Field
+    pair_style lj/class2/coul/long 12 12
+    bond_style class2
+    angle_style class2
+    dihedral_style class2
+    improper_style class2
+    kspace_style pppm 1.0e-6
+    # kspace_style msm 1.0e-6
+    read_data "alkane-4x4.data"
+    replicate 04 04 1 
+    region rgnBottom block INF INF INF INF INF 5.0 units box
+    group grpBottom region rgnBottom
+    group grpTypCH3 type 1
+    group grpFixed intersect grpBottom grpTypCH3
+    # group grpFixed region rgnFixed
+    group grpFree subtract all grpFixed 
+
+# Some Computes    
+    compute peAtom all pe/atom
+    compute strAtom all stress/atom NULL
+    compute compFreeTemp grpFree temp
+    compute compFixedTemp grpFixed temp/partial 1 1 0
+    neigh_modify delay 0
+
+# Log Settings
+    thermo 1000
+    thermo_style custom step lx ly lz press pxx pyy pzz pe temp
+    thermo_modify temp compFreeTemp
+    variable p1 equal  "step"
+    variable p2 equal  "lx"
+    variable p3 equal  "ly"
+    variable p4 equal  "lz"
+    variable p5 equal  "-pxx"
+    variable p6 equal  "-pyy"
+    variable p7 equal  "-pzz"
+    variable p8 equal  "pe"
+    variable p9 equal  "ke"
+    variable p10 equal "temp"
+
+# # Initial Relaxation
+    thermo 50 
+    fix f1 all box/relax iso 0.0 vmax 0.20
+    min_style cg 
+    min_modify dmax 0.5
+    dump 1 all custom 200 ${dumpDIR}/01-relax-*.txt  id type xu yu zu c_peAtom fx fy fz c_strAtom[1] c_strAtom[2] c_strAtom[3] c_strAtom[4] c_strAtom[5] c_strAtom[6] 
+    minimize 1e-20 1e-20 5000 10000
+    undump 1
+    dump 1 all custom 1 ${dumpDIR}/01-inRelax-*.txt  id type xu yu zu c_peAtom fx fy fz c_strAtom[1] c_strAtom[2] c_strAtom[3] c_strAtom[4] c_strAtom[5] c_strAtom[6] 
+    undump 1
+    unfix f1
+    write_data 01-CONTCAR.lmp
+    reset_timestep 0
+
+# More Fix and Setting
+    thermo 1000
+    restart ${restartStep} ${restartDIR}/res-*.restart
+    fix fixAverage all ave/time 1 ${avgStep} ${avgStep}  v_p1 v_p2 v_p3 v_p4 v_p5 v_p6 v_p7 v_p8 v_p9 v_p10 file ${resultDIR}/data.txt
+    dump 1 all custom ${dumpStep} ${dumpDIR}/02-heat-*.txt  id type xu yu zu 
+    
+# Heating
+    # fix fixForce grpFixed setforce fx fy fz keyword value
+    velocity grpFree create ${TStart} 94611 mom yes rot yes
+    variable pressBegin equal press
+    
+    # TStart to TStop1
+
+        # Ramp
+        run 0
+        # fix 2 all npt temp ${TStart} ${TStop} $(250*dt) x ${pressBegin} 0 $(2500*dt)  y ${pressBegin} 0 $(2500*dt)
+        fix 2 grpFree npt temp ${TStart} ${TStop} $(250*dt) x $(v_pressBegin) 0 $(1000*dt) y $(v_pressBegin) 0 $(1000*dt)  
+        fix_modify 2 temp compFreeTemp
+        fix 3 grpFixed setforce NULL NULL 0.0
+        fix 4 grpFixed nve
+        fix 5 all momentum 1 linear 1 1 1
+        run ${stepRamp}
+        unfix 2
+        
+        # Flat
+        run 0
+        # fix 2 grpDynamic npt temp ${TStop} ${TStop} $(250*dt) x ${pxxbegin} 0 $(2500*dt)  y ${pressBegin} 0 $(2500*dt)
+        fix 2 grpFree npt temp ${TStop} ${TStop} $(250*dt)  x $(v_pressBegin) 0 $(1000*dt) y $(v_pressBegin) 0 $(1000*dt) 
+        fix_modify 2 temp compFreeTemp
+        run ${stepFlat}
+        unfix 2
+
+    unfix fixAverage
+    undump 1
+    unfix  1

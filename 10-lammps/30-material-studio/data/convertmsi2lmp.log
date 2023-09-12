@@ -1,0 +1,21 @@
+
+Running msi2lmp v3.9.9 / 05 Nov 2018
+
+ Forcefield: Class II
+ Forcefield file name: /home/jangira/Downloads/interface_ff_1_5/INTERFACE_FF_1_5/UTILITY_PROGRAMS/pcff_interface.frc
+ Output is recentered around geometrical center
+ Output contains style flag hints
+ System translated by: 0 0 0
+ Reading car file: alkane-4x4.car
+ Reading mdf file: alkane-4x4.mdf
+
+ Building internal coordinate lists 
+
+ Reading forcefield file 
+
+ Get force field parameters for this system
+
+ Check parameters for internal consistency
+ Writing LAMMPS data file alkane-4x4.data for Class II force field
+
+Normal program termination
