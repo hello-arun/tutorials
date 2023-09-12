@@ -1,4 +1,4 @@
-# Tutorial-for-kids
+# Tutorials
 
 This repository is created to provided neat implementation of some common computations in `LAMMPS`, `QUANTUM ESPRESSO` and `VASP`. Other modules such as `Material Studio` and `SIESTA` may also be added in the future.
 
