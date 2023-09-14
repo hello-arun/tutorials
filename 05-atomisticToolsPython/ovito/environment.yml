@@ -1,0 +1,20 @@
+name: ovito
+channels:
+  - https://conda.ovito.org
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - https://conda.ovito.org::ovito=3.9.1
+  - numpy
+  - pandas
+  - autopep8
+  - tabulate
+  - shapely
+  - ase
+  - scipy
+  - matplotlib
+  - jupyterlab
+  - jupyterlab-lsp
+prefix: /home/jangira/miniconda3/envs/ovito
