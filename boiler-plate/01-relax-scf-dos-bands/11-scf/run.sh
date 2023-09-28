@@ -1,24 +1,27 @@
 #!/bin/bash
-# run with [--dry or -d] for a quick dry run
 
-wd=${PWD}
-calcDIR=${wd}/calc/fullRelaxed
-dataDIR=${wd}/data
+jobName="SCF"
+machine="IBEX"  # HPC or IBEX or SHAHEEN
+
+calcDIR=${PWD}/calc/fullRelax
+dataDIR=${PWD}/data
 bcupDIR=${calcDIR}/_src
+
 # make any required dirs
-mkdir -p ${calcDIR} ${bcupDIR}
-cp -r $dataDIR run.sh ${bcupDIR}/
-# Copy required files
-cd $dataDIR
-cp INCAR KPOINTS POSCAR POTCAR run.sbatch $calcDIR/
-# Some Replacements
-sed -i "s/__jobName/scfFulRelaxed/" "$calcDIR/run.sbatch"
+mkdir -p "${calcDIR}" "${bcupDIR}"
+cp -r "$dataDIR" run.sh "${bcupDIR}/"
 
-cd $calcDIR
-machine="IBEX"  # HPC or IBEX
+cd "$dataDIR" || exit 1
+cp INCAR KPOINTS POSCAR POTCAR OPTCELL run.sbatch "${calcDIR}/"
+
+
+cd "${calcDIR}" || exit 1
 if [[ $machine == "IBEX" ]]; then
-    sbatch run.sbatch
+    sed -i "s/__jobName/${jobName}/" run-IBEX.sbatch
+    sbatch run-IBEX.sbatch
 elif [[ $machine == "HPC" ]]; then
-    bash run.sbatch > std.out
+    bash run-HPC.sbatch > std.out
+elif [[ $machine == "SHAHEEN" ]]; then
+    sed -i "s/__jobName/${jobName}/" run-SHAHEEN.sbatch
+    sbatch run-SHAHEEN.sbatch
 fi
-
