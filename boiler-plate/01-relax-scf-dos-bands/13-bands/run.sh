@@ -1,7 +1,7 @@
 #!/bin/bash
 
 jobName="BANDS"
-machine="IBEX"  # HPC or IBEX or SHAHEEN
+machine="HPC"  # HPC or IBEX or SHAHEEN
 
 calcDIR=${PWD}/calc/fullRelax
 dataDIR=${PWD}/data
@@ -12,7 +12,7 @@ mkdir -p "${calcDIR}" "${bcupDIR}"
 cp -r "$dataDIR" run.sh "${bcupDIR}/"
 
 cd "$dataDIR" || exit 1
-cp INCAR KPOINTS POSCAR POTCAR OPTCELL chgcarRef run*.sbatch "${calcDIR}/"
+cp INCAR KPOINTS POSCAR POTCAR chgcarRef matplotlib.rc plot* run*.sbatch "${calcDIR}/"
 
 
 cd "${calcDIR}" || exit 1
