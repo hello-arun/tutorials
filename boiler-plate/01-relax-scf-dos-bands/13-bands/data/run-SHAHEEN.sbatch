@@ -31,4 +31,5 @@ echo """
 SLURM_NTASKS_PER_SOCKET: ${SLURM_NTASKS_PER_SOCKET}
 """
 
+cp $(cat chgcarRef) ./
 srun --ntasks=${SLURM_NPROCS} --hint=nomultithread ${VASP_HOME}/vasp_std

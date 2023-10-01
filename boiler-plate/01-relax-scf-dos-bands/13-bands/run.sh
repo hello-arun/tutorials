@@ -12,7 +12,7 @@ mkdir -p "${calcDIR}" "${bcupDIR}"
 cp -r "$dataDIR" run.sh "${bcupDIR}/"
 
 cd "$dataDIR" || exit 1
-cp INCAR KPOINTS POSCAR POTCAR OPTCELL run.sbatch "${calcDIR}/"
+cp INCAR KPOINTS POSCAR POTCAR OPTCELL chgcarRef run*.sbatch "${calcDIR}/"
 
 
 cd "${calcDIR}" || exit 1

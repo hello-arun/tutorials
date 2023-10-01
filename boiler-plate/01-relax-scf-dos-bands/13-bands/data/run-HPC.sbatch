@@ -21,4 +21,5 @@ echo """
 SLURM_NTASKS_PER_SOCKET: ${SLURM_NTASKS_PER_SOCKET}
 """
 
+cp $(cat chgcarRef) ./
 mpirun -np ${SLURM_NTASKS} ${VASP_CMD}
