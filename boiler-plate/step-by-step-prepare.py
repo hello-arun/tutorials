@@ -68,10 +68,11 @@ baseIncarProps = f"""# System Setting
     NSW        = 0          # Max Num of ionic relaxation to perform, 0:SCF 
     ISIF       = 2          # Type of run, 0:MD, 2:Ions relax, 3: Ion+Lattice relax
     IBRION     = -1         # Determines how ions are moved -1=for scf only no update,0:MD, 2:cg algorithm 
-    ISPIN      = 1          # 1=spin unpol, 2=spin pol
     ISYM       = 0          # 0: Sym switched off
+    ISPIN      = 1          # 1=spin unpol, 2=spin pol
     # IVDW       = 12         # D3 vdw correction
-
+    # LSORBIT    = False      # Spin Orbit Coupling, Requires NBANDS atlest 2*NELECT
+    
 # Continue or Fresh
     ISTART     = 0          # 0=Scratch, 1=Continuation Job only read wavecar file 
     ICHARG     = 2          # 2=ch den from sup pos of atoms , 0=ch den from wave function 1=read CHGCAR file
