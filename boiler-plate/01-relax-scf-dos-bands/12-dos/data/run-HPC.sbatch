@@ -4,7 +4,7 @@
 # with constrained relaxation functionality
 module load intel-mkl/2020.0.166/intel-19.1.0.166-wxnxb2u
 module load openmpi/3.1.5/intel-19.1.0.166-6slj4uh
-export VASP_CMD=/home/jangira/Documents/applications/vasp/bin/vasp_std
+export VASP_HOME=/home/jangira/Documents/applications/vasp/bin
 export OMP_NUM_THREADS=1
 SLURM_NTASKS=24
 
@@ -22,4 +22,5 @@ SLURM_NTASKS_PER_SOCKET: ${SLURM_NTASKS_PER_SOCKET}
 """
 
 cp $(cat chgcarRef) ./
-mpirun -np ${SLURM_NTASKS} ${VASP_CMD}
+mpirun -np ${SLURM_NTASKS} ${VASP_HOME}/vasp_std    # For Standard Calc
+# mpirun -np ${SLURM_NTASKS} ${VASP_HOME}/vasp_std    # For Spin Orbit Coupling

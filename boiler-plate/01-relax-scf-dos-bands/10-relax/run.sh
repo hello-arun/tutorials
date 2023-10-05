@@ -1,9 +1,9 @@
 #!/bin/bash
 
-jobName="fullRelax"
 machine="IBEX"  # HPC or IBEX or SHAHEEN
+jobName="fullRelax"
 
-calcDIR=${PWD}/calc/fullRelax
+calcDIR=${PWD}/calc/${jobName}
 dataDIR=${PWD}/data
 bcupDIR=${calcDIR}/_src
 

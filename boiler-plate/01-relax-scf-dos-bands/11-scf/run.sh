@@ -3,7 +3,7 @@
 jobName="SCF"
 machine="IBEX"  # HPC or IBEX or SHAHEEN
 
-calcDIR=${PWD}/calc/fullRelax
+calcDIR=${PWD}/calc/${jobName}
 dataDIR=${PWD}/data
 bcupDIR=${calcDIR}/_src
 
@@ -12,7 +12,7 @@ mkdir -p "${calcDIR}" "${bcupDIR}"
 cp -r "$dataDIR" run.sh "${bcupDIR}/"
 
 cd "$dataDIR" || exit 1
-cp INCAR KPOINTS POSCAR POTCAR OPTCELL run*.sbatch "${calcDIR}/"
+cp INCAR KPOINTS POSCAR POTCAR run*.sbatch "${calcDIR}/"
 
 
 cd "${calcDIR}" || exit 1

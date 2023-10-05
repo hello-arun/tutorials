@@ -12,7 +12,7 @@
 
 module load intel/2016
 module load openmpi/4.0.3_intel
-export VASP_CMD=/ibex/scratch/jangira/vasp/sw/vasp.5.4.4/bin/vasp_std
+export VASP_HOME=/ibex/scratch/jangira/vasp/sw/vasp.5.4.4/bin
 export OMP_NUM_THREADS=1
 export SLURM_NTASKS=$((SLURM_NNODES*SLURM_NTASKS_PER_NODE))
 
@@ -29,5 +29,6 @@ echo """
 SLURM_NTASKS_PER_SOCKET: ${SLURM_NTASKS_PER_SOCKET}
 """
 
-cp $(cat chgcarRef) ./
-mpirun -np ${SLURM_NTASKS} ${VASP_CMD}
+cp "$(cat chgcarRef)" ./
+mpirun -np ${SLURM_NTASKS} ${VASP_HOME}/vasp_std    # For Standard Calc
+# mpirun -np ${SLURM_NTASKS} ${VASP_HOME}/vasp_std    # For Spin Orbit Coupling

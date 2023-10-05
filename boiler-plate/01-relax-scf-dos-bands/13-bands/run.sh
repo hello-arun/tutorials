@@ -3,7 +3,7 @@
 jobName="BANDS"
 machine="HPC"  # HPC or IBEX or SHAHEEN
 
-calcDIR=${PWD}/calc/fullRelax
+calcDIR=${PWD}/calc/${jobName}
 dataDIR=${PWD}/data
 bcupDIR=${calcDIR}/_src
 

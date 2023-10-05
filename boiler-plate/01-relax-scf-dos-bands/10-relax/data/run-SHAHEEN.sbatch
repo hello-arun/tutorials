@@ -31,4 +31,5 @@ echo """
 SLURM_NTASKS_PER_SOCKET: ${SLURM_NTASKS_PER_SOCKET}
 """
 
-srun --ntasks=${SLURM_NPROCS} --hint=nomultithread ${VASP_HOME}/vasp_std
+srun --ntasks=${SLURM_NPROCS} --hint=nomultithread ${VASP_HOME}/vasp_std  # For Standard Calc
+# srun --ntasks=${SLURM_NPROCS} --hint=nomultithread ${VASP_HOME}/vasp_ncl  # For SOC non-collinear Calc
