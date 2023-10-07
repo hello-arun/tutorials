@@ -4,12 +4,12 @@ from pymatgen.core import Structure
 from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
 
 struct = Structure.from_file("POSCAR")
-sga = SpacegroupAnalyzer(struct,symprec=1e-8)
+sga = SpacegroupAnalyzer(struct)
 struct_prim_std = sga.get_primitive_standard_structure(international_monoclinic=False)
 poscar = Poscar(struct_prim_std)
 poscar.write_file("POSCAR-prim-std")
 
-sga = SpacegroupAnalyzer(struct_prim_std,symprec=1e-8)
+sga = SpacegroupAnalyzer(struct_prim_std)
 struct_conv_std = sga.get_conventional_standard_structure()
 poscar = Poscar(struct_conv_std)
 poscar.write_file("POSCAR-conv-std")
