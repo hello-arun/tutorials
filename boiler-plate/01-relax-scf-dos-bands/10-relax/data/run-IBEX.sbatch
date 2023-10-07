@@ -30,4 +30,4 @@ SLURM_NTASKS_PER_SOCKET: ${SLURM_NTASKS_PER_SOCKET}
 """
 
 mpirun -np ${SLURM_NTASKS} ${VASP_HOME}/vasp_std    # For Standard Calc
-# mpirun -np ${SLURM_NTASKS} ${VASP_HOME}/vasp_std    # For Spin Orbit Coupling
+# mpirun -np ${SLURM_NTASKS} ${VASP_HOME}/vasp_ncl    # For Spin Orbit Coupling
