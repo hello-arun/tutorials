@@ -10,6 +10,11 @@ svn export  https://github.com/hello-arun/tutorials/trunk/boiler-plate/01-relax-
 svn export  https://github.com/hello-arun/tutorials/trunk/boiler-plate/01-relax-scf-dos-bands/13-bands ./13-bands
 ```
 
+## 50-bader-charge
+```
+svn export  https://github.com/hello-arun/tutorials/trunk/boiler-plate/50-bader-charge ./50-bader-charge
+```
+
 ## 20-polarization
 
 To bootstrap it use 

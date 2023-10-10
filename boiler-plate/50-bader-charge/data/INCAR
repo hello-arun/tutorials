@@ -1,0 +1,50 @@
+# System Setting
+    SYSTEM     = XYZ
+    PREC       = Accurate   # Accurate works best
+    GGA        = PE         # PE=PBE, 91=Perdew-Wang-91
+    ENCUT      = 600        # Plane Wave cutoff  
+
+# Type of Calculation
+    NSW        = 0          # Max Num of ionic relaxation to perform, 0:SCF 
+    ISIF       = 2          # Type of run, 0:MD, 2:Ions relax, 3: Ion+Lattice relax
+    IBRION     = -1         # Determines how ions are moved -1=for scf only no update,0:MD, 2:cg algorithm 
+    ISYM       = 0          # 0: Sym switched off
+    ISPIN      = 1          # 1=spin unpol, 2=spin pol
+    # IVDW       = 11         # D3 vdw correction
+    # LSORBIT    = False      # Spin Orbit Coupling, Requires NBANDS atlest 2*NELECT
+    
+# Continue or Fresh
+    ISTART     = 1          # 0=Scratch, 1=Continuation Job only read wavecar file 
+    ICHARG     = 1          # 2=ch den from sup pos of atoms , 0=ch den from wave function 1=read CHGCAR file
+
+# Stopping Criteria
+    EDIFF      = 1.0E-6     # Energy Convergence in electronic steps
+    EDIFFG     = -1.0E-3    # Force conv in ionic steps, -ve for force +ve for energy diffrence
+
+# Smearing
+    ISMEAR     = 0          # 0=Gaussina Smearing
+    SIGMA      = 0.05       # Smearing width
+
+# Paralalization
+    NCORE      = 24         # No of Cores that will work on each orbital
+    # KPAR       = 1          # KPoint Parallelization
+    # NBANDS     = XX         # No of Bands
+
+# Dos Setting
+   # EMIN       = -20        # DOS min
+   # EMAX       = 20         # DOS max
+   # NEDOS      = 1000       # No of grid points for DOS
+   # LORBIT     = 11         # Ideal for projected-DOS
+
+# Dipole Correction
+    # LDIPOL     = True        # Dipole Correction On
+    # IDIPOL     = 3           # Direction of Dipole
+    # DIPOL      = 0.5 0.5 0.5 # Center of Dipole 
+
+# Output Settings
+    # LVTOT      = False      # Total pot with    Vxc will be written to LOCPOT file for .TRUE.
+    # LVHAR      = True       # Total pot without Vxc will be written to LOCPOT file for .TRUE.
+    LAECHG     = True       # Useful for bader charge analysis
+    LWAVE      = True       # Wavecar File
+    LCHARG     = True       # Charge Density File
+    # LELF       = True       # Electron Localization Function
