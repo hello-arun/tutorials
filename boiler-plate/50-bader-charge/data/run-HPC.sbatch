@@ -31,6 +31,6 @@ perl chgsum.pl AECCAR0 AECCAR2
 # The bader analysis can then be done on this total charge density file:
 
 chmod +x bader
-bader CHGCAR -ref CHGCAR_sum
+./bader CHGCAR -ref CHGCAR_sum
 
 module purge 
