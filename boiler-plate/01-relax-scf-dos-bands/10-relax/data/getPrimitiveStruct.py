@@ -1,20 +1,20 @@
-#read structure from file
-from pymatgen.io.vasp import Poscar
-from pymatgen.core import Structure
+# Read structure from file
+from pymatgen.core import Structure,Site
 from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
 
-struct = Structure.from_file("POSCAR")
+
+def customSort(site:Site):
+    return site.specie.Z
+
+inputFile="POSCAR"
+struct = Structure.from_file(inputFile)
 sga = SpacegroupAnalyzer(struct)
-struct_prim_std = sga.get_primitive_standard_structure(international_monoclinic=False)
-poscar = Poscar(struct_prim_std)
-poscar.write_file("POSCAR-prim-std")
+struct_prim_std:Structure = sga.get_primitive_standard_structure(international_monoclinic=False)
+struct_prim_std.sort(key=customSort)
+struct_prim_std.to_file(f"{inputFile}-prim",fmt="poscar")
 
 sga = SpacegroupAnalyzer(struct_prim_std)
 struct_conv_std = sga.get_conventional_standard_structure()
-poscar = Poscar(struct_conv_std)
-poscar.write_file("POSCAR-conv-std")
-# #write primitive and conventional cells
-# poscar = Poscar(struct_symm_conv)
-# poscar.write_file(filename="POSCAR-conv",significant_figures=4)
-# poscar = Poscar(struct_prim_std)
-# poscar.write_file(filename="POSCAR-prim",significant_figures=4)
+struct_conv_std.sort(key=customSort)
+struct_conv_std.to_file(f"{inputFile}-conv",fmt="poscar")
+
