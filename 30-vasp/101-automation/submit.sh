@@ -16,7 +16,8 @@ module load openmpi/4.0.3_intel
 
 export SLURM_NTASKS=$((SLURM_NNODES*SLURM_NTASKS_PER_NODE))
 export VASP_HOME="/sw/csis/vasp/5.4.4/ompi400-intel18/vasp.5.4.4/bin"
-export VASP_CMD="mpirun -np ${SLURM_NTASKS} ${VASP_HOME}/vasp_std"
+# export VASP_CMD="mpirun -np ${SLURM_NTASKS} ${VASP_HOME}/vasp_std" # For Production
+export VASP_CMD="sleep 20" # For Testing
 
 srcDIR=${PWD}
 refDIR="${srcDIR}/_ref"
@@ -43,6 +44,7 @@ while ! grep -q "reached required accuracy" OUTCAR; do
     echo -e "\n\n\n Redoing Relax Calculation"
     cp XDATCAR XDATCAR-${idx}
     cp CONTCAR POSCAR
+    idx=$((idx+1))
     ${VASP_CMD}
 done
 
