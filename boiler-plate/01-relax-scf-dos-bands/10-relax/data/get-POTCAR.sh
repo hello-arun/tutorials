@@ -1,7 +1,7 @@
 #!/bin/bash
 # Code used to get POTCAR file
 
-machine="IBEX"  # HPC or IBEX
+machine="HPC"  # HPC or IBEX
 
 if [[ $machine == "IBEX" ]]; then
     echo "Machine is ${machine}"
@@ -12,5 +12,8 @@ elif [[ $machine == "HPC" ]]; then
 fi
 
 echo "Generating POTCAR"
-cat $ppDIR/XX/POTCAR $ppDIR/YY/POTCAR> POTCAR
+rm -f POSCAR
+cat $ppDIR/F/POTCAR >> POTCAR
+cat $ppDIR/S/POTCAR >> POTCAR
+cat $ppDIR/Ga/POTCAR >> POTCAR
 echo "Done!"
