@@ -12,7 +12,7 @@ elif [[ $machine == "HPC" ]]; then
 fi
 
 echo "Generating POTCAR"
-rm -f POSCAR
+rm -f POTCAR
 cat $ppDIR/F/POTCAR >> POTCAR
 cat $ppDIR/S/POTCAR >> POTCAR
 cat $ppDIR/Ga/POTCAR >> POTCAR
