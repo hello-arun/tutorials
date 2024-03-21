@@ -1,0 +1,62 @@
+# https://theory.cm.utexas.edu/vtsttools/optimizers.html#optimizers
+# We can not use energy based optimizer for NEB calculation so we use optimizer 
+# which are solely force based.
+#   IBRION = 2 (cg is energy based optimizer)
+#   IBRION = 1 (quasi newton), 3(quick min) are force based
+
+# To use optimizer shipped with VTST we need to set
+#   IBRION = 3 and POTIM = 0 (This disable the VASP optimizers)
+# 
+
+# System Setting
+SYSTEM  = XYZ
+PREC    = Accurate   # Accurate works best
+GGA     = PE         # PE=PBE, 91=Perdew-Wang-91
+ENCUT   = 600
+
+# Type of Calculation
+ISIF    = 3          # Which type of run to perform 0=MD, 2=Atomic Relax, 3=Atomic and Unit cell relax
+ISPIN   = 1          # 1=spin unpol, 2=spin pol
+NFREE   = 2          # No of Steps to remember in ionic minimization
+ISYM    = 0          # Symmetry Switched off
+ 
+# Continue or Fresh
+ISTART  = 0          # 0=Scratch, 1=Continuation Job only read wavecar file 
+ICHARG  = 2          # 2=ch den from sup pos of atoms , 0=ch den from wave function 1=read CHGCAR file
+
+# Stopping Criteria
+EDIFF   =  1.0E-6    # Energy Convergence in electronic steps
+EDIFFG  = -1.0E-2    # Force conv in ionic steps, -ve for force +ve for energy diffrence
+
+# Smearing
+ISMEAR  = 0          # 0=Gaussina Smearing
+SIGMA   = 0.10       # Smearing width
+
+# Dipole Correction
+LDIPOL = .TRUE.
+IDIPOL = 3
+DIPOL  = 0.5 0.5 0.5
+
+# Parallelizaiton
+NCORE = 16
+
+# Potential Write
+# LVTOT  = False
+# LVHAR  = True
+# LAECHG = True
+LWAVE  = FALSE
+LCHARG = FALSE
+# LELF   = True
+
+# NEB 
+ICHAIN = 0          # 0: NEB(default), 1: Dynamical Matrix, 2: Dimer, ICHAIN=3: Lanczos
+LCLIMB = .TRUE.     # Climb image method
+LNEBCELL = .TRUE.
+IOPT  = 3           # 3:Quick Min, 7: fire
+POTIM  = 0          # To turn off the vasp optimizer
+IBRION = 3          # To  turn off the vasp optimizer
+NSW   = 200  # 
+IMAGES = __IMAGES
+SPRING = -5.0
+LTWODIM = .TRUE.
+# LCLIMB = True
