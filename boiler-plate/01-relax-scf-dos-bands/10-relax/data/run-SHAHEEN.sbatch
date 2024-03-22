@@ -17,7 +17,7 @@
 
 module load vasp/5.4.4
 export OMP_NUM_THREADS=1
-
+export SLURM_NPROCS=$((SLURM_NNODES*32))
 echo """
                 MACHINE: SHAHEEN
            SLURM_NODEID: ${SLURM_NODEID}

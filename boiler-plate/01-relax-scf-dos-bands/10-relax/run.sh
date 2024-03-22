@@ -1,6 +1,6 @@
 #!/bin/bash
 
-machine="IBEX"  # HPC or IBEX or SHAHEEN
+machine="SHAHEEN"  # HPC or IBEX or SHAHEEN
 jobName="fullRelax"
 
 calcDIR=${PWD}/calc/${jobName}

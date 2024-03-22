@@ -1,7 +1,7 @@
 #!/bin/bash
 
 jobName="DOS"
-machine="IBEX"  # HPC or IBEX or SHAHEEN
+machine="SHAHEEN"  # HPC or IBEX or SHAHEEN
 
 calcDIR=${PWD}/calc/${jobName}
 dataDIR=${PWD}/data
