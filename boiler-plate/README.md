@@ -5,10 +5,10 @@ To download everything insie 01-scf-dos-bands in the current active folder
 ```bash
 # use --force to forcefully update
 
-downgit get https://github.com/hello-arun/tutorials/tree/main/boiler-plate/01-relax-scf-dos-bands/10-relax
-downgit get https://github.com/hello-arun/tutorials/tree/main/boiler-plate/01-relax-scf-dos-bands/11-scf
-downgit get https://github.com/hello-arun/tutorials/tree/main/boiler-plate/01-relax-scf-dos-bands/12-dos
-downgit get https://github.com/hello-arun/tutorials/tree/main/boiler-plate/01-relax-scf-dos-bands/13-bands
+downgit get https://github.com/hello-arun/tutorials/tree/main/boiler-plate/01-relax-scf-dos-bands/10-relax/
+downgit get https://github.com/hello-arun/tutorials/tree/main/boiler-plate/01-relax-scf-dos-bands/11-scf/
+downgit get https://github.com/hello-arun/tutorials/tree/main/boiler-plate/01-relax-scf-dos-bands/12-dos/
+downgit get https://github.com/hello-arun/tutorials/tree/main/boiler-plate/01-relax-scf-dos-bands/13-bands/
 
 # svn has been discontinued 
 # svn export  https://github.com/hello-arun/tutorials/trunk/boiler-plate/01-relax-scf-dos-bands/10-relax ./10-relax
@@ -19,7 +19,7 @@ downgit get https://github.com/hello-arun/tutorials/tree/main/boiler-plate/01-re
 
 ## 50-bader-charge
 ```
-downgit get https://github.com/hello-arun/tutorials/tree/main/boiler-plate/50-bader-charge
+downgit get https://github.com/hello-arun/tutorials/tree/main/boiler-plate/50-bader-charge/
 # svn export  https://github.com/hello-arun/tutorials/trunk/boiler-plate/50-bader-charge ./50-bader-charge
 ```
 
@@ -28,7 +28,7 @@ downgit get https://github.com/hello-arun/tutorials/tree/main/boiler-plate/50-ba
 To bootstrap it use 
 ```bash
 # use --force to forcefully update
-downgit get https://github.com/hello-arun/tutorials/tree/main/boiler-plate/20-polarization
+downgit get https://github.com/hello-arun/tutorials/tree/main/boiler-plate/20-polarization/
 # svn export  https://github.com/hello-arun/tutorials/trunk/boiler-plate/20-polarization/ ./20-polarization
 ```
 
