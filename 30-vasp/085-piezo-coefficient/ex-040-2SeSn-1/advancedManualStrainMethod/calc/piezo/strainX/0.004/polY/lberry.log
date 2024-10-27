@@ -1,0 +1,30 @@
+ running on  192 total cores
+ distrk:  each k-point on  192 cores,    1 groups
+ distr:  one band on   24 cores,    8 groups
+ using from now: INCAR     
+ vasp.5.4.4.18Apr17-6-g9f103f2a35 (build Oct 01 2024 10:11:53) complex          
+  
+ POSCAR found type information on POSCAR  Se Sn
+ POSCAR found :  2 types and       4 ions
+ scaLAPACK will be used
+ WARNING: PSMAXN for non-local potential too small
+ LDA part: xc-table for Pade appr. of Perdew
+ found WAVECAR, reading the header
+  number of k-points has changed, file:    41 present:    40
+  trying to continue reading WAVECAR, but it might fail
+ WARNING: stress and forces are not correct
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ FFT: planning ...
+ reading WAVECAR
+ the WAVECAR file was read successfully
+ charge-density read from file: unknown                                 
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.132232884779E+02   -0.13223E+02   -0.37664E+02  1728   0.643E+01
+DAV:   2    -0.162307251017E+02   -0.30074E+01   -0.29826E+01  1520   0.227E+01
+DAV:   3    -0.162662451211E+02   -0.35520E-01   -0.35500E-01  1736   0.290E+00
+DAV:   4    -0.162666889716E+02   -0.44385E-03   -0.44384E-03  1560   0.320E-01
+DAV:   5    -0.162667010312E+02   -0.12060E-04   -0.12059E-04  1768   0.519E-02
+DAV:   6    -0.162667014604E+02   -0.42923E-06   -0.42915E-06  1568   0.875E-03
+   1 F= -.16266701E+02 E0= -.16266701E+02  d E =0.000000E+00
+ writing wavefunctions
