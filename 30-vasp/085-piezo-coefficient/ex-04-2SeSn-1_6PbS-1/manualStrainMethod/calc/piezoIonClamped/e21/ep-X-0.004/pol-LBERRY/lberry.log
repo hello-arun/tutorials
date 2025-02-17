@@ -1,0 +1,43 @@
+ running on  192 total cores
+ distrk:  each k-point on  192 cores,    1 groups
+ distr:  one band on   24 cores,    8 groups
+ using from now: INCAR     
+ vasp.5.4.4.18Apr17-6-g9f103f2a35 (build Oct 01 2024 10:11:53) complex          
+  
+ POSCAR found type information on POSCAR  S  Se Sn Pb
+ POSCAR found :  4 types and      20 ions
+ scaLAPACK will be used
+
+ ----------------------------------------------------------------------------- 
+|                                                                             |
+|  ADVICE TO THIS USER RUNNING 'VASP/VAMP'   (HEAR YOUR MASTER'S VOICE ...):  |
+|                                                                             |
+|      You have a (more or less) 'large supercell' and for larger cells       |
+|      it might be more efficient to use real space projection opertators     |
+|      So try LREAL= Auto  in the INCAR   file.                               |
+|      Mind:          For very  accurate calculation you might also keep the  |
+|      reciprocal projection scheme          (i.e. LREAL=.FALSE.)             |
+|                                                                             |
+ ----------------------------------------------------------------------------- 
+
+ WARNING: PSMAXN for non-local potential too small
+ WARNING: PSMAXN for non-local potential too small
+ LDA part: xc-table for Pade appr. of Perdew
+ WARNING: stress and forces are not correct
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ FFT: planning ...
+ WAVECAR not read
+ charge-density read from file: SnSe                                    
+ WARNING: random wavefunctions but no delay for mixing, default for NELMDL
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1     0.696253448108E+03    0.69625E+03   -0.34888E+04  5120   0.131E+03
+DAV:   2     0.400243771853E+02   -0.65623E+03   -0.62876E+03  7192   0.191E+02
+DAV:   3    -0.768249971414E+02   -0.11685E+03   -0.11412E+03  6120   0.852E+01
+DAV:   4    -0.846761870696E+02   -0.78512E+01   -0.77980E+01  7368   0.232E+01
+DAV:   5    -0.848476926968E+02   -0.17151E+00   -0.17112E+00  6560   0.377E+00
+DAV:   6    -0.848549036828E+02   -0.72110E-02   -0.72071E-02  7696   0.726E-01
+DAV:   7    -0.848551026380E+02   -0.19896E-03   -0.19890E-03  6616   0.119E-01
+DAV:   8    -0.848551132754E+02   -0.10637E-04   -0.10636E-04  6944   0.251E-02
+DAV:   9    -0.848551138310E+02   -0.55554E-06   -0.55567E-06  5296   0.559E-03
+   1 F= -.88219439E+02 E0= -.88219439E+02  d E =0.000000E+00

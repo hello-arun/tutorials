@@ -1,14 +1,28 @@
-We calculate here e_ij component of piezoelectric coefficient. e_ij corelates the polarization induced along "i"-direction in reponse strain applied along "j"-directoin.
+## Piezoelectric Tensor
+Here we calculate $e_{ij}$ component of the piezoelectric trensor $\mathrm{e}$, i.e polarization along the $i$-direction in reponse to strain applied along the $j$-directoin.
 
-* e_11 => Polarization along x-axis, Strain along x-axis, 
-* e_21 => Polarization along y-axis, Strain along x-axis, 
-* e_31 => Polarization along z-axis, Strain along x-axis, 
-
-* e_12 => Polarization along x-axis, Strain along y-axis, 
-
+### Manual Method
 Berry Phase approach is used to calculate the polarization generally. But For calculating polarization along the non-periodic direction (z-axis) we do not need berry
 phase approach as polarization can be uniquely defined by placing the slab in the middle along the z-direction and taking 0,0,0 as the reference. So the case of out
 of plane polarization is presented in ex-020-NbN.
+
+### Automatic Method
+```
+---From VASP Documentation---
+The piezoelectric tensor can be computed by finite differences with respect to a finite electric field using LCALCEPS or by using DFPT with LEPSILON in combination with IBRION = 5,6 or 7,8.
+
+--IBRION--
+5: Finite differences without symmetry
+6: Finite differences with symmetry
+7: DFPT without symmetry
+8: DFPT with symmetry.
+```
+So
+* `LCALEPS` should be compatible with `IBRION=5,6`.
+* `LEPSILON` should be compatible with `IBRION=7,8`.
+
+
+
 
 
 ## Rerference
@@ -66,10 +80,40 @@ Total Contr ((10^{-10}C/m))
 
 ### DFPT
 ```
+-------INCAR----------
+IBRION  = 8 
+LEPSILON = True
+----------------------
+
 Total Contr ((10^{-10}C/m))
 ------  ------  ------  ------  ------  ------
 -0.013  -0.006   0.006  51.750   0.003  -0.003
 14.646  35.102   0.105  -0.000   0.001   0.001
 -0.001  -0.001  -0.001  -0.000  -0.019  -0.002
 ------  ------  ------  ------  ------  ------
+```
+
+## ex-04-2SeSn-1+6PbS-1 
+
+This does contain vdW correction term.
+### Manual
+|$e_{21}$|$e_{22}$|
+|:--:|:--:|
+|![](./ex-04-2SeSn-1_6PbS-1/manualStrainMethod/calc/piezoIonClamped/e21/fig-polVsStrain.svg)|![](./ex-04-2SeSn-1_6PbS-1/manualStrainMethod/calc/piezoIonClamped/e22/fig-polVsStrain.svg)|
+
+
+## Finite Difference + LEPSILON
+
+```
+-------INCAR----------
+IBRION  = 5 #  finite differences without symmetry
+LEPSILON = True 
+----------------------
+
+PIEZOELECTRIC TENSOR (ION CLAMPED) ((10^{-10}C/m))
+------  ------  ------  ------  -----  ------
+-0.127  -0.032  -0.100  -7.020  0.004   1.333
+-6.694   2.590   2.495   0.097  0.233  -0.001
+ 0.005  -0.018  -0.062   0.000  0.148  -0.002
+------  ------  ------  ------  -----  ------
 ```
