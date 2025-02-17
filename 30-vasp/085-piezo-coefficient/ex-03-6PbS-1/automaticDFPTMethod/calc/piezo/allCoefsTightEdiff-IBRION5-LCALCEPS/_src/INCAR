@@ -1,0 +1,60 @@
+# System Setting
+PREC    = Accurate   # Accurate works best
+GGA     = PE         # PE=PBE, 91=Perdew-Wang-91
+ENCUT   = 600
+
+# Type of Calculation
+# NSW     = 1         # Maximum Number of ionic relaxation steps to perform For SCF set it to 0
+ISIF    = 3         # Which type of run to perform 0=MD, 2=Atomic Relax, 3=Atomic and Unit cell relax
+IBRION  = 5         # Determines how ions are moved -1=for scf only no update,0=MD, 2=conjugate gradientg algorithm
+                    # 5: finite differences without symmetry
+                    # 6: finite differences with symmetry
+                    # 7: Perturbation theory without symmetry
+                    # 8: Perturbation theory with symmetry.
+ISPIN   = 1          # 1=spin unpol, 2=spin pol
+# IOPTCELL = 1  1  0  1  1  0  0  0  0
+#           xx yx zx xy yy zy xz yz zz
+ISYM    = 0          # Symmetry Turned Off
+#IVDW    = 11
+
+# Continue or Fresh
+ISTART  = 0          # 0=Scratch, 1=Continuation Job only read wavecar file 
+ICHARG  = 2          # 2=ch den from sup pos of atoms , 0=ch den from wave function 1=read CHGCAR file
+
+# Stopping Criteria
+EDIFF   = 1.0E-8     # Energy Convergence in electronic steps
+EDIFFG  = -1.0E-3    # Force conv in ionic steps, -ve for force +ve for energy diffrence
+
+# Smearing
+ISMEAR  = 0          # 0=Gaussina Smearing
+SIGMA   = 0.1        # Smearing width
+
+# Dipole Correction
+LDIPOL = .TRUE.
+IDIPOL = 3
+DIPOL  = 0.5 0.5 0.5
+
+# Parallelizaiton
+# NBANDS = 24
+NCORE = 24
+
+# Potential Write
+# LEPSILON = True     # Density functional perturbation theory
+                    # Linear Response Theory
+                    # only be used for local or semi-local exchange-correlation functionals
+                    # Valid for semiconductor and metals
+
+LCALCEPS = True    # Finite difference
+                    # Only for sysmtem with gap
+                    # can be used for meta-GGA or hybrid
+
+# Piezolectric tensor
+# The piezoelectric tensor can be computed by finite differences with respect to a finite electric 
+# field using LCALCEPS or by using DFPT with LEPSILON in combination with IBRION = 5,6 or 7,8.
+
+# Elastic tensor
+# The elastic tensor is computed using strain finite differences using IBRION = 5,6 in combination
+# with ISIF = 3. It is not possible to compute it using IBRION = 7,8 because the strain
+# perturbation is not implemented in DFPT.
+
+# LVHAR = .TRUE.
