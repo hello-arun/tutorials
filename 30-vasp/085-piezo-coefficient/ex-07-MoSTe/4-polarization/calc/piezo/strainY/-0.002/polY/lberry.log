@@ -1,0 +1,28 @@
+ running on  192 total cores
+ distrk:  each k-point on  192 cores,    1 groups
+ distr:  one band on   24 cores,    8 groups
+ using from now: INCAR     
+ vasp.5.4.4.18Apr17-6-g9f103f2a35 (build Oct 01 2024 10:11:53) complex          
+  
+ POSCAR found type information on POSCAR  Mo S  Te
+ POSCAR found :  3 types and       6 ions
+ scaLAPACK will be used
+ LDA part: xc-table for Pade appr. of Perdew
+ WARNING: stress and forces are not correct
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ FFT: planning ...
+ WAVECAR not read
+ charge-density read from file: unknown                                 
+ WARNING: random wavefunctions but no delay for mixing, default for NELMDL
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1     0.259954347853E+03    0.25995E+03   -0.12896E+04  3840   0.124E+03
+DAV:   2    -0.582051674669E+01   -0.26577E+03   -0.25744E+03  6080   0.207E+02
+DAV:   3    -0.383128859107E+02   -0.32492E+02   -0.32114E+02  5048   0.820E+01
+DAV:   4    -0.393993069670E+02   -0.10864E+01   -0.10808E+01  5936   0.175E+01
+DAV:   5    -0.394238505066E+02   -0.24544E-01   -0.24524E-01  5672   0.252E+00
+DAV:   6    -0.394243045866E+02   -0.45408E-03   -0.45386E-03  5960   0.311E-01
+DAV:   7    -0.394243165307E+02   -0.11944E-04   -0.11943E-04  5632   0.509E-02
+DAV:   8    -0.394243168782E+02   -0.34750E-06   -0.34746E-06  6040   0.707E-03
+DAV:   9    -0.394243168863E+02   -0.80490E-08   -0.80934E-08  3880   0.122E-03
+   1 F= -.39424317E+02 E0= -.39424317E+02  d E =0.000000E+00
