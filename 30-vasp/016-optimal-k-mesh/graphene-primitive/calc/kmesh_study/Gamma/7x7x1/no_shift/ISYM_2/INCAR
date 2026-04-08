@@ -8,7 +8,7 @@ ISIF    = 0        # Which type of run to perform 0=MD, 2=Atomic Relax, 3=Atomic
 IBRION  = -1       # Determines how ions are moved -1=for scf only no update,0=MD, 2=conjugate gradientg algorithm
 ISPIN   = 1        # 1=spin unpol, 2=spin pol
 NELM    = 0        #  Max number of SCF step           
-ISYM    = __ISYM__
+ISYM    = 2
 
 # Verbocity
 LCHARG = .FALSE. 
