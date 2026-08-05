@@ -27,27 +27,39 @@ Notes
 - For q != Gamma, the script builds the smallest supercell that is
   commensurate with q (by rationalizing each fractional component),
   so you can actually see the periodic wave pattern of that mode.
+- The mode animation is a 2D top-down view of the sheet (graphene's
+  Gamma-K-M-Gamma path lies entirely in-plane, q_z = 0). In-plane atomic
+  motion is shown by moving the markers; out-of-plane motion (relevant
+  for the ZA/ZO flexural branches) is encoded as marker color instead of
+  a third spatial axis. A translucent cos(q.r - w t) phase texture is
+  drawn underneath the atoms so you can see the propagating wave itself,
+  not just the atoms riding on it.
 """
 
 import numpy as np
 from fractions import Fraction
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 from matplotlib.animation import FuncAnimation
 
 from phonopy import Phonopy
 from phonopy.interface.calculator import read_crystal_structure
+from phonopy.units import VaspToTHz
 
 # ----------------------------------------------------------------------
 # CONFIG - edit these paths / settings for your system
 # ----------------------------------------------------------------------
 POSCAR_FILE = "POSCAR"
 FORCE_SETS_FILE = "FORCE_SETS"          # set to None if using FORCE_CONSTANTS
-FORCE_CONSTANTS_FILE = ""             # e.g. "FORCE_CONSTANTS"
+FORCE_CONSTANTS_FILE = None             # e.g. "FORCE_CONSTANTS"
 
 SUPERCELL_MATRIX = [[5, 0, 0], [0, 5, 0], [0, 0, 1]]   # the one used in your phonon calc
 PRIMITIVE_MATRIX = "auto"                               # or an explicit 3x3 matrix
 
+# This is the FREQUENCY_CONVERSION_FACTOR you used in band.conf. Phonopy's
+# Python API (used below) always computes internally in THz regardless of
+# this value -- we only use it to convert to cm^-1 for display, so that the
+# plotted numbers match your original band.conf-generated plot exactly.
+FREQUENCY_CONVERSION_FACTOR = 521.3706217   # VASP eigenvalue -> cm^-1, from your band.conf
 THZ_TO_CM1 = 33.35641
 
 # Graphene high-symmetry path in reduced (reciprocal, primitive) coordinates
@@ -60,7 +72,9 @@ QPOINTS = [
 ]
 NPOINTS_PER_SEGMENT = 51
 
-MAX_DENOMINATOR = 12       # for finding a commensurate supercell for q != Gamma
+MAX_DENOMINATOR = 12       # only used if USE_COMMENSURATE_SUPERCELL = True
+USE_COMMENSURATE_SUPERCELL = False   # see notes below
+FIXED_SUPERCELL_REPEATS = (10, 10, 1)  # used when USE_COMMENSURATE_SUPERCELL = False
 ANIM_AMPLITUDE = 0.6       # Angstrom-scale visual amplitude (exaggerated, not physical)
 ANIM_FRAMES = 60
 ANIM_INTERVAL_MS = 40
@@ -137,6 +151,13 @@ def flatten_bands(bs):
 # ----------------------------------------------------------------------
 
 def commensurate_repeats(q, max_den=MAX_DENOMINATOR):
+    """Only meaningful when q is (close to) an exact low-denominator
+    fraction, e.g. the high-symmetry points G, K, M themselves. For
+    generic points sampled along the path this is numerically unstable
+    (tiny changes in q can flip the "best" denominator), which is why
+    USE_COMMENSURATE_SUPERCELL defaults to False -- see FIXED_SUPERCELL_REPEATS
+    instead, which gives consistent, reproducible results for every click.
+    """
     reps = []
     for comp in q:
         frac = Fraction(comp).limit_denominator(max_den)
@@ -145,7 +166,7 @@ def commensurate_repeats(q, max_den=MAX_DENOMINATOR):
     return reps
 
 
-def build_mode_trajectory(phonon:Phonopy, q, eigvec, freq_thz, n_frames=ANIM_FRAMES,
+def build_mode_trajectory(phonon, q, eigvec, freq_thz, n_frames=ANIM_FRAMES,
                            amplitude=ANIM_AMPLITUDE):
     primitive = phonon.primitive
     pos_frac = primitive.scaled_positions
@@ -153,7 +174,10 @@ def build_mode_trajectory(phonon:Phonopy, q, eigvec, freq_thz, n_frames=ANIM_FRA
     masses = primitive.masses
     n_atoms = len(masses)
 
-    nx, ny, nz = commensurate_repeats(q)
+    if USE_COMMENSURATE_SUPERCELL:
+        nx, ny, nz = commensurate_repeats(q)
+    else:
+        nx, ny, nz = FIXED_SUPERCELL_REPEATS
     nx, ny, nz = max(nx, 1), max(ny, 1), max(nz, 1)
 
     # eigvec is a flat vector of length 3*n_atoms; reshape to (n_atoms, 3)
@@ -161,25 +185,36 @@ def build_mode_trajectory(phonon:Phonopy, q, eigvec, freq_thz, n_frames=ANIM_FRA
 
     equilibrium = []
     cell_index = []
+    frac_pos_full = []
     for ix in range(nx):
         for iy in range(ny):
             for iz in range(nz):
                 shift_frac = np.array([ix, iy, iz])
                 for j in range(n_atoms):
-                    cart = (pos_frac[j] + shift_frac) @ lattice
+                    full_frac = pos_frac[j] + shift_frac
+                    cart = full_frac @ lattice
                     equilibrium.append(cart)
                     cell_index.append((ix, iy, iz, j))
+                    frac_pos_full.append(full_frac)
     equilibrium = np.array(equilibrium)
+    frac_pos_full = np.array(frac_pos_full)
 
     omega = 2 * np.pi * freq_thz  # rad / ps
     period_ps = 1.0 / freq_thz if freq_thz > 1e-3 else 1.0
     times = np.linspace(0, period_ps, n_frames, endpoint=False)
 
+    # IMPORTANT: the phase must use each atom's FULL fractional position
+    # (unit-cell vector + basis offset within the cell), not just the cell
+    # index. This matches Phonopy's own displacement/modulation convention,
+    # and matches the q.r used for the background wave -- if you use only
+    # the cell index here, the two-sublattice basis of graphene makes the
+    # background wave and the atom motion visibly disagree away from Gamma.
+    phases = 2 * np.pi * (frac_pos_full @ np.array(q))  # (n_sites,)
+
     trajectory = np.zeros((n_frames, len(equilibrium), 3))
     for t_i, t in enumerate(times):
         for idx, (ix, iy, iz, j) in enumerate(cell_index):
-            phase = 2 * np.pi * (q[0] * ix + q[1] * iy + q[2] * iz)
-            disp = (e[j] / np.sqrt(masses[j])) * np.exp(1j * (phase - omega * t))
+            disp = (e[j] / np.sqrt(masses[j])) * np.exp(1j * (phases[idx] - omega * t))
             trajectory[t_i, idx] = equilibrium[idx] + amplitude * np.real(disp)
 
     elements = [primitive.symbols[j] for (_, _, _, j) in cell_index]
@@ -198,14 +233,53 @@ def nearest_neighbor_bonds(equilibrium, cutoff_scale=1.3):
 
 def q_to_cartesian(lattice, q):
     """Convert fractional reciprocal-space q to Cartesian (1/Angstrom).
- 
     lattice rows are real-space vectors a_i. Reciprocal vectors b_i satisfy
     a_i . b_j = 2*pi*delta_ij, so q_cartesian = q_frac @ reciprocal_lattice.
     """
     reciprocal_lattice = 2 * np.pi * np.linalg.inv(lattice).T  # rows = b_i
     return np.array(q) @ reciprocal_lattice
+
+
+
+def build_projected_wave_field(traj, equilibrium, q_cart, pad=2.5, resolution=160):
+    """Background field built directly FROM the atoms' own trajectory.
  
+    Rather than drawing an idealized cos(q.r - w t) plane wave (which
+    ignores the, generally complex, per-atom eigenvector phase and so can
+    visibly disagree with the atoms away from Gamma), we project each
+    atom's actual instantaneous displacement onto the propagation
+    direction q_hat and interpolate that scalar field onto a grid. This
+    is guaranteed to agree with the atoms because it IS the atoms, merely
+    smoothed -- it also naturally captures complex/elliptical eigenvectors,
+    unequal sublattice phases, etc. with no extra bookkeeping.
+    """
+    from scipy.spatial import Delaunay
+    from scipy.interpolate import LinearNDInterpolator
  
+    q_norm = np.linalg.norm(q_cart[:2])
+    q_hat = q_cart[:2] / q_norm if q_norm > 1e-8 else np.array([1.0, 0.0])
+ 
+    disp_xy = traj[:, :, :2] - equilibrium[:, :2]     # (n_frames, n_sites, 2)
+    projected = disp_xy @ q_hat                        # (n_frames, n_sites)
+ 
+    x_min, x_max = equilibrium[:, 0].min() - pad, equilibrium[:, 0].max() + pad
+    y_min, y_max = equilibrium[:, 1].min() - pad, equilibrium[:, 1].max() + pad
+    xs = np.linspace(x_min, x_max, resolution)
+    ys = np.linspace(y_min, y_max, resolution)
+    X, Y = np.meshgrid(xs, ys)
+    extent = (x_min, x_max, y_min, y_max)
+ 
+    tri = Delaunay(equilibrium[:, :2])  # reused every frame, not recomputed
+ 
+    def field_at_frame(frame):
+        interp = LinearNDInterpolator(tri, projected[frame], fill_value=0.0)
+        return interp(X, Y)
+ 
+    vmax = np.abs(projected).max()
+    vmax = vmax if vmax > 1e-8 else 1.0
+    return field_at_frame, extent, vmax
+ 
+
 def build_wave_grid(equilibrium, q_cart, pad=2.5, resolution=220):
     """Grid over the sheet extent for the phase texture cos(q.r - w t)."""
     x_min, x_max = equilibrium[:, 0].min() - pad, equilibrium[:, 0].max() + pad
@@ -217,7 +291,7 @@ def build_wave_grid(equilibrium, q_cart, pad=2.5, resolution=220):
     base_phase = q_cart[0] * X + q_cart[1] * Y
     extent = (x_min, x_max, y_min, y_max)
     return base_phase, extent
- 
+
 # ----------------------------------------------------------------------
 # 4. Interactive plot: click a point -> animate that mode
 # ----------------------------------------------------------------------
@@ -234,7 +308,7 @@ class BandClickAnimator:
 
         self.fig_band, self.ax_band = plt.subplots(figsize=(7, 5))
         for b in range(f_cm1.shape[1]):
-            self.ax_band.plot(d, f_cm1[:, b], "r-", linewidth=1.2, picker=5)
+            self.ax_band.plot(d, f_cm1[:, b], "r-", linewidth=1.2, picker=2)
         self.ax_band.set_ylabel("Frequency (cm$^{-1}$)")
         self.ax_band.set_title("Click a point on a band to animate that mode")
         self.fig_band.canvas.mpl_connect("button_press_event", self.on_click)
@@ -259,38 +333,35 @@ class BandClickAnimator:
 
         self.animate_mode(q, eigvec, freq_thz)
 
-        eigvec = self.eigvec_all[q_idx][:, band_idx]
- 
-        print(f"Selected q = {np.round(q, 4)}, band {band_idx}, "
-              f"freq = {freq_thz * THZ_TO_CM1:.1f} cm^-1")
- 
-        self.animate_mode(q, eigvec, freq_thz)
- 
     def animate_mode(self, q, eigvec, freq_thz):
         traj, elements, equilibrium = build_mode_trajectory(
             self.phonon, q, eigvec, freq_thz
         )
         bonds = nearest_neighbor_bonds(equilibrium)
- 
+
         lattice = self.phonon.primitive.cell
         q_cart = q_to_cartesian(lattice, q)
-        base_phase, extent = build_wave_grid(equilibrium, q_cart)
+        field_at_frame, extent, vmax = build_projected_wave_field(
+            traj, equilibrium, q_cart
+        )
+ 
+        # base_phase, extent = build_projected_wave_field(equilibrium, q_cart)
         omega = 2 * np.pi * freq_thz
         n_frames = traj.shape[0]
         period_ps = 1.0 / freq_thz
         times = np.linspace(0, period_ps, n_frames, endpoint=False)
- 
+
         # z-displacement (out-of-plane motion, relevant for ZA/ZO branches)
         # is encoded as marker color on the 2D top-down view.
         z_disp = traj[:, :, 2] - equilibrium[:, 2]
         z_scale = max(np.abs(z_disp).max(), 1e-6)
- 
+
         fig, ax = plt.subplots(figsize=(6.5, 6.5))
         wave_img = ax.imshow(
-            np.cos(base_phase), extent=extent, origin="lower",
-            cmap="RdBu_r", vmin=-1, vmax=1, alpha=0.35, zorder=0,
+            field_at_frame(0), extent=extent, origin="lower",
+            cmap="RdBu_r",  vmin=-vmax, vmax=vmax, alpha=0.35, zorder=0,
         )
- 
+
         bond_lines = [
             ax.plot([], [], color="gray", linewidth=1.3, zorder=1)[0]
             for _ in bonds
@@ -302,7 +373,7 @@ class BandClickAnimator:
         )
         cbar = fig.colorbar(pts, ax=ax, shrink=0.7, pad=0.02)
         cbar.set_label("Out-of-plane displacement (Å)")
- 
+
         ax.set_xlim(*extent[:2])
         ax.set_ylim(*extent[2:])
         ax.set_aspect("equal")
@@ -312,26 +383,27 @@ class BandClickAnimator:
             f"q={np.round(q, 3)}   f={freq_thz * THZ_TO_CM1:.1f} cm$^{{-1}}$\n"
             "background: propagating phase cos(q\u00b7r \u2212 \u03c9t)"
         )
- 
+
         def update(frame):
             xy = traj[frame, :, :2]
             pts.set_offsets(xy)
             pts.set_array(z_disp[frame])
             for line, (i, j) in zip(bond_lines, bonds):
                 line.set_data([xy[i, 0], xy[j, 0]], [xy[i, 1], xy[j, 1]])
+            wave_img.set_data(field_at_frame(frame))
+            return [pts, wave_img, *bond_lines]
+
         self.anim = FuncAnimation(
             fig, update, frames=n_frames,
             interval=ANIM_INTERVAL_MS, blit=False, repeat=True,
         )
         plt.show()
- 
 
 
 def main():
     phonon = build_phonopy()
     bs = compute_bands(phonon)
     q_all, d, f_thz, v_all, seg_bounds = flatten_bands(bs)
-
     f_cm1 = f_thz * THZ_TO_CM1
 
     label_positions = seg_bounds

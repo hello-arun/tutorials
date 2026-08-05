@@ -1,0 +1,9 @@
+High-symmetry points (in fractional coordinates). You can check them with the seekpath database [https://www.materialscloud.org/work/tools/seekpath].
+   0.0000000000   0.0000000000   0.0000000000     GAMMA
+   0.3333333333   0.3333333333   0.0000000000     K
+   0.5000000000   0.0000000000   0.0000000000     M
+ 
+ 
+If you use this module, please cite the following work:
+[1] V. Wang, N. Xu, VASPKIT: A Pre- and Post-Processing Program for the VASP Code. http://vaspkit.sourceforge.net.
+[2] V. Wang, Y.-Y. Liang, Y. Kawazeo, W.-T. Geng, High-Throughput Computational Screening of Two-Dimensional Semiconductors, arXiv:1806.04285.
